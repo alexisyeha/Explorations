@@ -9,7 +9,7 @@ import { computeTargets } from './sampling';
 
 import type { Atlas } from './atlas';
 import type { PageVerticalAlignment } from './layout';
-import type { MorphTargets } from './sampling';
+import type { MorphTargets, PictureContentRect } from './sampling';
 import type {
   DataSourceParam,
   SkFont,
@@ -34,6 +34,7 @@ interface Params {
   height: number;
   pageMarginYFraction?: number;
   pageVerticalAlignment?: PageVerticalAlignment;
+  pictureContentRect?: PictureContentRect;
 }
 
 const EMPTY_F32 = new Float32Array(0);
@@ -46,6 +47,7 @@ export const useTextImageMorph = ({
   height,
   pageMarginYFraction,
   pageVerticalAlignment,
+  pictureContentRect,
 }: Params): TextImageMorphData => {
   const pictureImage = useImage(image);
   const font = useFont(PAGE_FONT, GLYPH_FONT_SIZE);
@@ -87,7 +89,13 @@ export const useTextImageMorph = ({
       if (cancelled) {
         return;
       }
-      const t = computeTargets(layout.pageXY, pictureImage, width, height);
+      const t = computeTargets(
+        layout.pageXY,
+        pictureImage,
+        width,
+        height,
+        pictureContentRect,
+      );
       if (!cancelled) {
         setTargets(t);
       }
@@ -96,7 +104,7 @@ export const useTextImageMorph = ({
       cancelled = true;
       clearTimeout(id);
     };
-  }, [layout, pictureImage, width, height]);
+  }, [layout, pictureImage, width, height, pictureContentRect]);
 
   return {
     ready: !!layout && !!font,

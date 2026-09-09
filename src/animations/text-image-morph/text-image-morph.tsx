@@ -21,6 +21,7 @@ import { Reveal } from './reveal';
 import { useTextImageMorph } from './use-text-image-morph';
 
 import type { PageVerticalAlignment } from './layout';
+import type { PictureContentRect } from './sampling';
 import type { DataSourceParam } from '@shopify/react-native-skia';
 
 interface Props {
@@ -34,6 +35,7 @@ interface Props {
   scrubTravelFraction?: number;
   scrubTapDurationMs?: number;
   scrubSettleDurationMs?: number;
+  pictureContentRect?: PictureContentRect;
 }
 
 const clamp01 = (value: number) => {
@@ -52,6 +54,7 @@ export const TextImageMorph = ({
   scrubTravelFraction = 0.56,
   scrubTapDurationMs = 720,
   scrubSettleDurationMs = 720,
+  pictureContentRect,
 }: Props) => {
   const data = useTextImageMorph({
     image,
@@ -60,6 +63,7 @@ export const TextImageMorph = ({
     height,
     pageMarginYFraction,
     pageVerticalAlignment,
+    pictureContentRect,
   });
   const progress = useSharedValue(0); // 0 = page, 1 = picture
   const gestureStart = useSharedValue(0);

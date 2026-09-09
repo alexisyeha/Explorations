@@ -23,6 +23,13 @@ export interface MorphTargets {
   delays: Float32Array;
 }
 
+export interface PictureContentRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 interface Point {
   px: number;
   py: number;
@@ -202,14 +209,15 @@ const pruneStrays = (
   return keep;
 };
 
-// Map points into a centred box, fitting the content bbox so the subject fills
-// the frame (not the image's empty margins).
+// Map points into a centred box. A supplied content rect preserves authored
+// composition; otherwise the sampled ink bounds expand the subject to fit.
 const fitToBox = (
   raw: Point[],
   canvasWidth: number,
   canvasHeight: number,
   count: number,
   random: Random,
+  contentRect?: PictureContentRect,
 ): ScreenPoint[] => {
   let minPX = Infinity;
   let minPY = Infinity;
@@ -226,6 +234,12 @@ const fitToBox = (
     minPY = 0;
     maxPX = 1;
     maxPY = 1;
+  }
+  if (contentRect && contentRect.width > 0 && contentRect.height > 0) {
+    minPX = contentRect.x;
+    minPY = contentRect.y;
+    maxPX = contentRect.x + contentRect.width;
+    maxPY = contentRect.y + contentRect.height;
   }
   const contentW = Math.max(1, maxPX - minPX);
   const contentH = Math.max(1, maxPY - minPY);
@@ -322,6 +336,7 @@ export const computeTargets = (
   pictureImage: SkImage,
   canvasWidth: number,
   canvasHeight: number,
+  contentRect?: PictureContentRect,
 ): MorphTargets => {
   const N = pageXY.length / 2;
   const imgW = pictureImage.width();
@@ -343,6 +358,13 @@ export const computeTargets = (
     raw = pruneStrays(raw, minDist, imgH, random);
   }
 
-  const samples = fitToBox(raw, canvasWidth, canvasHeight, N, random);
+  const samples = fitToBox(
+    raw,
+    canvasWidth,
+    canvasHeight,
+    N,
+    random,
+    contentRect,
+  );
   return assignTargets(pageXY, samples, random);
 };

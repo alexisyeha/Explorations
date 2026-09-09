@@ -5,6 +5,8 @@ import { LUNCH_TEXT } from './text';
 
 const LUNCH_IMAGE = require('./assets/lunch-target.png');
 
+const LUNCH_CONTENT_RECT = { x: 120, y: 220, width: 1060, height: 540 };
+
 /*
 THESIS: A novel page physically becomes the lunch it describes; no image layer replaces the type.
 OWN-WORLD: Warm paper, charcoal Newsreader glyphs, stippled food contours, and no visible chrome.
@@ -25,6 +27,7 @@ export const Day001LunchScreen = () => {
       pageMarginYFraction={0.085}
       pageVerticalAlignment="center"
       paragraph={LUNCH_TEXT}
+      pictureContentRect={LUNCH_CONTENT_RECT}
       scrubSettleDurationMs={1900}
       scrubTapDurationMs={4200}
       scrubTravelFraction={1.08}
