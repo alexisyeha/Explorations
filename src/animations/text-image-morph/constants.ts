@@ -28,13 +28,13 @@ export const PRUNE_MIN_NEIGHBOURS = 6;
 export const PICTURE_BOX_W_FRAC = 0.9;
 export const PICTURE_BOX_H_FRAC = 0.7;
 
-export const STAGGER = 0.55;
-export const RIPPLE_JITTER = 0.15;
+export const STAGGER = 0.62;
+export const RIPPLE_JITTER = 0.035;
 export const MORPH_DURATION_MS = 2000; // haptics are tuned to this
 
 export const CAMERA_Z = 820;
-export const Z_BASE = 85;
-export const Z_MOVE = 290; // keep Z_BASE + Z_MOVE < CAMERA_Z
-export const ROT_3D = 0.11;
+export const Z_BASE = 48;
+export const Z_MOVE = 155; // keep Z_BASE + Z_MOVE < CAMERA_Z
+export const ROT_3D = 0.055;
 
-export const FADE_AMT = 0.42;
+export const FADE_AMT = 0.24;

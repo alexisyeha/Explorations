@@ -33,6 +33,19 @@ interface ScreenPoint {
   y: number;
 }
 
+type Random = () => number;
+
+const createRandom = (initialSeed: number): Random => {
+  let seed = initialSeed || 0x6d2b79f5;
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let value = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    value ^= value + Math.imul(value ^ (value >>> 7), 61 | value);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
 const makeInkProb =
   (pixels: Uint8Array, imgW: number) =>
   (rx: number, ry: number): number => {
@@ -61,6 +74,7 @@ const sampleInkPoints = (
   imgH: number,
   count: number,
   minDist: number,
+  random: Random,
 ): Point[] => {
   const inkProb = makeInkProb(pixels, imgW);
   const raw: Point[] = [];
@@ -106,18 +120,18 @@ const sampleInkPoints = (
   let guard = 0;
   while (raw.length < count && guard < maxGuard) {
     guard++;
-    const rx = Math.floor(Math.random() * imgW);
-    const ry = Math.floor(Math.random() * imgH);
-    if (Math.random() < inkProb(rx, ry) && !tooClose(rx, ry)) {
+    const rx = Math.floor(random() * imgW);
+    const ry = Math.floor(random() * imgH);
+    if (random() < inkProb(rx, ry) && !tooClose(rx, ry)) {
       accept(rx, ry, true);
     }
   }
   let guard2 = 0;
   while (raw.length < count && guard2 < maxGuard) {
     guard2++;
-    const rx = Math.floor(Math.random() * imgW);
-    const ry = Math.floor(Math.random() * imgH);
-    if (Math.random() < inkProb(rx, ry)) {
+    const rx = Math.floor(random() * imgW);
+    const ry = Math.floor(random() * imgH);
+    if (random() < inkProb(rx, ry)) {
       accept(rx, ry, false);
     }
   }
@@ -126,7 +140,12 @@ const sampleInkPoints = (
 
 // Drop lonely strays, re-seed onto dense points so the silhouette reads clean
 // and the count is preserved.
-const pruneStrays = (raw: Point[], minDist: number, imgH: number): Point[] => {
+const pruneStrays = (
+  raw: Point[],
+  minDist: number,
+  imgH: number,
+  random: Random,
+): Point[] => {
   if (raw.length <= 8) {
     return raw;
   }
@@ -174,10 +193,10 @@ const pruneStrays = (raw: Point[], minDist: number, imgH: number): Point[] => {
   }
   const missing = raw.length - keep.length;
   for (let m = 0; m < missing; m++) {
-    const seed = keep[Math.floor(Math.random() * keep.length)];
+    const seed = keep[Math.floor(random() * keep.length)];
     keep.push({
-      px: seed.px + (Math.random() - 0.5) * minDist,
-      py: seed.py + (Math.random() - 0.5) * minDist,
+      px: seed.px + (random() - 0.5) * minDist,
+      py: seed.py + (random() - 0.5) * minDist,
     });
   }
   return keep;
@@ -190,6 +209,7 @@ const fitToBox = (
   canvasWidth: number,
   canvasHeight: number,
   count: number,
+  random: Random,
 ): ScreenPoint[] => {
   let minPX = Infinity;
   let minPY = Infinity;
@@ -225,8 +245,8 @@ const fitToBox = (
   }));
   while (samples.length < count) {
     samples.push({
-      x: originX + areaW * (0.4 + Math.random() * 0.2),
-      y: originY + areaH * (0.4 + Math.random() * 0.2),
+      x: originX + areaW * (0.4 + random() * 0.2),
+      y: originY + areaH * (0.4 + random() * 0.2),
     });
   }
   return samples;
@@ -237,8 +257,7 @@ const fitToBox = (
 const assignTargets = (
   pageXY: Float32Array,
   samples: ScreenPoint[],
-  canvasWidth: number,
-  canvasHeight: number,
+  random: Random,
 ): MorphTargets => {
   const N = pageXY.length / 2;
   const picXY = new Float32Array(N * 2);
@@ -267,28 +286,31 @@ const assignTargets = (
     .map((s, i) => ({ i, a: Math.atan2(s.y - scy, s.x - scx) }))
     .sort((u, v) => u.a - v.a);
 
-  const ax = canvasWidth;
-  const ay = canvasHeight;
-  let maxR = 1;
+  // Anchor the propagation to the passage itself—not the device bounds—so
+  // the very first disturbance visibly begins at the lower-right glyphs.
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
   for (let i = 0; i < N; i++) {
-    const dx = pageXY[i * 2] - ax;
-    const dy = pageXY[i * 2 + 1] - ay;
-    const r = Math.sqrt(dx * dx + dy * dy);
-    if (r > maxR) {
-      maxR = r;
-    }
+    minX = Math.min(minX, pageXY[i * 2]);
+    maxX = Math.max(maxX, pageXY[i * 2]);
+    minY = Math.min(minY, pageXY[i * 2 + 1]);
+    maxY = Math.max(maxY, pageXY[i * 2 + 1]);
   }
+  const rangeX = Math.max(1, maxX - minX);
+  const rangeY = Math.max(1, maxY - minY);
 
   for (let k = 0; k < N; k++) {
     const pi = pageOrder[k].i;
     const s = samples[sampleOrder[k].i];
     picXY[pi * 2] = s.x;
     picXY[pi * 2 + 1] = s.y;
-    const dx = pageXY[pi * 2] - ax;
-    const dy = pageXY[pi * 2 + 1] - ay;
-    const ripple = Math.sqrt(dx * dx + dy * dy) / maxR;
+    const dx = (maxX - pageXY[pi * 2]) / rangeX;
+    const dy = (maxY - pageXY[pi * 2 + 1]) / rangeY;
+    const ripple = Math.min(1, Math.sqrt(dx * dx + dy * dy) / Math.SQRT2);
     const e = ripple * ripple * ripple * (ripple * (ripple * 6 - 15) + 10); // smootherstep
-    delays[pi] = e * (1 - RIPPLE_JITTER) + Math.random() * RIPPLE_JITTER;
+    delays[pi] = e * (1 - RIPPLE_JITTER) + random() * RIPPLE_JITTER;
   }
 
   return { picXY, delays };
@@ -304,6 +326,9 @@ export const computeTargets = (
   const N = pageXY.length / 2;
   const imgW = pictureImage.width();
   const imgH = pictureImage.height();
+  const random = createRandom(
+    (N * 2654435761) ^ (imgW * 73856093) ^ (imgH * 19349663),
+  );
   const pixels = pictureImage.readPixels(0, 0, {
     width: imgW,
     height: imgH,
@@ -314,10 +339,10 @@ export const computeTargets = (
   let raw: Point[] = [];
   if (pixels) {
     const minDist = Math.max(imgW, imgH) * MIN_SPACING;
-    raw = sampleInkPoints(pixels as Uint8Array, imgW, imgH, N, minDist);
-    raw = pruneStrays(raw, minDist, imgH);
+    raw = sampleInkPoints(pixels as Uint8Array, imgW, imgH, N, minDist, random);
+    raw = pruneStrays(raw, minDist, imgH, random);
   }
 
-  const samples = fitToBox(raw, canvasWidth, canvasHeight, N);
-  return assignTargets(pageXY, samples, canvasWidth, canvasHeight);
+  const samples = fitToBox(raw, canvasWidth, canvasHeight, N, random);
+  return assignTargets(pageXY, samples, random);
 };

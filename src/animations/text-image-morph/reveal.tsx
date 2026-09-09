@@ -35,12 +35,13 @@ import type { SkFont, SkRect } from '@shopify/react-native-skia';
 // 0 before a letter starts moving, 1 once it has landed (offset by its delay).
 const letterPhase = (p: number, d: number): number => {
   'worklet';
-  return interpolate(
+  const linear = interpolate(
     p,
     [d * STAGGER, d * STAGGER + (1 - STAGGER)],
     [0, 1],
     Extrapolation.CLAMP,
   );
+  return linear * linear * (3 - 2 * linear);
 };
 
 interface Props {

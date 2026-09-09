@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-09T03:13:07Z",
+  "title": "Design System: Day 001 — Lunch",
+  "extensions": {
+    "colorMeta": {
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f7f4ec",
+        "tonalRamp": [
+          "oklch(15% 0.012 85)",
+          "oklch(26% 0.012 85)",
+          "oklch(38% 0.012 85)",
+          "oklch(50% 0.012 85)",
+          "oklch(62% 0.012 85)",
+          "oklch(74% 0.012 85)",
+          "oklch(86% 0.012 85)",
+          "oklch(95% 0.012 85)"
+        ]
+      },
+      "charcoal-ink": {
+        "role": "neutral",
+        "displayName": "Charcoal Ink",
+        "canonical": "#1c1a17",
+        "tonalRamp": [
+          "oklch(15% 0.008 75)",
+          "oklch(26% 0.008 75)",
+          "oklch(38% 0.008 75)",
+          "oklch(50% 0.008 75)",
+          "oklch(62% 0.008 75)",
+          "oklch(74% 0.008 75)",
+          "oklch(86% 0.008 75)",
+          "oklch(95% 0.008 75)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "Novel Body",
+        "purpose": "The exact selected three-paragraph excerpt, left-aligned and vertically centered as one reading block."
+      },
+      "picture-texture": {
+        "displayName": "Picture Texture",
+        "purpose": "The same 520 visible Newsreader glyphs arranged as a spare, edge-led lunch still life."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "scrub-travel",
+        "value": "1.08 viewport heights",
+        "purpose": "Makes the direct reversible Day 001 scrub feel long and unhurried."
+      },
+      {
+        "name": "tap-transition",
+        "value": "4200ms",
+        "purpose": "Carries a tap-triggered endpoint change at the artwork's slow, contemplative pace."
+      },
+      {
+        "name": "scrub-settle",
+        "value": "1900ms cubic ease; no bounce",
+        "purpose": "Settles a released scrub softly at the selected endpoint without spring behavior."
+      },
+      {
+        "name": "glyph-propagation",
+        "value": "passage-bounds lower-right to upper-left; smoothstep; very low seeded jitter",
+        "purpose": "Loosens ink diagonally from the actual text block while keeping per-glyph motion ordered and deterministic."
+      },
+      {
+        "name": "glyph-flight-depth",
+        "value": "48 base z + up to 155 movement z; 0.055rad max rotation; 24% max fade",
+        "purpose": "Adds restrained physical separation only while glyphs travel between flat endpoints."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "instant endpoint selection",
+        "purpose": "Honors reduced-motion preference while preserving the complete interaction and both states."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Novel Passage Surface",
+      "kind": "custom",
+      "refersTo": "novel-page",
+      "description": "The chrome-free reading endpoint: the exact selected three-paragraph excerpt, vertically centered while its lines remain conventionally left-aligned.",
+      "html": "<article class=\"ds-novel-page\"><div class=\"ds-reading-block\"><p>I was in the middle of preparing lunch when the phone rang again. I had cut two slices of bread, spread them with butter and mustard…</p><p>I let the phone ring three times and cut the sandwich in half…</p><p>Still the phone went on ringing. Maybe fifteen times…</p></div></article>",
+      "css": ".ds-novel-page { display: flex; align-items: center; width: 320px; min-height: 568px; margin: 0; padding: 48px 29px; background: #f7f4ec; color: #1c1a17; font-family: Newsreader, Georgia, serif; font-size: 14.4px; font-weight: 400; line-height: 1.55; } .ds-reading-block { width: 100%; text-align: left; } .ds-novel-page p { margin: 0 0 0.8em; text-indent: 3ch; } .ds-novel-page:focus-visible { outline: 2px solid #1c1a17; outline-offset: -4px; }"
+    },
+    {
+      "name": "Glyph Lunch Still Life",
+      "kind": "custom",
+      "refersTo": "glyph-still-life",
+      "description": "A spare, all-glyph illustration: one rectangular sandwich visibly separated into two diagonal halves with paper-filled interiors and two round tomato curves in the cut seam on a tightened-left plate with one outer contour and no inner rim, plus a broad, detached, outline-led, steam-free coffee cup.",
+      "html": "<figure class=\"ds-lunch\" aria-label=\"A rectangular sandwich split diagonally into two lightly filled halves with two round tomato curves in the seam, on a plate with a separate broad steam-free coffee cup\"><div class=\"ds-plate\">the phone rang again bread butter mustard tomato cheese sandwich plate cutlery drawer</div><div class=\"ds-sandwich\"><div class=\"ds-half ds-half-a\">lunch bread cheese tomato</div><div class=\"ds-half ds-half-b\">sandwich butter mustard</div><span class=\"ds-tomato ds-tomato-a\">tomato</span><span class=\"ds-tomato ds-tomato-b\">tomato</span></div><div class=\"ds-cup\"><span class=\"ds-rim\">coffee coffee</span><span class=\"ds-wall ds-wall-left\">c<br>u<br>p</span><span class=\"ds-wall ds-wall-right\">c<br>u<br>p</span></div><div class=\"ds-handle\">c<br>u<br>p</div></figure>",
+      "css": ".ds-lunch { position: relative; width: 360px; height: 270px; margin: 0; overflow: hidden; background: #f7f4ec; color: #1c1a17; font-family: Newsreader, Georgia, serif; font-size: 13.2px; line-height: 0.9; } .ds-plate, .ds-sandwich, .ds-half, .ds-tomato, .ds-cup, .ds-handle { position: absolute; overflow: hidden; } .ds-plate { left: 12px; bottom: 34px; width: 218px; height: 88px; border: 2px dotted #1c1a17; border-radius: 50%; padding: 16px; } .ds-sandwich { left: 36px; bottom: 76px; width: 174px; height: 102px; } .ds-half { inset: 0; padding: 8px; background: #f7f4ec; border: 2px dotted #1c1a17; font-weight: 600; } .ds-half-a { clip-path: polygon(0 0, 100% 0, 100% 100%); transform: translateY(-4px); } .ds-half-b { clip-path: polygon(0 0, 0 100%, 100% 100%); transform: translateY(4px); } .ds-tomato { z-index: 2; width: 34px; height: 19px; border-top: 2px dotted #1c1a17; border-radius: 50%; background: #f7f4ec; font-size: 9px; text-align: center; } .ds-tomato-a { left: 62px; top: 30px; transform: rotate(31deg); } .ds-tomato-b { left: 96px; top: 58px; transform: rotate(31deg); } .ds-cup { right: 23px; top: 82px; width: 70px; height: 68px; background: #f7f4ec; } .ds-rim { position: absolute; inset: 0 0 auto; padding-bottom: 3px; border-bottom: 2px dotted #1c1a17; text-align: center; } .ds-wall { position: absolute; top: 15px; bottom: 0; } .ds-wall-left { left: 1px; } .ds-wall-right { right: 1px; } .ds-handle { right: 7px; top: 99px; width: 20px; height: 34px; border-right: 2px dotted #1c1a17; border-radius: 0 18px 18px 0; text-align: right; } .ds-lunch:focus-visible { outline: 2px solid #1c1a17; outline-offset: -4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Living Novel Page",
+    "overview": "Day 001 — Lunch is a quiet literary object before it is an interface. A warm paper field and a single serif voice make the opening state feel like a page from a well-kept paperback: intimate, patient, and unadorned. The selected first three paragraphs form a calm block centered vertically in the viewport while retaining conventional left-aligned reading. The app contributes no visible chrome, instruction label, panel, or decorative frame. The passage itself is the whole surface.\n\nThe signature move is literal and material: 520 visible glyphs leave their readable lines and assemble the lunch named in the prose. The final field is deliberately spare: one rectangular sandwich is visibly split into two diagonal halves with a narrow open seam and two round tomato curves, while a broad, detached coffee cup at the upper right uses an outline-led construction to clarify its rim, body, handle, and coffee without any steam.",
+    "keyCharacteristics": [
+      "Warm paper and near-black ink only",
+      "Newsreader as both readable prose and image-making material",
+      "A vertically centered, conventionally left-aligned three-paragraph reading block",
+      "Full-screen, chrome-free composition",
+      "Direct, reversible vertical scrubbing",
+      "Slow lower-right-to-upper-left glyph propagation",
+      "Deterministic glyph placement at both endpoints",
+      "A rectangular sandwich silhouette with a clear diagonal cut and sparse tomato curves",
+      "A broad, detached, steam-free upper-right coffee cup",
+      "Continuous responsive fitting rather than device-specific layouts"
+    ],
+    "rules": [
+      {
+        "name": "The Ink-on-Paper Rule",
+        "body": "Keep the artwork to one paper field and one ink color; form comes from density, overlap, scale, and motion rather than added color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Every Mark Is Language Rule",
+        "body": "Do not replace, mask over, or supplement the glyphs with a visible illustration; every visible mark at the final endpoint must still be a passage character.",
+        "section": "typography"
+      },
+      {
+        "name": "The Selected Excerpt Rule",
+        "body": "Preserve the first three supplied paragraphs, including punctuation and paragraph breaks, with the requested correction from `knite` to `knife`; omit the later dialogue to protect the final field's clarity.",
+        "section": "typography"
+      },
+      {
+        "name": "The Continuous Fit Rule",
+        "body": "Recompute page layout and image targets from the current width and height; never hard-code a single phone's coordinates or crop the passage to protect a preferred font size.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Endpoints Rule",
+        "body": "Reading and illustration endpoints must be optically flat; perspective, rotation, and fading exist only in flight.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Detached Cup Rule",
+        "body": "Keep clear warm-paper space between the plate and the upper-right coffee cup; the cup never sits on, touches, or visually merges with the plate.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Paper-Filled Cup Rule",
+        "body": "Build the cup from a sparse glyph outline around intentional paper-filled negative space; do not pack its interior into a solid text column.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Cut-Sandwich Rule",
+        "body": "Preserve a rectangular outer silhouette, open a narrow diagonal seam between the two halves, keep the bread interiors light, and use only two generous tomato curves in the seam.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Ink-Loosening Rule",
+        "body": "Motion begins at the passage's lower-right bound and travels diagonally up-left with restrained depth and almost no jitter; it must feel slow, gentle, and free of bounce.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do preserve the selected first three paragraphs with the requested `knife` correction as the source of all 520 visible glyphs.",
+      "Do center the reading block vertically while keeping every line conventionally left-aligned.",
+      "Do keep the page readable at one endpoint and the lunch immediately recognizable at the other.",
+      "Do use edge-led sampling and paper-filled interiors to keep both sandwich halves light.",
+      "Do keep the cup broad, outline-led, paper-filled, detached, and completely steam-free.",
+      "Do tighten the plate to the left so warm paper clearly separates it from the cup.",
+      "Do map vertical movement directly and reversibly to morph progress.",
+      "Do anchor propagation to the passage bounds' lower-right corner and carry it diagonally upward and left.",
+      "Do keep automatic motion slow, cubic, smoothstep-based, and bounce-free, with only very low deterministic jitter.",
+      "Do derive placement deterministically and recompute fitting for the current viewport.",
+      "Do provide reduced-motion behavior and adjustable accessibility actions with meaningful state labels."
+    ],
+    "donts": [
+      "Don't add visible app chrome, gesture instructions, floating buttons, cards, or ornamental frames to Day 001.",
+      "Don't render the target mask or introduce non-glyph illustration marks.",
+      "Don't restore the later dialogue; its extra density weakens the distilled final image.",
+      "Don't horizontally center the passage or center its individual lines.",
+      "Don't merge the cup with the plate, fill either sandwich or cup into a dense mass, or omit the cup's rim, body, handle, or coffee.",
+      "Don't add steam or any glyph flourish above the cup.",
+      "Don't add accent colors, shadows, gradients, or decorative typefaces that weaken the quiet ink-on-paper world.",
+      "Don't launch the wave from the viewport corner, add spring bounce, or exaggerate depth, rotation, fading, or randomness.",
+      "Don't randomize final glyph placement between runs or crop passage content on smaller screens."
+    ]
+  }
+}

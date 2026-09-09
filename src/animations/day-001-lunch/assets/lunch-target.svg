@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#f7f4ec"/>
+
+  <!-- plate -->
+  <ellipse cx="415" cy="525" rx="350" ry="255" fill="#ded9cc" stroke="#28251f" stroke-width="16"/>
+
+  <!-- one rectangular sandwich, visibly separated along its diagonal cut -->
+  <path d="M205 300 L655 300 L655 615 Z" fill="#f7f4ec" stroke="#211f1b" stroke-width="17" stroke-linejoin="round"/>
+  <path d="M225 323 L630 323 L630 579" fill="none" stroke="#6d6559" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M180 337 L630 652 L180 652 Z" fill="#f7f4ec" stroke="#211f1b" stroke-width="17" stroke-linejoin="round"/>
+  <path d="M204 371 L204 625 L594 625" fill="none" stroke="#6d6559" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- round tomato slices peek into the open diagonal seam -->
+  <path d="M284 407 C317 374 359 384 370 426" fill="none" stroke="#36322c" stroke-width="18" stroke-linecap="round"/>
+  <path d="M414 499 C447 466 489 476 500 518" fill="none" stroke="#36322c" stroke-width="18" stroke-linecap="round"/>
+
+  <!-- bread stipple -->
+  <g fill="#5d574d" opacity="0.88">
+    <circle cx="262" cy="351" r="4"/><circle cx="344" cy="350" r="5"/><circle cx="437" cy="347" r="4"/>
+    <circle cx="529" cy="348" r="5"/><circle cx="602" cy="383" r="4"/><circle cx="250" cy="570" r="4"/>
+    <circle cx="334" cy="590" r="5"/><circle cx="431" cy="598" r="4"/><circle cx="531" cy="608" r="5"/>
+  </g>
+
+  <!-- cup and coffee: deliberately detached from the plate, upper right -->
+  <g transform="translate(55 55) scale(.98 .72)">
+    <path d="M765 340 C766 295 811 268 883 268 C956 268 1001 296 1002 340 L984 575 C980 631 940 665 882 665 C824 665 784 631 780 575 Z" fill="#f7f4ec" stroke="#211f1b" stroke-width="17"/>
+    <ellipse cx="883" cy="340" rx="119" ry="71" fill="#f7f4ec" stroke="#211f1b" stroke-width="16"/>
+    <ellipse cx="883" cy="344" rx="92" ry="47" fill="#28251f"/>
+    <path d="M996 393 C1097 379 1125 428 1112 493 C1100 552 1051 576 987 548" fill="none" stroke="#211f1b" stroke-width="19" stroke-linecap="round"/>
+    <path d="M1004 422 C1065 417 1080 444 1073 478 C1067 510 1044 524 994 514" fill="none" stroke="#777064" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- sparse scattered texture -->
+  <g fill="#81796c" opacity="0.72">
+    <circle cx="171" cy="531" r="4"/><circle cx="201" cy="588" r="3"/><circle cx="275" cy="651" r="4"/>
+    <circle cx="722" cy="672" r="3"/><circle cx="754" cy="633" r="4"/><circle cx="193" cy="428" r="3"/>
+    <circle cx="950" cy="552" r="4"/><circle cx="1000" cy="535" r="3"/>
+  </g>
+</svg>

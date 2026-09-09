@@ -1,15 +1,18 @@
 import { StyleSheet, View } from 'react-native';
 
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { Canvas } from '@shopify/react-native-skia';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { usePatternComposer } from 'react-native-pulsar';
 import {
   Easing,
+  useReducedMotion,
   useSharedValue,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { MORPH_DURATION_MS, PAGE_BG, PAGE_MARGIN_FRAC } from './constants';
 import { MORPH_PATTERN } from './haptics';
@@ -17,6 +20,7 @@ import { PressableToggleIcon } from './pressable-toggle-icon';
 import { Reveal } from './reveal';
 import { useTextImageMorph } from './use-text-image-morph';
 
+import type { PageVerticalAlignment } from './layout';
 import type { DataSourceParam } from '@shopify/react-native-skia';
 
 interface Props {
@@ -24,15 +28,49 @@ interface Props {
   height: number;
   image: DataSourceParam;
   paragraph: string;
+  interaction?: 'toggle' | 'vertical-scrub';
+  pageMarginYFraction?: number;
+  pageVerticalAlignment?: PageVerticalAlignment;
+  scrubTravelFraction?: number;
+  scrubTapDurationMs?: number;
+  scrubSettleDurationMs?: number;
 }
 
-export const TextImageMorph = ({ width, height, image, paragraph }: Props) => {
-  const data = useTextImageMorph({ image, paragraph, width, height });
+const clamp01 = (value: number) => {
+  'worklet';
+  return Math.max(0, Math.min(1, value));
+};
+
+export const TextImageMorph = ({
+  width,
+  height,
+  image,
+  paragraph,
+  interaction = 'toggle',
+  pageMarginYFraction,
+  pageVerticalAlignment,
+  scrubTravelFraction = 0.56,
+  scrubTapDurationMs = 720,
+  scrubSettleDurationMs = 720,
+}: Props) => {
+  const data = useTextImageMorph({
+    image,
+    paragraph,
+    width,
+    height,
+    pageMarginYFraction,
+    pageVerticalAlignment,
+  });
   const progress = useSharedValue(0); // 0 = page, 1 = picture
+  const gestureStart = useSharedValue(0);
   const face = useSharedValue(0);
   const [revealed, setRevealed] = useState(false);
+  const reducedMotion = useReducedMotion();
   const lastToggleRef = useRef(0);
   const morphHaptic = usePatternComposer(MORPH_PATTERN);
+  const updateRevealed = useCallback((next: boolean) => {
+    setRevealed(next);
+  }, []);
 
   const toggle = () => {
     const now = Date.now();
@@ -44,10 +82,14 @@ export const TextImageMorph = ({ width, height, image, paragraph }: Props) => {
     setRevealed(next);
     morphHaptic.play();
     progress.set(
-      withSpring(next ? 1 : 0, {
-        dampingRatio: 1,
-        duration: MORPH_DURATION_MS,
-      }),
+      reducedMotion
+        ? next
+          ? 1
+          : 0
+        : withSpring(next ? 1 : 0, {
+            dampingRatio: 1,
+            duration: MORPH_DURATION_MS,
+          }),
     );
     face.set(
       withTiming(next ? 1 : 0, {
@@ -57,32 +99,111 @@ export const TextImageMorph = ({ width, height, image, paragraph }: Props) => {
     );
   };
 
+  const verticalPan = Gesture.Pan()
+    .enabled(interaction === 'vertical-scrub')
+    .minDistance(1)
+    .onBegin(() => {
+      gestureStart.set(progress.get());
+    })
+    .onUpdate(event => {
+      const travel = Math.max(height * scrubTravelFraction, 280);
+      progress.set(clamp01(gestureStart.get() - event.translationY / travel));
+    })
+    .onEnd(event => {
+      const current = progress.get();
+      const destination =
+        event.velocityY < -420
+          ? 1
+          : event.velocityY > 420
+            ? 0
+            : current >= 0.5
+              ? 1
+              : 0;
+      scheduleOnRN(updateRevealed, destination === 1);
+      progress.set(
+        reducedMotion
+          ? destination
+          : withTiming(destination, {
+              duration: scrubSettleDurationMs,
+              easing: Easing.out(Easing.cubic),
+            }),
+      );
+    });
+
+  const scrubTap = Gesture.Tap()
+    .enabled(interaction === 'vertical-scrub')
+    .onEnd(() => {
+      const destination = progress.get() >= 0.5 ? 0 : 1;
+      scheduleOnRN(updateRevealed, destination === 1);
+      progress.set(
+        reducedMotion
+          ? destination
+          : withTiming(destination, {
+              duration: scrubTapDurationMs,
+              easing: Easing.inOut(Easing.cubic),
+            }),
+      );
+    });
+
+  const scrubGesture = Gesture.Exclusive(verticalPan, scrubTap);
+
+  const handleAccessibilityAction = ({
+    nativeEvent,
+  }: {
+    nativeEvent: { actionName: string };
+  }) => {
+    if (nativeEvent.actionName === 'increment') {
+      setRevealed(true);
+      progress.set(reducedMotion ? 1 : withTiming(1, { duration: 500 }));
+    }
+    if (nativeEvent.actionName === 'decrement') {
+      setRevealed(false);
+      progress.set(reducedMotion ? 0 : withTiming(0, { duration: 500 }));
+    }
+  };
+
   return (
-    <View style={[styles.fill, { backgroundColor: PAGE_BG }]}>
-      <Canvas style={styles.fill}>
-        {data.ready && data.font && (
-          <Reveal
-            pageXY={data.pageXY}
-            sprites={data.sprites}
-            font={data.font}
-            atlas={data.atlas}
-            targets={data.targets}
-            progress={progress}
-            screenW={width}
-            screenH={height}
+    <GestureDetector gesture={scrubGesture}>
+      <View
+        accessibilityActions={[
+          { name: 'increment', label: 'Assemble the lunch illustration' },
+          { name: 'decrement', label: 'Restore the novel passage' },
+        ]}
+        accessibilityHint="Swipe up to form the picture and down to restore the text"
+        accessibilityLabel={`Novel passage. ${paragraph}`}
+        accessibilityRole="adjustable"
+        accessibilityValue={{
+          text: revealed ? 'Lunch illustration' : 'Novel passage',
+        }}
+        onAccessibilityAction={handleAccessibilityAction}
+        style={[styles.fill, { backgroundColor: PAGE_BG }]}>
+        <Canvas style={styles.fill}>
+          {data.ready && data.font && (
+            <Reveal
+              pageXY={data.pageXY}
+              sprites={data.sprites}
+              font={data.font}
+              atlas={data.atlas}
+              targets={data.targets}
+              progress={progress}
+              screenW={width}
+              screenH={height}
+            />
+          )}
+        </Canvas>
+
+        {interaction === 'toggle' && (
+          <PressableToggleIcon
+            face={face}
+            onPress={toggle}
+            style={{
+              bottom: width * PAGE_MARGIN_FRAC,
+              right: width * PAGE_MARGIN_FRAC,
+            }}
           />
         )}
-      </Canvas>
-
-      <PressableToggleIcon
-        face={face}
-        onPress={toggle}
-        style={{
-          bottom: width * PAGE_MARGIN_FRAC,
-          right: width * PAGE_MARGIN_FRAC,
-        }}
-      />
-    </View>
+      </View>
+    </GestureDetector>
   );
 };
 

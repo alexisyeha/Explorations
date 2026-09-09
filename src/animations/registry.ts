@@ -47,6 +47,7 @@ import { ColorCarousel } from './color-carousel';
 import { ComposableTextScreen } from './composable-text';
 import { CoverflowCarousel } from './coverflow-carousel';
 import { CubertoSlider } from './cuberto-slider';
+import { Day001LunchScreen } from './day-001-lunch';
 import { DeleteButton } from './delete-button';
 import { DotSheet } from './dot-sheet';
 import { DragToSort } from './drag-to-sort';
@@ -260,6 +261,7 @@ export const AnimationRegistry = {
   'art-gallery': ArtGallery,
   chessboard: ChessboardGame,
   'the-little-prince': TheLittlePrinceScreen,
+  'day-001-lunch': Day001LunchScreen,
   'light-on-painting': LightOnPainting,
 } as const;
 
@@ -880,6 +882,12 @@ export const AnimationMetadata: Record<string, AnimationMetadataType> = {
     name: 'The Little Prince',
     route: 'TheLittlePrince',
     iconName: 'ellipse-outline',
+  },
+  'day-001-lunch': {
+    name: 'Day 001 — Lunch',
+    route: 'Day001Lunch',
+    iconName: 'cafe-outline',
+    hideDrawerIcon: true,
   },
   'light-on-painting': {
     name: 'Light on Painting',

@@ -8,6 +8,7 @@ import { buildLayout } from './layout';
 import { computeTargets } from './sampling';
 
 import type { Atlas } from './atlas';
+import type { PageVerticalAlignment } from './layout';
 import type { MorphTargets } from './sampling';
 import type {
   DataSourceParam,
@@ -31,6 +32,8 @@ interface Params {
   paragraph: string;
   width: number;
   height: number;
+  pageMarginYFraction?: number;
+  pageVerticalAlignment?: PageVerticalAlignment;
 }
 
 const EMPTY_F32 = new Float32Array(0);
@@ -41,6 +44,8 @@ export const useTextImageMorph = ({
   paragraph,
   width,
   height,
+  pageMarginYFraction,
+  pageVerticalAlignment,
 }: Params): TextImageMorphData => {
   const pictureImage = useImage(image);
   const font = useFont(PAGE_FONT, GLYPH_FONT_SIZE);
@@ -51,8 +56,24 @@ export const useTextImageMorph = ({
     if (!font || width <= 0 || height <= 0) {
       return null;
     }
-    return buildLayout(atlas, paragraph, font, width, height);
-  }, [atlas, paragraph, font, width, height]);
+    return buildLayout(
+      atlas,
+      paragraph,
+      font,
+      width,
+      height,
+      pageMarginYFraction,
+      pageVerticalAlignment,
+    );
+  }, [
+    atlas,
+    paragraph,
+    font,
+    width,
+    height,
+    pageMarginYFraction,
+    pageVerticalAlignment,
+  ]);
 
   // sampling deferred past the first paint so the text shows instantly
   const [targets, setTargets] = useState<MorphTargets | null>(null);
