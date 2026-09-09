@@ -142,6 +142,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     reactCompiler: true,
   },
   extra: {
+    router: {
+      root: 'day-02/app',
+    },
     eas: {
       projectId: 'eb1bbf17-5fb9-4743-bccf-3fbcbc95176a',
     },

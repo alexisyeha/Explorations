@@ -1,0 +1,8 @@
+Use case: UI mockup composition study.
+Asset type: high-fidelity portrait iPhone app screen mockup, flat front-on screen only, no phone hardware frame.
+Reference image: use the attached physical hanging mobile only as structural inspiration for suspension, asymmetry, balance, thin wires, and gentle proportions; do not copy its animal.
+Primary request: Day 002 interactive kinetic mobile screen, composition B. A warm light-beige matte paper field fills the screen. A fine central hanging thread supports two slim straight rods in a cascading zig-zag: the upper rod slopes gently down to the right and the lower rod hangs from its left half, slopes gently down to the left. Create a more airy, diagonal composition with 5 geometric weights of intentionally varied visual sizes from 28 to 100 points: one tiny clay disk, a long vertical chain of four dark dots, a large bone crescent, a muted cobalt half-circle, and a medium irregular starburst. The largest two weights counterbalance each other across the screen; each shape stays visually small relative to the full canvas.
+Style/medium: precise minimal 2D mobile-app interface mockup, code-native vector appearance, faint tactile paper grain, no photoreal scene.
+Composition: portrait 9:19.5, asymmetrical diagonal rhythm, mobile occupies about 72% of screen height and 65% width, generous negative space, delicate and adorable.
+Palette: light beige #F3EFE5, charcoal #403A32, bone #E9E2D4, muted clay #B9856C, deep cobalt #303790, very thin warm gray strings.
+Constraints: no text, no title, no instructions, no buttons, no status bar, no navigation, no shadows, no gradients, no glass, no decorative frame, no animal shape, no extra rods, exactly two primary rods.
