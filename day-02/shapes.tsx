@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { ReactNode, useMemo } from 'react';
 
@@ -33,7 +33,33 @@ export const palette = {
   bone: '#E2D8C8',
   clay: '#B88368',
   cobalt: '#303990',
+  castShadow: '#604936',
+  shadedPaper: '#CDB7A8',
 };
+
+const castShadowStyle: ViewStyle = Platform.select({
+  default: {
+    shadowColor: palette.castShadow,
+    shadowOffset: { height: 24, width: -20 },
+    shadowOpacity: 0.28,
+    shadowRadius: 11,
+  },
+  web: {
+    filter: 'drop-shadow(-20px 24px 10px rgba(73, 50, 34, 0.30))',
+  },
+}) as ViewStyle;
+
+const threadCastShadowStyle: ViewStyle = Platform.select({
+  default: {
+    shadowColor: palette.castShadow,
+    shadowOffset: { height: 8, width: -6 },
+    shadowOpacity: 0.14,
+    shadowRadius: 3,
+  },
+  web: {
+    filter: 'drop-shadow(-6px 8px 3px rgba(73, 50, 34, 0.14))',
+  },
+}) as ViewStyle;
 
 type WeightProps = {
   accessibilityLabel: string;
@@ -84,6 +110,7 @@ const Tether = ({
       pointerEvents="none"
       style={[
         styles.tether,
+        threadCastShadowStyle,
         {
           height: baseLength,
           left: anchorX - 0.5,
@@ -280,13 +307,16 @@ export const InteractiveWeight = ({
           ]}>
           <View
             pointerEvents="none"
-            style={{
-              height,
-              left: (hitWidth - width) / 2,
-              position: 'absolute',
-              top: (hitHeight - height) / 2,
-              width,
-            }}>
+            style={[
+              styles.weightCast,
+              castShadowStyle,
+              {
+                height,
+                left: (hitWidth - width) / 2,
+                top: (hitHeight - height) / 2,
+                width,
+              },
+            ]}>
             {children}
           </View>
         </Animated.View>
@@ -323,10 +353,13 @@ export const DotsWeight = () => (
 
 export const SemicircleWeight = () => <View style={styles.semicircle} />;
 
+const crescentPath =
+  'M68 3 C28 -4 0 19 0 50 C0 81 28 104 68 97 C43 86 32 70 32 50 C32 30 43 14 68 3 Z';
+
 export const CrescentWeight = () => (
-  <View style={styles.crescentOuter}>
-    <View style={styles.crescentCutout} />
-  </View>
+  <Svg height={100} viewBox="0 0 72 100" width={72}>
+    <Path d={crescentPath} fill={palette.bone} />
+  </Svg>
 );
 
 export const PebbleWeight = () => <View style={styles.pebble} />;
@@ -341,22 +374,6 @@ export const StarWeight = () => (
 );
 
 const styles = StyleSheet.create({
-  crescentCutout: {
-    backgroundColor: palette.paper,
-    borderRadius: 48,
-    height: 96,
-    left: 25,
-    position: 'absolute',
-    top: -3,
-    width: 70,
-  },
-  crescentOuter: {
-    backgroundColor: palette.bone,
-    borderRadius: 50,
-    height: 100,
-    overflow: 'hidden',
-    width: 72,
-  },
   dot: {
     backgroundColor: palette.charcoal,
     borderRadius: 14,
@@ -392,5 +409,8 @@ const styles = StyleSheet.create({
     opacity: 0.72,
     position: 'absolute',
     width: 1,
+  },
+  weightCast: {
+    position: 'absolute',
   },
 });

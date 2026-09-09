@@ -9,6 +9,9 @@ colors:
   matte-bone: "#E2D8C8"
   muted-clay: "#B88368"
   deep-cobalt: "#303990"
+  sunlit-paper: "#FFFDF4"
+  shaded-wall: "#CDB7A8"
+  cast-shadow: "#604936"
 components:
   mobile-stage:
     backgroundColor: "{colors.warm-paper}"
@@ -30,19 +33,20 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 **Key Characteristics:**
 
-- Exact Warm Paper continuity with Day 001
+- Warm Paper continuity with Day 001, transformed by late-afternoon light
 - Short bowed top arch plus one fine straight lower rod
 - Six small geometric weights across a 28–100 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Slow idle yaw and sway, with Reduce Motion respected
 - Edge-to-edge presentation with no visible chrome
+- A bright-left, shaded-right sun field and soft down-left cast shadows
 
 ## Colors
 
 Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Charcoal, Matte Bone, Muted Clay, and Deep Cobalt identify the weights through a small, earthy palette with cobalt as the only cool counterpoint.
 
-**The Exact Paper Rule.** Keep the background identical to Day 001's Warm Paper token; do not substitute the warmer mockup paper or introduce texture, gradient, shadow, or dark-mode inversion.
+**The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF4`) at the left, Warm Paper through the middle, and Shaded Wall (`#CDB7A8`) at the right. Do not introduce unrelated texture or dark-mode inversion.
 
 **The Cobalt Rarity Rule.** Reserve cobalt for the semicircle and star so it remains the sculpture's crisp counterweight rather than a general accent.
 
@@ -56,9 +60,11 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-The resting artwork is flat and uses no shadows, gradients, glass, surface layering, or photographic effects. Material distinction comes from color, silhouette, fine stroke weight, negative space, and motion. During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
+One broad, warm light field creates the depth system: high-key paper at the left transitions through the original warm field into a muted shaded wall at the right. Every weight carries a down-left shadow with a real offset and soft penumbra; its shadow remains attached while the weight is touched, dragged, or settling. Fine rods and suspension threads receive a lighter version of the same shadow. There are no independent halos, card shadows, or decorative glows.
 
-**The Weightless Depth Rule.** Perspective may make the idle motion feel spatial, but the shapes remain clean, matte, code-native forms with no simulated lighting or cast shadows.
+During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
+
+**The Window-Light Rule.** All depth must agree with one light source above and to the left: bright field on the left, shaded field on the right, and warm cast shadows displaced down and left. Preserve matte code-native geometry; do not add simulated gloss or object-by-object lighting effects.
 
 ## Shapes
 
@@ -69,7 +75,7 @@ The six weight roles are fixed:
 - **Clay Circle:** a 42-point muted-clay disc.
 - **Linked Charcoal Dots:** three 28-point discs in an 88-point vertical chain.
 - **Cobalt Semicircle:** a broad 100 × 52 point upward arch.
-- **Bone Crescent:** a 72 × 100 point matte-bone crescent cut from the paper color.
+- **Bone Crescent:** a 72 × 100 point matte-bone SVG crescent with a truly transparent cutout, allowing the changing light field to show through.
 - **Clay Pebble:** a 34 × 82 point long rounded form.
 - **Cobalt Star:** a sharp 64-point eight-point star.
 
@@ -106,10 +112,11 @@ Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes 
 - **Do** preserve the 28–100 point weight range and 56-point minimum touch areas through inverse scaling.
 - **Do** keep touch, tether movement, linked impulses, chime, and haptic synchronized as one material response.
 - **Do** honor Reduce Motion and the device silent switch.
+- **Do** keep every cast shadow soft, directionally consistent, and attached to its moving weight.
 
 ### Don't:
 
 - **Don't** add titles, instructions, buttons, cards, navigation, status chrome, or persistent controls.
-- **Don't** add shadows, gradients, glass, photographic texture, extra rods, or extra weights.
+- **Don't** add glass, photographic texture, extra rods, extra weights, or any gradient/shadow outside the single natural-light system.
 - **Don't** flatten the six shapes into equal sizing or reassign their palette and pitch roles.
 - **Don't** make idle movement conspicuous, release behavior bouncy, or audio louder than the quiet 0.30 cap.

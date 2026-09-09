@@ -1,15 +1,23 @@
 /*
 THESIS: A phone becomes a quiet hanging sculpture; the screen refuses controls and explanatory chrome.
-OWN-WORLD: Warm paper, hairline suspension wire, browned-brass rods, matte bone, clay, charcoal, and one cobalt counterweight.
-STORY: The mobile is already breathing. Catching one small weight disturbs its connected structure and reveals a private chime.
-FIRST VIEWPORT: A short asymmetric arch hangs high, feeding a small left rod and a longer right chain across generous negative space.
+OWN-WORLD: Warm sunlit paper, a softly shaded wall, hairline suspension wire, browned-brass rods, matte bone, clay, charcoal, and one cobalt counterweight.
+STORY: The mobile is already breathing in a shaft of late-afternoon light. Catching one small weight moves both its structure and its cast shadow, then reveals a private chime.
+FIRST VIEWPORT: A short asymmetric arch hangs high across a bright-left, shaded-right field, feeding a small left rod and a longer right chain across generous negative space.
 FORM: Concept-roll seed 8038761e; approved composition A with a shortened top line; source comp .impeccable/mocks/day-02-a.png.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 */
-import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { useEffect } from 'react';
 
+import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   Easing,
   interpolate,
@@ -35,6 +43,41 @@ import {
 } from './shapes';
 
 const topRodPath = 'M105 238 C124 151 244 128 286 210';
+
+const fineCastShadowStyle: ViewStyle = Platform.select({
+  default: {
+    shadowColor: palette.castShadow,
+    shadowOffset: { height: 8, width: -6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.5,
+  },
+  web: {
+    filter: 'drop-shadow(-6px 8px 3px rgba(73, 50, 34, 0.16))',
+  },
+}) as ViewStyle;
+
+const AmbientSunlight = () => (
+  <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+    <LinearGradient
+      colors={['#FFFDF4', '#FFF8E8', '#F1E4D3', '#D9C6B8', '#CDB7A8']}
+      end={{ x: 0.96, y: 0.12 }}
+      locations={[0, 0.36, 0.5, 0.66, 1]}
+      start={{ x: 0.04, y: 0.02 }}
+      style={StyleSheet.absoluteFill}
+    />
+    <LinearGradient
+      colors={[
+        'rgba(255, 255, 255, 0.42)',
+        'rgba(255, 244, 211, 0.12)',
+        'rgba(113, 82, 62, 0.08)',
+      ]}
+      end={{ x: 0.64, y: 1 }}
+      locations={[0, 0.58, 1]}
+      start={{ x: 0.34, y: 0 }}
+      style={StyleSheet.absoluteFill}
+    />
+  </View>
+);
 
 const TopRod = () => (
   <Svg height={DESIGN_HEIGHT} pointerEvents="none" width={DESIGN_WIDTH}>
@@ -72,8 +115,14 @@ const LowerAssembly = ({
 
   return (
     <Animated.View style={[styles.lowerAssembly, style]}>
-      <View pointerEvents="none" style={styles.lowerRod} />
-      <View pointerEvents="none" style={styles.lowerSuspension} />
+      <View
+        pointerEvents="none"
+        style={[styles.lowerRod, fineCastShadowStyle]}
+      />
+      <View
+        pointerEvents="none"
+        style={[styles.lowerSuspension, fineCastShadowStyle]}
+      />
 
       <InteractiveWeight
         accessibilityLabel="Small clay circle"
@@ -175,6 +224,7 @@ export const Day02Mobile = () => {
       accessibilityLabel="Day 002, an interactive hanging mobile"
       style={styles.screen}>
       <StatusBar animated hidden />
+      <AmbientSunlight />
       <View
         style={[
           styles.scaleStage,
@@ -186,7 +236,10 @@ export const Day02Mobile = () => {
         ]}>
         <Animated.View style={[styles.mobile, mobileStyle]}>
           <TopRod />
-          <View pointerEvents="none" style={styles.topThread} />
+          <View
+            pointerEvents="none"
+            style={[styles.topThread, fineCastShadowStyle]}
+          />
 
           <LowerAssembly
             idle={idle}
@@ -289,7 +342,7 @@ const styles = StyleSheet.create({
     width: DESIGN_WIDTH,
   },
   screen: {
-    backgroundColor: palette.paper,
+    backgroundColor: palette.shadedPaper,
     flex: 1,
     overflow: 'hidden',
   },
