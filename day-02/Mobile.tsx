@@ -59,7 +59,7 @@ const fineCastShadowStyle: ViewStyle = Platform.select({
 const AmbientSunlight = () => (
   <View pointerEvents="none" style={StyleSheet.absoluteFill}>
     <LinearGradient
-      colors={['#FFFDF4', '#FFF8E8', '#F1E4D3', '#D9C6B8', '#CDB7A8']}
+      colors={['#FFFDF7', '#FFF9EC', '#F8EEDF', '#EFE3D8', '#E6D9CF']}
       end={{ x: 0.96, y: 0.12 }}
       locations={[0, 0.36, 0.5, 0.66, 1]}
       start={{ x: 0.04, y: 0.02 }}

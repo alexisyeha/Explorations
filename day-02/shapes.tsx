@@ -34,7 +34,7 @@ export const palette = {
   clay: '#B88368',
   cobalt: '#303990',
   castShadow: '#604936',
-  shadedPaper: '#CDB7A8',
+  shadedPaper: '#E6D9CF',
 };
 
 const castShadowStyle: ViewStyle = Platform.select({

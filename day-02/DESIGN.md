@@ -10,7 +10,7 @@ colors:
   muted-clay: "#B88368"
   deep-cobalt: "#303990"
   sunlit-paper: "#FFFDF4"
-  shaded-wall: "#CDB7A8"
+  shaded-wall: "#E6D9CF"
   cast-shadow: "#604936"
 components:
   mobile-stage:
@@ -46,7 +46,7 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Charcoal, Matte Bone, Muted Clay, and Deep Cobalt identify the weights through a small, earthy palette with cobalt as the only cool counterpoint.
 
-**The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF4`) at the left, Warm Paper through the middle, and Shaded Wall (`#CDB7A8`) at the right. Do not introduce unrelated texture or dark-mode inversion.
+**The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
 **The Cobalt Rarity Rule.** Reserve cobalt for the semicircle and star so it remains the sculpture's crisp counterweight rather than a general accent.
 
