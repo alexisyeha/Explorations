@@ -32,7 +32,7 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 - Six softly projected abstract shadow marks across an 18–56 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
-- Continuous 360° wind-driven rotation with irregular drift and sway, with Reduce Motion respected
+- Roughly 90° wind-driven back-and-forth swing with irregular drift and sway, with Reduce Motion respected
 - Edge-to-edge presentation with no visible chrome
 - A bright-left, pale-right warm wall receiving only the mobile's cast shadow
 
@@ -54,9 +54,9 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. As the unseen mobile turns from broadside to edge-on, the projection breathes between 2.2 and 3.7 points of blur and 0.34–0.54 opacity.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. As the unseen mobile swings across its 90° arc, the projection breathes gently between approximately 2.2 and 2.8 points of blur and 0.48–0.54 opacity.
 
-The mobile completes one uninterrupted 360° axial turn approximately every 28 seconds. A UI-thread frame clock advances the angle continuously with no timing-animation restart; the asymmetric gust signal modulates forward speed between 90% and 110%. A 22-second slow current and 15.6-second cross-current add ±1.8° sway and eight points of horizontal drift without reversing the turn. The complete shadow narrows naturally as it passes edge-on and returns broadside twice per revolution; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion. Blur and 3D transform live on separate compositing layers to prevent edge-on or loop-boundary flashing.
+The mobile eases from −45° to +45° in 8.6 seconds, then reverses through the same arc for a 17.2-second round trip. A 22-second slow current and 15.6-second cross-current softly disturb the endpoints, while an asymmetric 12.9-second gust sequence adds ±1.8° sway and eight points of horizontal drift. The broadside shadow gently narrows toward either end of the swing; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion. Blur and 3D transform remain on separate compositing layers for stable rendering.
 
 **The Off-Camera Source Rule.** Preserve the warm wall gradient and show no crisp object, material surface, or duplicate outline. Blur is physical evidence of projection distance, not decorative glow.
 
@@ -87,7 +87,7 @@ Release velocity drives both the weight's return spring and the rods' settling i
 
 ### Motion Accessibility
 
-Reduce Motion stops the continuous revolution and holds the projection at a quiet 14° angle with a fixed 2.8-point blur. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
+Reduce Motion stops the ambient swing and holds the projection at a quiet 14° angle with a fixed 2.8-point blur. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
 
 ### Synthesized Chimes
 

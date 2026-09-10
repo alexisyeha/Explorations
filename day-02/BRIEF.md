@@ -9,7 +9,7 @@
 
 ## Interaction
 
-- The unseen mobile completes one continuous 360° turn every 28 seconds. Three overlapping wind rhythms modulate that forward rotation, drift, and sway without reversing it.
+- The unseen mobile swings through a roughly 90° axial arc, easing from about −45° to +45° and back over a 17.2-second round trip. Three overlapping wind rhythms add irregular drift and sway.
 - Six projected shadow marks are draggable and flickable. The two stacked left marks move as one thread; the three stacked right marks move as one continuous thread. Visible dimensions range from 18 to 56 points; touch targets remain at least 56 points.
 - Touch-down gives the connected rods a small pendulum nudge before any drag begins.
 - Each continuous tether and every object attached to it follow the finger together. Release velocity determines the settling impulse and the strength of a second chime.
@@ -26,7 +26,7 @@
 | Suspension | Faint projected hairlines that flex toward dragged weights | Animated blurred SVG paths |
 | Weights | Shadow masks for wedge, connected pebbles, long stone, paper tile, drop, and lozenge | Warm-charcoal SVG silhouettes |
 | Light | Bright warm wall receiving one offset mobile projection | Native gradients and bounded blur |
-| Motion | Continuous 360° axial rotation, layered wind drift, and linked pendulum impulses | Reanimated |
+| Motion | Roughly 90° back-and-forth axial swing, layered wind drift, and linked pendulum impulses | Reanimated |
 | Sound | Six short, quiet, synthetic bell partials | Local WAV assets through Expo Audio |
 
 ## Boundaries

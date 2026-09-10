@@ -15,7 +15,6 @@ import Animated, {
   Easing,
   interpolate,
   useAnimatedStyle,
-  useFrameCallback,
   useReducedMotion,
   useSharedValue,
   withRepeat,
@@ -47,8 +46,8 @@ const getWindYaw = (turn: number, long: number, cross: number) => {
   'worklet';
   return (
     turn +
-    interpolate(long, [0, 1], [-3.2, 3.4]) +
-    interpolate(cross, [0, 1], [1.4, -1.2])
+    interpolate(long, [0, 1], [-1.6, 1.8]) +
+    interpolate(cross, [0, 1], [0.7, -0.6])
   );
 };
 
@@ -250,7 +249,7 @@ export const Day02Mobile = () => {
   const { height, width } = useWindowDimensions();
   const reducedMotion = useReducedMotion();
   const playChime = useChimes();
-  const windTurn = useSharedValue(0);
+  const windTurn = useSharedValue(-45);
   const windLong = useSharedValue(0.18);
   const windCross = useSharedValue(0.72);
   const windGust = useSharedValue(0.36);
@@ -271,19 +270,6 @@ export const Day02Mobile = () => {
   const left = (width - DESIGN_WIDTH * scale) / 2;
   const top = (height - DESIGN_HEIGHT * scale) / 2;
 
-  useFrameCallback(frame => {
-    if (reducedMotion) {
-      return;
-    }
-
-    const elapsed = Math.min(frame.timeSincePreviousFrame ?? 16.67, 34);
-    const windSpeed = interpolate(windGust.get(), [0, 1], [0.9, 1.1]);
-    const nextTurn =
-      windTurn.get() + (360 / 28000) * elapsed * windSpeed;
-
-    windTurn.set(nextTurn >= 360 ? nextTurn - 360 : nextTurn);
-  });
-
   useEffect(() => {
     if (reducedMotion) {
       windTurn.set(14);
@@ -292,6 +278,18 @@ export const Day02Mobile = () => {
       windGust.set(0.5);
       return;
     }
+
+    windTurn.set(-45);
+    windTurn.set(
+      withRepeat(
+        withTiming(45, {
+          duration: 8600,
+          easing: Easing.inOut(Easing.sin),
+        }),
+        -1,
+        true,
+      ),
+    );
 
     windLong.set(
       withRepeat(
