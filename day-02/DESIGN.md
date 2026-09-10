@@ -32,7 +32,7 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 - Six softly projected abstract shadow marks across an 18–56 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
-- Layered, irregular wind-driven yaw and sway, with Reduce Motion respected
+- Continuous 360° wind-driven rotation with irregular drift and sway, with Reduce Motion respected
 - Edge-to-edge presentation with no visible chrome
 - A bright-left, pale-right warm wall receiving only the mobile's cast shadow
 
@@ -54,9 +54,9 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The projection breathes between 2.2 and 3.6 points of blur and 0.42–0.54 opacity as rotation changes its apparent distance from the wall.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. As the unseen mobile turns from broadside to edge-on, the projection breathes between 2.2 and 3.7 points of blur and 0.34–0.54 opacity.
 
-Wind motion combines three incommensurate rhythms: a 22-second axial turn, a 15.6-second cross-current, and an asymmetric 12.9-second gust sequence. Together they avoid a visible mechanical loop. The complete projection yaws roughly −14° to 14°, sways about ±1.8°, drifts horizontally by eight points, and changes projected width by seven percent; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion.
+The mobile completes one uninterrupted 360° axial turn every 28 seconds. A 22-second slow current, a 15.6-second cross-current, and an asymmetric 12.9-second gust sequence add small forward modulation, ±1.8° sway, and eight points of horizontal drift without reversing the turn. The complete shadow narrows naturally as it passes edge-on and returns broadside twice per revolution; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion. The 360°→0° reset is visually seamless because both angles represent the same orientation.
 
 **The Off-Camera Source Rule.** Preserve the warm wall gradient and show no crisp object, material surface, or duplicate outline. Blur is physical evidence of projection distance, not decorative glow.
 
@@ -87,7 +87,7 @@ Release velocity drives both the weight's return spring and the rods' settling i
 
 ### Motion Accessibility
 
-Reduce Motion holds the wind projection at a quiet neutral angle with a fixed 2.8-point blur. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
+Reduce Motion stops the continuous revolution and holds the projection at a quiet 14° angle with a fixed 2.8-point blur. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
 
 ### Synthesized Chimes
 

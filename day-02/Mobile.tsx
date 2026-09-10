@@ -240,6 +240,7 @@ export const Day02Mobile = () => {
   const { height, width } = useWindowDimensions();
   const reducedMotion = useReducedMotion();
   const playChime = useChimes();
+  const windTurn = useSharedValue(0);
   const windLong = useSharedValue(0.18);
   const windCross = useSharedValue(0.72);
   const windGust = useSharedValue(0.36);
@@ -262,11 +263,23 @@ export const Day02Mobile = () => {
 
   useEffect(() => {
     if (reducedMotion) {
+      windTurn.set(14);
       windLong.set(0.5);
       windCross.set(0.5);
       windGust.set(0.5);
       return;
     }
+
+    windTurn.set(
+      withRepeat(
+        withTiming(360, {
+          duration: 28000,
+          easing: Easing.linear,
+        }),
+        -1,
+        false,
+      ),
+    );
 
     windLong.set(
       withRepeat(
@@ -326,7 +339,7 @@ export const Day02Mobile = () => {
         false,
       ),
     );
-  }, [reducedMotion, windCross, windGust, windLong]);
+  }, [reducedMotion, windCross, windGust, windLong, windTurn]);
 
   const mobileStyle = useAnimatedStyle(() => ({
     transform: [
@@ -339,27 +352,31 @@ export const Day02Mobile = () => {
         translateY: 16 + interpolate(windGust.get(), [0, 1], [-1.5, 1.8]),
       },
       {
-        rotateY: `${interpolate(windLong.get(), [0, 1], [-12.5, 11.5]) + interpolate(windCross.get(), [0, 1], [2.2, -1.8])}deg`,
+        rotateY: `${windTurn.get() + interpolate(windLong.get(), [0, 1], [-3.2, 3.4]) + interpolate(windCross.get(), [0, 1], [1.4, -1.2])}deg`,
       },
       {
         rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 1.05]) + interpolate(windGust.get(), [0, 1], [-0.7, 0.75]) + mainImpulse.get()}deg`,
       },
-      { scaleX: interpolate(windCross.get(), [0, 1], [0.96, 1.03]) },
+      { scaleX: interpolate(windCross.get(), [0, 1], [0.985, 1.015]) },
     ],
   }));
 
-  const projectionStyle = useAnimatedStyle(() => ({
-    filter: [
-      {
-        blur: reducedMotion
-          ? 2.8
-          : interpolate(windCross.get(), [0, 1], [2.2, 3.6]),
-      },
-    ],
-    opacity: reducedMotion
-      ? 0.48
-      : interpolate(windLong.get(), [0, 1], [0.42, 0.54]),
-  }));
+  const projectionStyle = useAnimatedStyle(() => {
+    const facing = Math.abs(Math.cos((windTurn.get() * Math.PI) / 180));
+
+    return {
+      filter: [
+        {
+          blur: reducedMotion
+            ? 2.8
+            : interpolate(facing, [0, 1], [3.7, 2.2]),
+        },
+      ],
+      opacity: reducedMotion
+        ? 0.48
+        : interpolate(facing, [0, 1], [0.34, 0.54]),
+    };
+  });
 
   return (
     <View

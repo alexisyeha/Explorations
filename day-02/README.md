@@ -4,4 +4,4 @@ A portrait iPhone prototype showing only the living wall-shadow of an off-camera
 
 The visible shapes range from 18 to 56 points. Their interactive hit areas remain at least 56 points—even when the structure fits itself onto a shorter iPhone—so the composition can stay delicate without becoming difficult to touch. A touch gives the bars a small physical nudge; dragging flexes the illustrated wire and transfers a larger impulse through the structure.
 
-A warm ivory wall shifts gently from bright left to pale right. The source mobile never enters the frame: a softly blurred warm-charcoal projection changes opacity and focus as layered wind rhythms turn the unseen structure.
+A warm ivory wall shifts gently from bright left to pale right. The source mobile never enters the frame: a softly blurred warm-charcoal projection completes a continuous 360° turn every 28 seconds while layered wind rhythms vary its drift, sway, opacity, and focus.
