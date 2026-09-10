@@ -1,9 +1,9 @@
 /*
-THESIS: A phone becomes a quiet hanging sculpture; the screen refuses controls and explanatory chrome.
-OWN-WORLD: Warm sunlit paper, a softly shaded wall, hairline suspension wire, browned-brass rods, and six flat storybook silhouettes.
-STORY: The mobile is already breathing in a quiet field of warm light. Catching one small character moves its structure, then reveals a private chime.
-FIRST VIEWPORT: A shortened suspension lifts the asymmetric arch and its two character chains into the upper half of the field.
-FORM: Concept-roll seed 8038761e; approved composition A with a shortened top line; source comp .impeccable/mocks/day-02-a.png.
+THESIS: A sparse hand-drawn illustration quietly behaves like a real mobile; no interface chrome or simulated realism competes with the drawing.
+OWN-WORLD: Warm ivory, fine brown ink-like curves, tiny looped joins, and six muted abstract color marks.
+STORY: The drawing is already breathing. Catching one mark bends its wire, moves the connected structure, and reveals a private chime.
+FIRST VIEWPORT: A short crooked arch and smaller wavering bar suspend six tiny asymmetric forms high within generous blank paper.
+FORM: User-confirmed living-illustration refinement of composition A; seed 8038761e retains the two-level topology.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 */
 import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -25,17 +25,20 @@ import Svg, { Path } from 'react-native-svg';
 import { useChimes } from './audio';
 import { DESIGN_HEIGHT, DESIGN_WIDTH } from './physics';
 import {
-  BreadHorseWeight,
-  HuggingHorsesWeight,
+  ApricotDropWeight,
+  ConnectedPebblesWeight,
   InteractiveWeight,
-  JumpingHorseWeight,
-  KettleHorseWeight,
-  LongHorseWeight,
-  MoonGlancingHorseWeight,
   palette,
+  RedLozengeWeight,
+  SageWedgeWeight,
+  TanPaperWeight,
+  WarmGrayStoneWeight,
 } from './shapes';
 
-const topRodPath = 'M105 168 C124 81 244 58 286 140';
+const topRodPath =
+  'M104 168 C112 139 126 103 148 85 C164 72 181 78 197 76 C224 73 249 88 263 110 C272 124 279 136 287 141';
+const topThreadPath = 'M195 0 C193 20 198 43 195 77';
+const topLoopPath = 'M195 76 C189 77 189 85 195 88 C201 86 201 78 195 76 Z';
 
 const AmbientSunlight = () => (
   <View pointerEvents="none" style={StyleSheet.absoluteFill}>
@@ -60,14 +63,66 @@ const AmbientSunlight = () => (
   </View>
 );
 
-const TopRod = () => (
+const TopStructure = () => (
   <Svg height={DESIGN_HEIGHT} pointerEvents="none" width={DESIGN_WIDTH}>
+    <Path
+      d={topThreadPath}
+      fill="none"
+      stroke={palette.thread}
+      strokeLinecap="round"
+      strokeWidth={0.9}
+    />
+    <Path
+      d={topLoopPath}
+      fill="none"
+      stroke={palette.rod}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.05}
+    />
     <Path
       d={topRodPath}
       fill="none"
       stroke={palette.rod}
       strokeLinecap="round"
-      strokeWidth={2.15}
+      strokeLinejoin="round"
+      strokeWidth={1.55}
+    />
+  </Svg>
+);
+
+const LowerWire = () => (
+  <Svg height={450} pointerEvents="none" width={190}>
+    <Path
+      d="M51 0 C48 25 54 58 51 88"
+      fill="none"
+      stroke={palette.thread}
+      strokeLinecap="round"
+      strokeWidth={0.9}
+    />
+    <Path
+      d="M51 87 C46 88 46 95 51 97 C56 95 56 89 51 87 Z"
+      fill="none"
+      stroke={palette.rod}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.05}
+    />
+    <Path
+      d="M20 92 C49 89 68 96 93 92 C117 88 143 95 166 90"
+      fill="none"
+      stroke={palette.rod}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.45}
+    />
+    <Path
+      d="M20 89 C15 90 15 97 20 99 C25 97 25 91 20 89 Z M93 89 C88 90 88 97 93 99 C98 97 98 91 93 89 Z"
+      fill="none"
+      stroke={palette.rod}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1}
     />
   </Svg>
 );
@@ -96,58 +151,57 @@ const LowerAssembly = ({
 
   return (
     <Animated.View style={[styles.lowerAssembly, style]}>
-      <View pointerEvents="none" style={styles.lowerRod} />
-      <View pointerEvents="none" style={styles.lowerSuspension} />
+      <LowerWire />
 
       <InteractiveWeight
-        accessibilityLabel="Small green kettle horse"
+        accessibilityLabel="Small sage wedge"
         anchorX={20}
         anchorY={92}
-        height={68}
+        height={28}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
         secondaryImpulse={lowerImpulse}
         stageScale={stageScale}
         tone="clay"
-        width={74}
-        x={-17}
+        width={30}
+        x={5}
         y={162}>
-        <KettleHorseWeight />
+        <SageWedgeWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Black and cream hugging horses"
+        accessibilityLabel="Three connected charcoal pebbles"
         anchorX={93}
         anchorY={92}
-        height={58}
+        height={54}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
         secondaryImpulse={lowerImpulse}
         stageScale={stageScale}
         tone="dots"
-        width={86}
-        x={50}
+        width={22}
+        x={82}
         y={176}>
-        <HuggingHorsesWeight />
+        <ConnectedPebblesWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Long gray horse with stars"
+        accessibilityLabel="Long warm gray stone"
         anchorX={93}
         anchorY={92}
-        height={38}
+        height={18}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
         secondaryImpulse={lowerImpulse}
         stageScale={stageScale}
         tone="cobalt"
-        width={100}
-        x={43}
+        width={56}
+        x={65}
         y={302}>
-        <LongHorseWeight />
+        <WarmGrayStoneWeight />
       </InteractiveWeight>
     </Animated.View>
   );
@@ -210,8 +264,7 @@ export const Day02Mobile = () => {
           },
         ]}>
         <Animated.View style={[styles.mobile, mobileStyle]}>
-          <TopRod />
-          <View pointerEvents="none" style={styles.topThread} />
+          <TopStructure />
 
           <LowerAssembly
             idle={idle}
@@ -222,51 +275,51 @@ export const Day02Mobile = () => {
           />
 
           <InteractiveWeight
-            accessibilityLabel="Moon-glancing horse"
+            accessibilityLabel="Small tan paper stone"
             anchorX={286}
             anchorY={140}
-            height={90}
+            height={30}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="crescent"
-            width={78}
-            x={247}
+            width={30}
+            x={271}
             y={322}>
-            <MoonGlancingHorseWeight />
+            <TanPaperWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Small orange bread horse"
+            accessibilityLabel="Small apricot drop"
             anchorX={286}
-            anchorY={412}
-            height={55}
+            anchorY={352}
+            height={36}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="pebble"
-            width={80}
-            x={246}
+            width={28}
+            x={272}
             y={482}>
-            <BreadHorseWeight />
+            <ApricotDropWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Red jumping horse with golden wings"
+            accessibilityLabel="Small red lozenge"
             anchorX={286}
-            anchorY={564}
-            height={54}
+            anchorY={518}
+            height={18}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="star"
-            width={94}
-            x={239}
+            width={50}
+            x={261}
             y={630}>
-            <JumpingHorseWeight />
+            <RedLozengeWeight />
           </InteractiveWeight>
         </Animated.View>
       </View>
@@ -282,24 +335,6 @@ const styles = StyleSheet.create({
     top: 168,
     transformOrigin: '51px 0px',
     width: 190,
-  },
-  lowerRod: {
-    backgroundColor: palette.rod,
-    borderRadius: 2,
-    height: 2.1,
-    left: 20,
-    position: 'absolute',
-    top: 91,
-    width: 146,
-  },
-  lowerSuspension: {
-    backgroundColor: palette.thread,
-    height: 92,
-    left: 50.5,
-    opacity: 0.72,
-    position: 'absolute',
-    top: 0,
-    width: 1,
   },
   mobile: {
     height: DESIGN_HEIGHT,
@@ -317,14 +352,5 @@ const styles = StyleSheet.create({
     backgroundColor: palette.shadedPaper,
     flex: 1,
     overflow: 'hidden',
-  },
-  topThread: {
-    backgroundColor: palette.thread,
-    height: 81,
-    left: 194.5,
-    opacity: 0.72,
-    position: 'absolute',
-    top: 0,
-    width: 1,
   },
 });

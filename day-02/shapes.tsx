@@ -1,4 +1,4 @@
-import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ReactNode, useMemo } from 'react';
 
@@ -6,12 +6,14 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   cancelAnimation,
   SharedValue,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withSequence,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import Svg, { Path } from 'react-native-svg';
 import { scheduleOnRN } from 'react-native-worklets';
 
 import {
@@ -24,15 +26,13 @@ import {
 
 import type { ChimeId } from './audio';
 
+const AnimatedPath = Animated.createAnimatedComponent(Path);
+
 export const palette = {
   paper: '#F7F4EC',
   thread: '#8D8578',
   rod: '#5A4B33',
   charcoal: '#423D35',
-  bone: '#E2D8C8',
-  clay: '#B88368',
-  cobalt: '#303990',
-  castShadow: '#604936',
   shadedPaper: '#E6D9CF',
   sage: '#9DA77A',
   warmGray: '#777169',
@@ -73,32 +73,33 @@ const Tether = ({
   targetX: number;
   targetY: number;
 }) => {
-  const baseLength = Math.max(1, targetY - anchorY);
-  const style = useAnimatedStyle(() => {
-    const dx = targetX + dragX.get() - anchorX;
-    const dy = targetY + dragY.get() - anchorY;
-    const length = Math.sqrt(dx * dx + dy * dy);
-    const angle = -Math.atan2(dx, dy);
+  const restBend = Math.round(anchorX + targetY) % 2 === 0 ? 2.4 : -2.4;
+  const animatedProps = useAnimatedProps(() => {
+    const endX = targetX + dragX.get();
+    const endY = targetY + dragY.get();
+    const dx = endX - anchorX;
+    const dy = endY - anchorY;
+    const pull = clamp(dx * 0.12, -9, 9);
 
     return {
-      transform: [{ rotateZ: `${angle}rad` }, { scaleY: length / baseLength }],
+      d: `M ${anchorX} ${anchorY} C ${anchorX + restBend + pull * 0.25} ${anchorY + dy * 0.31}, ${endX - restBend + pull * 0.35} ${anchorY + dy * 0.71}, ${endX} ${endY}`,
     };
   });
 
   return (
-    <Animated.View
+    <Svg
+      height="100%"
       pointerEvents="none"
-      style={[
-        styles.tether,
-        {
-          height: baseLength,
-          left: anchorX - 0.5,
-          top: anchorY,
-          transformOrigin: '50% 0%',
-        },
-        style,
-      ]}
-    />
+      style={StyleSheet.absoluteFill}
+      width="100%">
+      <AnimatedPath
+        animatedProps={animatedProps}
+        fill="none"
+        stroke={palette.thread}
+        strokeLinecap="round"
+        strokeWidth={0.9}
+      />
+    </Svg>
   );
 };
 
@@ -303,77 +304,63 @@ export const InteractiveWeight = ({
   );
 };
 
-const CharacterWeight = ({
-  color,
-  source,
-}: {
-  color: string;
-  source: ImageSourcePropType;
-}) => (
-  <Image
-    fadeDuration={0}
-    resizeMode="contain"
-    source={source}
-    style={styles.character}
-    tintColor={color}
-  />
+export const SageWedgeWeight = () => (
+  <Svg height={28} viewBox="0 0 30 28" width={30}>
+    <Path
+      d="M3 21 C5 16 7 10 10 4 C11 2 13 3 15 5 L28 19 C29 21 27 23 25 24 L9 27 C6 27 4 25 3 21 Z"
+      fill={palette.sage}
+    />
+  </Svg>
 );
 
-export const KettleHorseWeight = () => (
-  <CharacterWeight
-    color={palette.sage}
-    source={require('./assets/characters/kettle-horse.png')}
-  />
+export const ConnectedPebblesWeight = () => (
+  <Svg height={54} viewBox="0 0 22 54" width={22}>
+    <Path
+      d="M11 1 C17 1 20 5 19 11 C19 15 17 17 14 19 C19 20 21 24 20 29 C20 33 17 36 14 37 C18 39 20 42 19 47 C18 52 14 54 9 53 C4 53 1 49 2 44 C2 40 5 37 8 36 C4 35 2 31 2 27 C2 23 5 19 8 18 C4 16 2 13 3 9 C3 4 6 1 11 1 Z"
+      fill={palette.charcoal}
+    />
+  </Svg>
 );
 
-export const HuggingHorsesWeight = () => (
-  <CharacterWeight
-    color={palette.charcoal}
-    source={require('./assets/characters/hugging-horses.png')}
-  />
+export const WarmGrayStoneWeight = () => (
+  <Svg height={18} viewBox="0 0 56 18" width={56}>
+    <Path
+      d="M3 11 C5 6 12 4 20 4 C28 3 35 5 42 4 C49 4 54 7 53 11 C52 15 46 16 38 15 C30 16 25 14 18 15 C10 16 4 15 3 11 Z"
+      fill={palette.warmGray}
+    />
+  </Svg>
 );
 
-export const LongHorseWeight = () => (
-  <CharacterWeight
-    color={palette.warmGray}
-    source={require('./assets/characters/long-horse.png')}
-  />
+export const TanPaperWeight = () => (
+  <Svg height={30} viewBox="0 0 30 30" width={30}>
+    <Path
+      d="M6 5 C11 2 20 3 24 7 C28 11 26 20 22 25 C18 29 9 27 5 23 C1 19 2 9 6 5 Z"
+      fill={palette.tan}
+    />
+  </Svg>
 );
 
-export const MoonGlancingHorseWeight = () => (
-  <CharacterWeight
-    color={palette.tan}
-    source={require('./assets/characters/moon-glancing-horse.png')}
-  />
+export const ApricotDropWeight = () => (
+  <Svg height={36} viewBox="0 0 28 36" width={28}>
+    <Path
+      d="M15 2 C17 8 24 13 25 20 C27 27 22 34 15 35 C8 35 3 31 3 25 C2 19 7 15 10 11 C12 8 12 4 15 2 Z"
+      fill={palette.apricot}
+    />
+  </Svg>
 );
 
-export const BreadHorseWeight = () => (
-  <CharacterWeight
-    color={palette.apricot}
-    source={require('./assets/characters/bread-horse.png')}
-  />
-);
-
-export const JumpingHorseWeight = () => (
-  <CharacterWeight
-    color={palette.storyRed}
-    source={require('./assets/characters/jumping-horse.png')}
-  />
+export const RedLozengeWeight = () => (
+  <Svg height={18} viewBox="0 0 50 18" width={50}>
+    <Path
+      d="M3 9 C6 4 13 4 20 5 C27 5 31 3 38 4 C44 4 48 7 47 11 C46 15 39 16 32 15 C25 14 20 16 13 15 C7 15 3 13 3 9 Z"
+      fill={palette.storyRed}
+    />
+  </Svg>
 );
 
 const styles = StyleSheet.create({
-  character: {
-    height: '100%',
-    width: '100%',
-  },
   hitTarget: {
     position: 'absolute',
-  },
-  tether: {
-    backgroundColor: palette.thread,
-    opacity: 0.72,
-    position: 'absolute',
-    width: 1,
   },
   weightCast: {
     position: 'absolute',

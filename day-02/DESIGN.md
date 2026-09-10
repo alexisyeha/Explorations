@@ -1,17 +1,18 @@
 ---
-name: Day 002 — Mobile
-description: A quiet, touch-responsive mobile of flat storybook silhouettes on a warm ivory field.
+name: Day 002 — Living Mobile Illustration
+description: A sparse hand-drawn mobile illustration that responds with real connected motion.
 colors:
   warm-paper: "#F7F4EC"
   suspension-thread: "#8D8578"
   browned-brass-rod: "#5A4B33"
   charcoal: "#423D35"
-  matte-bone: "#E2D8C8"
-  muted-clay: "#B88368"
-  deep-cobalt: "#303990"
+  muted-sage: "#9DA77A"
+  warm-gray: "#777169"
+  soft-tan: "#B89173"
+  apricot: "#DE965C"
+  story-red: "#BD554D"
   sunlit-paper: "#FFFDF4"
   shaded-wall: "#E6D9CF"
-  cast-shadow: "#604936"
 components:
   mobile-stage:
     backgroundColor: "{colors.warm-paper}"
@@ -25,17 +26,17 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Breathing Gallery Mobile"**
+**Creative North Star: "The Living Mobile Drawing"**
 
-Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. A delicate two-rod mobile of six storybook horse characters hangs high in an uninterrupted paper field and is already moving when encountered. Catching any character briefly reveals the sculpture's connected physics through motion, a private chime, and a soft haptic.
+Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. It first reads as a sparse hand-drawn illustration: two crooked ink-like bars, bowed suspension lines, tiny looped joins, and six abstract color marks floating high in uninterrupted paper. Catching any mark reveals that the drawing also behaves as a connected physical mobile through motion, a private chime, and a soft haptic.
 
-The approved form is concept-roll seed `8038761e`: composition A with a noticeably shortened, asymmetric top arch. It extends Day 001's quiet, tactile world by preserving the exact same Warm Paper canvas while replacing literary ink with a restrained material palette of thread, browned brass, charcoal, bone, clay, and cobalt.
+The approved form retains concept-roll seed `8038761e`'s two-level topology, refined through the user's living-illustration direction. It extends Day 001's quiet world by preserving the Warm Paper canvas while replacing realistic material cues with thin drawn curves and a restrained set of flat abstract marks.
 
 **Key Characteristics:**
 
 - Warm Paper continuity with Day 001, transformed by late-afternoon light
-- Short bowed top arch plus one fine straight lower rod
-- Six flat, single-color horse silhouettes across a 28–100 point visual range
+- Short, irregular top arch plus one shallow, wavering lower bar
+- Six flat, single-color abstract marks across an 18–56 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Slow idle yaw and sway, with Reduce Motion respected
@@ -44,23 +45,23 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 ## Colors
 
-Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Muted sage, charcoal, warm gray, tan, apricot, and red give each silhouette its own identity without internal decoration.
+Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass gives the hand-bent bars slightly more presence without making them look metallic. Muted sage, charcoal, warm gray, tan, apricot, and red give each abstract mark its own identity without internal decoration.
 
 **The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
-**The Single-Ink Rule.** Each character uses exactly one flat color. Preserve the varied palette across the set, but remove pencil grain, interior marks, outlines, and multicolor details.
+**The Single-Ink Rule.** Each abstract object uses exactly one flat color. Preserve the varied palette across the set, but remove grain, interior marks, outlines, and multicolor details.
 
 ## Layout
 
-Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: a short 81-point thread descends from the top center to the raised arch; a compact 92-point middle thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper remains active, but the character section lives noticeably higher than the earlier textured version.
+Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole drawing remains visible: a short curved thread descends from the top center to the raised arch; a compact bowed middle thread supports the left-offset wavering bar; the longer right chain descends through three tiny marks. Empty paper is active, while the full object section remains high in the viewport.
 
-The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 28–100 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
+The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 18–56 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
 
 **The Continuous Fit Rule.** Fit the complete 390 × 844 stage from current width and height; do not crop, rearrange, or shrink the weights into hard-to-touch miniatures for a particular phone.
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. Characters, rods, and threads remain completely shadowless. Depth comes only from linked motion and overlap, never from blur, glow, texture, or simulated material thickness.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. Objects, bars, and threads remain completely shadowless. Depth comes only from linked motion and overlap, never from blur, glow, texture, or simulated material thickness.
 
 During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
 
@@ -68,18 +69,18 @@ During idle, the complete mobile yaws gently in perspective between −5.5° and
 
 ## Shapes
 
-The top rod is a fine, rounded bowed stroke: shorter than the original approved comp, asymmetric, and visually balanced rather than geometrically centered. The lower rod is a 146-point straight hairline offset left. Warm-gray suspension lines stay at one point with reduced opacity and stretch or rotate continuously to follow a dragged weight.
+The top bar is a fine multi-curve stroke whose rise, plateau, and falling shoulder are deliberately unequal. The lower bar is a shallow 146-point wavering curve rather than a straight line. Tiny imperfect loops appear only at meaningful balance and hanging points. Suspension lines are subtle S-curves at rest and flex toward the finger during drag.
 
 The six weight roles are fixed:
 
-- **Kettle Horse:** a small sage horse whose round body forms a kettle beneath a loop handle.
-- **Hugging Horses:** one charcoal and one cream horse leaning together as a single connected cutout.
-- **Long Horse:** an elongated warm-gray running horse scattered with cream stars.
-- **Moon-glancing Horse:** a seated tan horse looking toward its tiny golden moon.
-- **Bread Horse:** a plump apricot horse with a loaf-like body and short legs.
-- **Jumping Horse:** a red flying horse with golden wings, mane, and three stars.
+- **Sage Wedge:** a soft, uneven 30 × 28 point triangular scrap.
+- **Connected Pebbles:** a narrow 22 × 54 point charcoal chain of three joined lobes.
+- **Warm-gray Stone:** a long, low 56 × 18 point organic pebble.
+- **Tan Paper:** a compact 30-point irregular rounded tile.
+- **Apricot Drop:** a 28 × 36 point asymmetrical suspended droplet.
+- **Red Lozenge:** a long, low 50 × 18 point organic dash.
 
-**The Six-Character Rule.** Preserve these six identities, solid silhouettes, and intentionally uneven scale; do not replace them with the earlier geometric weights, restore internal texture, add ornaments, or introduce a third rod.
+**The Illustrated Mobile Rule.** The screen must read first as a sparse drawing and second as a working mobile. Preserve the six abstract identities, uneven scale, curved bars, and drawn joins; do not restore characters, perfect geometry, thick rods, or simulated realism.
 
 ## Components
 
@@ -97,7 +98,7 @@ Reduce Motion removes the continuous idle yaw and sway. Interaction remains avai
 
 ### Synthesized Chimes
 
-Each character maps to one locally generated, 1.35-second mono bell tone: Kettle Horse → C5 (523.25Hz), Hugging Horses → E5 (659.25Hz), Long Horse → G4 (392Hz), Moon-glancing Horse → G5 (783.99Hz), Bread Horse → A5 (880Hz), and Jumping Horse → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
+Each mark maps to one locally generated, 1.35-second mono bell tone: Sage Wedge → C5 (523.25Hz), Connected Pebbles → E5 (659.25Hz), Warm-gray Stone → G4 (392Hz), Tan Paper → G5 (783.99Hz), Apricot Drop → A5 (880Hz), and Red Lozenge → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
 
 Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes with other playback, does not continue in the background, and respects the device silent switch. Sound and haptics are feedback for touch; they never become ambient audio.
 
@@ -108,15 +109,15 @@ Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes 
 ### Do:
 
 - **Do** preserve the exact Day 001 Warm Paper field and let it remain visually uninterrupted.
-- **Do** retain approved composition A's shortened top arch, left-offset second rod, and long right chain.
-- **Do** preserve the 28–100 point weight range and 56-point minimum touch areas through inverse scaling.
+- **Do** retain the shortened top arch, left-offset second bar, long right chain, and raised composition.
+- **Do** preserve the 18–56 point visual range and 56-point minimum touch areas through inverse scaling.
 - **Do** keep touch, tether movement, linked impulses, chime, and haptic synchronized as one material response.
 - **Do** honor Reduce Motion and the device silent switch.
-- **Do** keep characters, rods, and threads completely free of shadows and texture.
+- **Do** keep objects, bars, and threads completely free of shadows and texture.
 
 ### Don't:
 
 - **Don't** add titles, instructions, buttons, cards, navigation, status chrome, or persistent controls.
 - **Don't** add glass, photographic texture, extra rods, extra weights, cast shadows, or decorative glows.
-- **Don't** flatten the six characters into equal sizing or restore thick, textured material treatment.
+- **Don't** flatten the six marks into equal sizing or restore characters, perfect geometry, or thick material treatment.
 - **Don't** make idle movement conspicuous, release behavior bouncy, or audio louder than the quiet 0.30 cap.
