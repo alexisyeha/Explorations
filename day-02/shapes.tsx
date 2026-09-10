@@ -1,11 +1,4 @@
-import {
-  Image,
-  ImageSourcePropType,
-  Platform,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 
 import { ReactNode, useMemo } from 'react';
 
@@ -41,31 +34,12 @@ export const palette = {
   cobalt: '#303990',
   castShadow: '#604936',
   shadedPaper: '#E6D9CF',
+  sage: '#9DA77A',
+  warmGray: '#777169',
+  tan: '#B89173',
+  apricot: '#DE965C',
+  storyRed: '#BD554D',
 };
-
-const castShadowStyle: ViewStyle = Platform.select({
-  default: {
-    shadowColor: palette.castShadow,
-    shadowOffset: { height: 24, width: -20 },
-    shadowOpacity: 0.28,
-    shadowRadius: 11,
-  },
-  web: {
-    filter: 'drop-shadow(-20px 24px 10px rgba(73, 50, 34, 0.30))',
-  },
-}) as ViewStyle;
-
-const threadCastShadowStyle: ViewStyle = Platform.select({
-  default: {
-    shadowColor: palette.castShadow,
-    shadowOffset: { height: 8, width: -6 },
-    shadowOpacity: 0.14,
-    shadowRadius: 3,
-  },
-  web: {
-    filter: 'drop-shadow(-6px 8px 3px rgba(73, 50, 34, 0.14))',
-  },
-}) as ViewStyle;
 
 type WeightProps = {
   accessibilityLabel: string;
@@ -116,7 +90,6 @@ const Tether = ({
       pointerEvents="none"
       style={[
         styles.tether,
-        threadCastShadowStyle,
         {
           height: baseLength,
           left: anchorX - 0.5,
@@ -315,7 +288,6 @@ export const InteractiveWeight = ({
             pointerEvents="none"
             style={[
               styles.weightCast,
-              castShadowStyle,
               {
                 height,
                 left: (hitWidth - width) / 2,
@@ -331,39 +303,62 @@ export const InteractiveWeight = ({
   );
 };
 
-const CharacterWeight = ({ source }: { source: ImageSourcePropType }) => (
+const CharacterWeight = ({
+  color,
+  source,
+}: {
+  color: string;
+  source: ImageSourcePropType;
+}) => (
   <Image
     fadeDuration={0}
     resizeMode="contain"
     source={source}
     style={styles.character}
+    tintColor={color}
   />
 );
 
 export const KettleHorseWeight = () => (
-  <CharacterWeight source={require('./assets/characters/kettle-horse.png')} />
+  <CharacterWeight
+    color={palette.sage}
+    source={require('./assets/characters/kettle-horse.png')}
+  />
 );
 
 export const HuggingHorsesWeight = () => (
-  <CharacterWeight source={require('./assets/characters/hugging-horses.png')} />
+  <CharacterWeight
+    color={palette.charcoal}
+    source={require('./assets/characters/hugging-horses.png')}
+  />
 );
 
 export const LongHorseWeight = () => (
-  <CharacterWeight source={require('./assets/characters/long-horse.png')} />
+  <CharacterWeight
+    color={palette.warmGray}
+    source={require('./assets/characters/long-horse.png')}
+  />
 );
 
 export const MoonGlancingHorseWeight = () => (
   <CharacterWeight
+    color={palette.tan}
     source={require('./assets/characters/moon-glancing-horse.png')}
   />
 );
 
 export const BreadHorseWeight = () => (
-  <CharacterWeight source={require('./assets/characters/bread-horse.png')} />
+  <CharacterWeight
+    color={palette.apricot}
+    source={require('./assets/characters/bread-horse.png')}
+  />
 );
 
 export const JumpingHorseWeight = () => (
-  <CharacterWeight source={require('./assets/characters/jumping-horse.png')} />
+  <CharacterWeight
+    color={palette.storyRed}
+    source={require('./assets/characters/jumping-horse.png')}
+  />
 );
 
 const styles = StyleSheet.create({

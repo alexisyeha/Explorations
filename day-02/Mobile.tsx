@@ -1,19 +1,12 @@
 /*
 THESIS: A phone becomes a quiet hanging sculpture; the screen refuses controls and explanatory chrome.
-OWN-WORLD: Warm sunlit paper, a softly shaded wall, hairline suspension wire, browned-brass rods, matte bone, clay, charcoal, and one cobalt counterweight.
-STORY: The mobile is already breathing in a shaft of late-afternoon light. Catching one small weight moves both its structure and its cast shadow, then reveals a private chime.
-FIRST VIEWPORT: A short asymmetric arch hangs high across a bright-left, shaded-right field, feeding a small left rod and a longer right chain across generous negative space.
+OWN-WORLD: Warm sunlit paper, a softly shaded wall, hairline suspension wire, browned-brass rods, and six flat storybook silhouettes.
+STORY: The mobile is already breathing in a quiet field of warm light. Catching one small character moves its structure, then reveals a private chime.
+FIRST VIEWPORT: A shortened suspension lifts the asymmetric arch and its two character chains into the upper half of the field.
 FORM: Concept-roll seed 8038761e; approved composition A with a shortened top line; source comp .impeccable/mocks/day-02-a.png.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 */
-import {
-  Platform,
-  StatusBar,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
 
 import { useEffect } from 'react';
 
@@ -42,19 +35,7 @@ import {
   palette,
 } from './shapes';
 
-const topRodPath = 'M105 238 C124 151 244 128 286 210';
-
-const fineCastShadowStyle: ViewStyle = Platform.select({
-  default: {
-    shadowColor: palette.castShadow,
-    shadowOffset: { height: 8, width: -6 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3.5,
-  },
-  web: {
-    filter: 'drop-shadow(-6px 8px 3px rgba(73, 50, 34, 0.16))',
-  },
-}) as ViewStyle;
+const topRodPath = 'M105 168 C124 81 244 58 286 140';
 
 const AmbientSunlight = () => (
   <View pointerEvents="none" style={StyleSheet.absoluteFill}>
@@ -115,14 +96,8 @@ const LowerAssembly = ({
 
   return (
     <Animated.View style={[styles.lowerAssembly, style]}>
-      <View
-        pointerEvents="none"
-        style={[styles.lowerRod, fineCastShadowStyle]}
-      />
-      <View
-        pointerEvents="none"
-        style={[styles.lowerSuspension, fineCastShadowStyle]}
-      />
+      <View pointerEvents="none" style={styles.lowerRod} />
+      <View pointerEvents="none" style={styles.lowerSuspension} />
 
       <InteractiveWeight
         accessibilityLabel="Small green kettle horse"
@@ -236,10 +211,7 @@ export const Day02Mobile = () => {
         ]}>
         <Animated.View style={[styles.mobile, mobileStyle]}>
           <TopRod />
-          <View
-            pointerEvents="none"
-            style={[styles.topThread, fineCastShadowStyle]}
-          />
+          <View pointerEvents="none" style={styles.topThread} />
 
           <LowerAssembly
             idle={idle}
@@ -252,7 +224,7 @@ export const Day02Mobile = () => {
           <InteractiveWeight
             accessibilityLabel="Moon-glancing horse"
             anchorX={286}
-            anchorY={210}
+            anchorY={140}
             height={90}
             mainImpulse={mainImpulse}
             onChime={playChime}
@@ -261,14 +233,14 @@ export const Day02Mobile = () => {
             tone="crescent"
             width={78}
             x={247}
-            y={392}>
+            y={322}>
             <MoonGlancingHorseWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
             accessibilityLabel="Small orange bread horse"
             anchorX={286}
-            anchorY={482}
+            anchorY={412}
             height={55}
             mainImpulse={mainImpulse}
             onChime={playChime}
@@ -277,14 +249,14 @@ export const Day02Mobile = () => {
             tone="pebble"
             width={80}
             x={246}
-            y={552}>
+            y={482}>
             <BreadHorseWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
             accessibilityLabel="Red jumping horse with golden wings"
             anchorX={286}
-            anchorY={634}
+            anchorY={564}
             height={54}
             mainImpulse={mainImpulse}
             onChime={playChime}
@@ -293,7 +265,7 @@ export const Day02Mobile = () => {
             tone="star"
             width={94}
             x={239}
-            y={700}>
+            y={630}>
             <JumpingHorseWeight />
           </InteractiveWeight>
         </Animated.View>
@@ -307,7 +279,7 @@ const styles = StyleSheet.create({
     height: 450,
     left: 54,
     position: 'absolute',
-    top: 238,
+    top: 168,
     transformOrigin: '51px 0px',
     width: 190,
   },
@@ -348,7 +320,7 @@ const styles = StyleSheet.create({
   },
   topThread: {
     backgroundColor: palette.thread,
-    height: 151,
+    height: 81,
     left: 194.5,
     opacity: 0.72,
     position: 'absolute',

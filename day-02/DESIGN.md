@@ -1,6 +1,6 @@
 ---
 name: Day 002 — Mobile
-description: A quiet, touch-responsive hanging sculpture on the same warm paper field as Day 001.
+description: A quiet, touch-responsive mobile of flat storybook silhouettes on a warm ivory field.
 colors:
   warm-paper: "#F7F4EC"
   suspension-thread: "#8D8578"
@@ -35,24 +35,24 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 - Warm Paper continuity with Day 001, transformed by late-afternoon light
 - Short bowed top arch plus one fine straight lower rod
-- Six tiny hand-drawn paper horse characters across a 28–100 point visual range
+- Six flat, single-color horse silhouettes across a 28–100 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Slow idle yaw and sway, with Reduce Motion respected
 - Edge-to-edge presentation with no visible chrome
-- A bright-left, shaded-right sun field and soft down-left cast shadows
+- A bright-left, pale-right warm field with no cast shadows
 
 ## Colors
 
-Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Muted sage, charcoal, cream, warm gray, apricot, and red live inside visible colored-pencil strokes rather than flat material fills.
+Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Muted sage, charcoal, warm gray, tan, apricot, and red give each silhouette its own identity without internal decoration.
 
 **The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
-**The Handmade Color Rule.** Let color remain uneven, quiet, and visibly built from pencil strokes over cream paper. No character should read as a smooth digital fill.
+**The Single-Ink Rule.** Each character uses exactly one flat color. Preserve the varied palette across the set, but remove pencil grain, interior marks, outlines, and multicolor details.
 
 ## Layout
 
-Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: one near-invisible thread descends from the top center to the upper-third arch; a second thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper is an active part of the balance.
+Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: a short 81-point thread descends from the top center to the raised arch; a second thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper remains active, but the character section lives noticeably higher than the earlier textured version.
 
 The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 28–100 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
 
@@ -60,11 +60,11 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm light field creates the depth system: high-key paper at the left transitions through the original warm field into a muted shaded wall at the right. Every weight carries a down-left shadow with a real offset and soft penumbra; its shadow remains attached while the weight is touched, dragged, or settling. Fine rods and suspension threads receive a lighter version of the same shadow. There are no independent halos, card shadows, or decorative glows.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. Characters, rods, and threads remain completely shadowless. Depth comes only from linked motion and overlap, never from blur, glow, texture, or simulated material thickness.
 
 During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
 
-**The Window-Light Rule.** All depth must agree with one light source above and to the left: bright field on the left, shaded field on the right, and warm cast shadows displaced down and left. Preserve thin paper texture; do not add simulated gloss, carved edges, or object-by-object lighting effects.
+**The Flat Silhouette Rule.** Preserve the warm wall gradient, but keep every hanging element visually flat. Do not add cast shadows, ambient occlusion, glow, texture, gloss, or carved edges.
 
 ## Shapes
 
@@ -79,7 +79,7 @@ The six weight roles are fixed:
 - **Bread Horse:** a plump apricot horse with a loaf-like body and short legs.
 - **Jumping Horse:** a red flying horse with golden wings, mane, and three stars.
 
-**The Six-Character Rule.** Preserve these six identities, visible pencil grain, thin cream paper edges, and intentionally uneven scale; do not replace them with the earlier geometric weights, add ornaments, or introduce a third rod.
+**The Six-Character Rule.** Preserve these six identities, solid silhouettes, and intentionally uneven scale; do not replace them with the earlier geometric weights, restore internal texture, add ornaments, or introduce a third rod.
 
 ## Components
 
@@ -112,11 +112,11 @@ Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes 
 - **Do** preserve the 28–100 point weight range and 56-point minimum touch areas through inverse scaling.
 - **Do** keep touch, tether movement, linked impulses, chime, and haptic synchronized as one material response.
 - **Do** honor Reduce Motion and the device silent switch.
-- **Do** keep every cast shadow soft, directionally consistent, and attached to its moving weight.
+- **Do** keep characters, rods, and threads completely free of shadows and texture.
 
 ### Don't:
 
 - **Don't** add titles, instructions, buttons, cards, navigation, status chrome, or persistent controls.
-- **Don't** add glass, photographic texture, extra rods, extra weights, or any gradient/shadow outside the single natural-light system.
-- **Don't** flatten the six characters into equal sizing, smooth vector silhouettes, or thick wood-like objects.
+- **Don't** add glass, photographic texture, extra rods, extra weights, cast shadows, or decorative glows.
+- **Don't** flatten the six characters into equal sizing or restore thick, textured material treatment.
 - **Don't** make idle movement conspicuous, release behavior bouncy, or audio louder than the quiet 0.30 cap.

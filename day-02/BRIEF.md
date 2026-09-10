@@ -3,7 +3,7 @@
 ## Scope
 
 - Visitor mode: Experience. A viewer encounters one full-screen kinetic artwork on an iPhone and explores it through direct touch.
-- Job: make a digital mobile feel delicate, interconnected, and materially believable without adding visible interface controls. Warm directional sunlight should reveal its physical depth.
+- Job: make a digital mobile feel delicate and interconnected without adding visible interface controls. Flat silhouettes keep the characters quiet and immediately legible.
 - Approved direction: composition A from `.impeccable/mocks/day-02-a.png`, modified with a shorter top arch.
 - Memorable moment: catching one tiny paper horse transfers momentum into both rods, wakes its neighbors, and reveals that character's quiet chime.
 
@@ -20,17 +20,17 @@
 
 | Ingredient | Commitment | Medium |
 | --- | --- | --- |
-| Field | Edge-to-edge warm paper crossed by a bright-left, shaded-right sunlight field, with no chrome | Layered native gradients |
+| Field | Edge-to-edge warm ivory with a restrained bright-left, pale-right tonal shift and no chrome | Layered native gradients |
 | Primary rod | Short, asymmetric bowed line in the upper third | SVG path |
 | Secondary rod | Fine straight rod offset left | Native view |
 | Suspension | Hairline warm-gray threads that follow dragged weights | Animated native views |
-| Weights | Kettle horse, hugging horses, long horse, moon-glancing horse, bread horse, jumping horse | Transparent hand-drawn paper cutouts |
-| Light | Late-afternoon directional sun with soft, down-left cast shadows attached to moving weights | Platform shadows and drop-shadow filters |
+| Weights | Kettle horse, hugging horses, long horse, moon-glancing horse, bread horse, jumping horse | Single-color transparent silhouettes |
+| Light | Warm ambient wall color without object, rod, or thread shadows | Native gradients |
 | Motion | Slow shared yaw plus linked pendulum impulses | Reanimated |
 | Sound | Six short, quiet, synthetic bell partials | Local WAV assets through Expo Audio |
 
 ## Boundaries
 
 - Portrait iPhone prototype; responsive fitting preserves the whole sculpture while inverse-scaling its weights and hit areas so their 28–100 point visual range and 56-point targets survive on shorter screens.
-- No title, instructions, controls, cards, navigation, glass, or photorealistic objects. Gradient and shadow are reserved for the single natural-light system.
+- No title, instructions, controls, cards, navigation, glass, texture, or shadows.
 - Day 001 assets and routes remain untouched. Expo Router points to `day-02/app`, where the prototype owns its full-screen entry and gesture host.
