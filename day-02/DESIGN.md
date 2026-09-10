@@ -3,14 +3,7 @@ name: Day 002 — Living Mobile Illustration
 description: A sparse hand-drawn mobile illustration that responds with real connected motion.
 colors:
   warm-paper: "#F7F4EC"
-  suspension-thread: "#8D8578"
-  browned-brass-rod: "#5A4B33"
-  charcoal: "#423D35"
-  muted-sage: "#9DA77A"
-  warm-gray: "#777169"
-  soft-tan: "#B89173"
-  apricot: "#DE965C"
-  story-red: "#BD554D"
+  mobile-silhouette: "#171511"
   sunlit-paper: "#FFFDF4"
   shaded-wall: "#E6D9CF"
 components:
@@ -28,7 +21,7 @@ components:
 
 **Creative North Star: "The Living Mobile Drawing"**
 
-Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. It first reads as a sparse hand-drawn illustration: two crooked ink-like bars, bowed suspension lines, tiny looped joins, and six abstract color marks floating high in uninterrupted paper. Catching any mark reveals that the drawing also behaves as a connected physical mobile through motion, a private chime, and a soft haptic.
+Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. It first reads as the black silhouette of a sparse hand-drawn mobile: two crooked ink-like bars, bowed suspension lines, tiny looped joins, and six abstract marks floating high in uninterrupted paper. Catching any mark reveals that the silhouette also behaves as a connected physical mobile through motion, a private chime, and a soft haptic.
 
 The approved form retains concept-roll seed `8038761e`'s two-level topology, refined through the user's living-illustration direction. It extends Day 001's quiet world by preserving the Warm Paper canvas while replacing realistic material cues with thin drawn curves and a restrained set of flat abstract marks.
 
@@ -36,7 +29,7 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 
 - Warm Paper continuity with Day 001, transformed by late-afternoon light
 - Short, irregular top arch plus one shallow, wavering lower bar
-- Six flat, single-color abstract marks across an 18–56 point visual range
+- Six flat black abstract marks across an 18–56 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Slow idle yaw and sway, with Reduce Motion respected
@@ -45,11 +38,11 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 
 ## Colors
 
-Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass gives the hand-bent bars slightly more presence without making them look metallic. Muted sage, charcoal, warm gray, tan, apricot, and red give each abstract mark its own identity without internal decoration.
+Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Every physical part of the mobile—thread, rod, loop, and hanging mark—uses one warm near-black ink. Identity comes from outline, size, placement, motion, and chime rather than color.
 
 **The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
-**The Single-Ink Rule.** Each abstract object uses exactly one flat color. Preserve the varied palette across the set, but remove grain, interior marks, outlines, and multicolor details.
+**The Single-Ink Rule.** The complete mobile uses one flat near-black (`#171511`). Do not distinguish objects through color, grain, interior marks, outlines, or material effects.
 
 ## Layout
 
@@ -71,14 +64,14 @@ During idle, the complete mobile yaws gently in perspective between −5.5° and
 
 The top bar is a fine multi-curve stroke whose rise, plateau, and falling shoulder are deliberately unequal. The lower bar is a shallow 146-point wavering curve rather than a straight line. Tiny imperfect loops appear only at meaningful balance and hanging points. Suspension lines are subtle S-curves at rest and flex toward the finger during drag.
 
-The six weight roles are fixed:
+The six black silhouette roles are fixed:
 
-- **Sage Wedge:** a soft, uneven 30 × 28 point triangular scrap.
-- **Connected Pebbles:** a narrow 22 × 54 point charcoal chain of three joined lobes.
-- **Warm-gray Stone:** a long, low 56 × 18 point organic pebble.
-- **Tan Paper:** a compact 30-point irregular rounded tile.
-- **Apricot Drop:** a 28 × 36 point asymmetrical suspended droplet.
-- **Red Lozenge:** a long, low 50 × 18 point organic dash.
+- **Wedge:** a soft, uneven 30 × 28 point triangular scrap.
+- **Connected Pebbles:** a narrow 22 × 54 point chain of three joined lobes.
+- **Long Stone:** a long, low 56 × 18 point organic pebble.
+- **Paper Form:** a compact 30-point irregular rounded tile.
+- **Drop:** a 28 × 36 point asymmetrical suspended droplet.
+- **Lozenge:** a long, low 50 × 18 point organic dash.
 
 **The Illustrated Mobile Rule.** The screen must read first as a sparse drawing and second as a working mobile. Preserve the six abstract identities, uneven scale, curved bars, and drawn joins; do not restore characters, perfect geometry, thick rods, or simulated realism.
 
@@ -98,7 +91,7 @@ Reduce Motion removes the continuous idle yaw and sway. Interaction remains avai
 
 ### Synthesized Chimes
 
-Each mark maps to one locally generated, 1.35-second mono bell tone: Sage Wedge → C5 (523.25Hz), Connected Pebbles → E5 (659.25Hz), Warm-gray Stone → G4 (392Hz), Tan Paper → G5 (783.99Hz), Apricot Drop → A5 (880Hz), and Red Lozenge → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
+Each mark maps to one locally generated, 1.35-second mono bell tone: Wedge → C5 (523.25Hz), Connected Pebbles → E5 (659.25Hz), Long Stone → G4 (392Hz), Paper Form → G5 (783.99Hz), Drop → A5 (880Hz), and Lozenge → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
 
 Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes with other playback, does not continue in the background, and respects the device silent switch. Sound and haptics are feedback for touch; they never become ambient audio.
 

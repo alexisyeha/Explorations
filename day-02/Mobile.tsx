@@ -69,14 +69,14 @@ const TopStructure = () => (
     <Path
       d={topThreadPath}
       fill="none"
-      stroke={palette.thread}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeWidth={0.9}
     />
     <Path
       d={topLoopPath}
       fill="none"
-      stroke={palette.rod}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.05}
@@ -84,7 +84,7 @@ const TopStructure = () => (
     <Path
       d={topRodPath}
       fill="none"
-      stroke={palette.rod}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.55}
@@ -97,14 +97,14 @@ const LowerWire = () => (
     <Path
       d="M51 0 C48 25 54 58 51 88"
       fill="none"
-      stroke={palette.thread}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeWidth={0.9}
     />
     <Path
       d="M51 87 C46 88 46 95 51 97 C56 95 56 89 51 87 Z"
       fill="none"
-      stroke={palette.rod}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.05}
@@ -112,7 +112,7 @@ const LowerWire = () => (
     <Path
       d="M20 92 C49 89 68 96 93 92 C117 88 143 95 166 90"
       fill="none"
-      stroke={palette.rod}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.45}
@@ -120,7 +120,7 @@ const LowerWire = () => (
     <Path
       d="M20 89 C15 90 15 97 20 99 C25 97 25 91 20 89 Z M93 89 C88 90 88 97 93 99 C98 97 98 91 93 89 Z"
       fill="none"
-      stroke={palette.rod}
+      stroke={palette.silhouette}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1}
@@ -176,7 +176,7 @@ const LowerAssembly = ({
       />
 
       <InteractiveWeight
-        accessibilityLabel="Small sage wedge"
+        accessibilityLabel="Small triangular silhouette"
         anchorX={20}
         anchorY={92}
         height={28}
@@ -193,7 +193,7 @@ const LowerAssembly = ({
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Three connected charcoal pebbles"
+        accessibilityLabel="Three connected round silhouettes"
         anchorX={93}
         anchorY={92}
         height={54}
@@ -212,7 +212,7 @@ const LowerAssembly = ({
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Long warm gray stone"
+        accessibilityLabel="Long low silhouette"
         anchorX={93}
         anchorY={92}
         height={18}
@@ -323,7 +323,7 @@ export const Day02Mobile = () => {
           />
 
           <InteractiveWeight
-            accessibilityLabel="Small tan paper stone"
+            accessibilityLabel="Small rounded silhouette"
             anchorX={286}
             anchorY={140}
             height={30}
@@ -341,7 +341,7 @@ export const Day02Mobile = () => {
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Small apricot drop"
+            accessibilityLabel="Small drop silhouette"
             anchorX={286}
             anchorY={352}
             height={36}
@@ -359,7 +359,7 @@ export const Day02Mobile = () => {
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Small red lozenge"
+            accessibilityLabel="Small lozenge silhouette"
             anchorX={286}
             anchorY={518}
             height={18}
