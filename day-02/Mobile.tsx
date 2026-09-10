@@ -15,6 +15,7 @@ import Animated, {
   Easing,
   interpolate,
   useAnimatedStyle,
+  useFrameCallback,
   useReducedMotion,
   useSharedValue,
   withRepeat,
@@ -41,6 +42,15 @@ const topRodPath =
   'M104 168 C112 139 126 103 148 85 C164 72 181 78 197 76 C224 73 249 88 263 110 C272 124 279 136 287 141';
 const topThreadPath = 'M195 0 C193 20 198 43 195 77';
 const topLoopPath = 'M195 76 C189 77 189 85 195 88 C201 86 201 78 195 76 Z';
+
+const getWindYaw = (turn: number, long: number, cross: number) => {
+  'worklet';
+  return (
+    turn +
+    interpolate(long, [0, 1], [-3.2, 3.4]) +
+    interpolate(cross, [0, 1], [1.4, -1.2])
+  );
+};
 
 const AmbientSunlight = () => (
   <View pointerEvents="none" style={StyleSheet.absoluteFill}>
@@ -261,6 +271,19 @@ export const Day02Mobile = () => {
   const left = (width - DESIGN_WIDTH * scale) / 2;
   const top = (height - DESIGN_HEIGHT * scale) / 2;
 
+  useFrameCallback(frame => {
+    if (reducedMotion) {
+      return;
+    }
+
+    const elapsed = Math.min(frame.timeSincePreviousFrame ?? 16.67, 34);
+    const windSpeed = interpolate(windGust.get(), [0, 1], [0.9, 1.1]);
+    const nextTurn =
+      windTurn.get() + (360 / 28000) * elapsed * windSpeed;
+
+    windTurn.set(nextTurn >= 360 ? nextTurn - 360 : nextTurn);
+  });
+
   useEffect(() => {
     if (reducedMotion) {
       windTurn.set(14);
@@ -269,17 +292,6 @@ export const Day02Mobile = () => {
       windGust.set(0.5);
       return;
     }
-
-    windTurn.set(
-      withRepeat(
-        withTiming(360, {
-          duration: 28000,
-          easing: Easing.linear,
-        }),
-        -1,
-        false,
-      ),
-    );
 
     windLong.set(
       withRepeat(
@@ -352,7 +364,11 @@ export const Day02Mobile = () => {
         translateY: 16 + interpolate(windGust.get(), [0, 1], [-1.5, 1.8]),
       },
       {
-        rotateY: `${windTurn.get() + interpolate(windLong.get(), [0, 1], [-3.2, 3.4]) + interpolate(windCross.get(), [0, 1], [1.4, -1.2])}deg`,
+        rotateY: `${getWindYaw(
+          windTurn.get(),
+          windLong.get(),
+          windCross.get(),
+        )}deg`,
       },
       {
         rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 1.05]) + interpolate(windGust.get(), [0, 1], [-0.7, 0.75]) + mainImpulse.get()}deg`,
@@ -362,7 +378,12 @@ export const Day02Mobile = () => {
   }));
 
   const projectionStyle = useAnimatedStyle(() => {
-    const facing = Math.abs(Math.cos((windTurn.get() * Math.PI) / 180));
+    const yaw = getWindYaw(
+      windTurn.get(),
+      windLong.get(),
+      windCross.get(),
+    );
+    const facing = Math.abs(Math.cos((yaw * Math.PI) / 180));
 
     return {
       filter: [
@@ -394,82 +415,84 @@ export const Day02Mobile = () => {
           },
         ]}>
         <Animated.View
-          style={[styles.mobile, styles.shadowProjection, mobileStyle, projectionStyle]}>
-          <TopStructure />
+          style={[styles.mobile, styles.shadowProjection, projectionStyle]}>
+          <Animated.View style={[styles.mobile, mobileStyle]}>
+            <TopStructure />
 
-          <LowerAssembly
-            mainImpulse={mainImpulse}
-            onChime={playChime}
-            reducedMotion={reducedMotion}
-            stageScale={scale}
-            windCross={windCross}
-            windLong={windLong}
-          />
+            <LowerAssembly
+              mainImpulse={mainImpulse}
+              onChime={playChime}
+              reducedMotion={reducedMotion}
+              stageScale={scale}
+              windCross={windCross}
+              windLong={windLong}
+            />
 
-          <LinkedTether
-            anchorX={286}
-            anchorY={140}
-            motion={rightMotion}
-            points={[
-              { x: 286, y: 322 },
-              { x: 286, y: 482 },
-              { x: 286, y: 630 },
-            ]}
-          />
+            <LinkedTether
+              anchorX={286}
+              anchorY={140}
+              motion={rightMotion}
+              points={[
+                { x: 286, y: 322 },
+                { x: 286, y: 482 },
+                { x: 286, y: 630 },
+              ]}
+            />
 
-          <InteractiveWeight
-            accessibilityLabel="Small rounded shadow"
-            anchorX={286}
-            anchorY={140}
-            height={30}
-            hideTether
-            linkedMotion={rightMotion}
-            mainImpulse={mainImpulse}
-            onChime={playChime}
-            reducedMotion={reducedMotion}
-            stageScale={scale}
-            tone="crescent"
-            width={30}
-            x={271}
-            y={322}>
-            <TanPaperWeight />
-          </InteractiveWeight>
+            <InteractiveWeight
+              accessibilityLabel="Small rounded shadow"
+              anchorX={286}
+              anchorY={140}
+              height={30}
+              hideTether
+              linkedMotion={rightMotion}
+              mainImpulse={mainImpulse}
+              onChime={playChime}
+              reducedMotion={reducedMotion}
+              stageScale={scale}
+              tone="crescent"
+              width={30}
+              x={271}
+              y={322}>
+              <TanPaperWeight />
+            </InteractiveWeight>
 
-          <InteractiveWeight
-            accessibilityLabel="Small drop shadow"
-            anchorX={286}
-            anchorY={352}
-            height={36}
-            hideTether
-            linkedMotion={rightMotion}
-            mainImpulse={mainImpulse}
-            onChime={playChime}
-            reducedMotion={reducedMotion}
-            stageScale={scale}
-            tone="pebble"
-            width={28}
-            x={272}
-            y={482}>
-            <ApricotDropWeight />
-          </InteractiveWeight>
+            <InteractiveWeight
+              accessibilityLabel="Small drop shadow"
+              anchorX={286}
+              anchorY={352}
+              height={36}
+              hideTether
+              linkedMotion={rightMotion}
+              mainImpulse={mainImpulse}
+              onChime={playChime}
+              reducedMotion={reducedMotion}
+              stageScale={scale}
+              tone="pebble"
+              width={28}
+              x={272}
+              y={482}>
+              <ApricotDropWeight />
+            </InteractiveWeight>
 
-          <InteractiveWeight
-            accessibilityLabel="Small lozenge shadow"
-            anchorX={286}
-            anchorY={518}
-            height={18}
-            hideTether
-            linkedMotion={rightMotion}
-            mainImpulse={mainImpulse}
-            onChime={playChime}
-            reducedMotion={reducedMotion}
-            stageScale={scale}
-            tone="star"
-            width={50}
-            x={261}
-            y={630}>
-            <RedLozengeWeight />
-          </InteractiveWeight>
+            <InteractiveWeight
+              accessibilityLabel="Small lozenge shadow"
+              anchorX={286}
+              anchorY={518}
+              height={18}
+              hideTether
+              linkedMotion={rightMotion}
+              mainImpulse={mainImpulse}
+              onChime={playChime}
+              reducedMotion={reducedMotion}
+              stageScale={scale}
+              tone="star"
+              width={50}
+              x={261}
+              y={630}>
+              <RedLozengeWeight />
+            </InteractiveWeight>
+          </Animated.View>
         </Animated.View>
       </View>
     </View>
@@ -486,6 +509,7 @@ const styles = StyleSheet.create({
     width: 190,
   },
   mobile: {
+    backfaceVisibility: 'visible',
     height: DESIGN_HEIGHT,
     position: 'absolute',
     transformOrigin: '195px 0px',
