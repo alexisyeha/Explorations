@@ -33,6 +33,7 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Roughly 90° wind-driven back-and-forth swing with irregular drift and sway, with Reduce Motion respected
+- Sparse sun-caustic pools and prismatic flecks drifting behind the projected mobile
 - Edge-to-edge presentation with no visible chrome
 - A bright-left, pale-right warm wall receiving only the mobile's cast shadow
 
@@ -54,7 +55,7 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The complete projection uses a fixed 2.6-point blur and 0.5 opacity so its fine illustrated wires stay visually stable while moving.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. A restrained field of warm caustic pools and three tiny prismatic flecks moves behind the shadow on its own 28-second current, suggesting sunlight passing through glass. The caustics use a fixed, rasterized blur and freeze under Reduce Motion. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The complete projection uses a fixed 2.6-point blur and 0.5 opacity so its fine illustrated wires stay visually stable while moving.
 
 The mobile follows one continuous 17.2-second wind phase. From that single phase it swings between −45° and +45°, drifts a few points laterally and vertically, and picks up a faint harmonic roll. The lower assembly follows the same current with a small phase delay, preserving the sense of connected weight without creating a competing animation clock. Touch impulses add to the wind rather than replacing it, then return through restrained, well-damped springs. Blur and 3D transform remain on separate compositing layers for stable rendering.
 
@@ -79,11 +80,11 @@ The six projected shadow roles are fixed:
 
 ### Interactive Weight
 
-Each weight is draggable and accessible as a labeled button. The two vertically stacked left weights share one motion state and one continuous tether; the three vertically stacked right weights share a second motion state and continuous tether. Touching any member moves every object on its thread together while the touched shape retains its own quiet chime, soft haptic, and 3.5% contact enlargement. Horizontal drag also transfers bounded rotation and sway into the main rod and, for the three left weights, the lower rod.
+Each weight is draggable and accessible as a labeled button. The two vertically stacked left weights and three vertically stacked right weights each follow one continuous tether, but every pierced paper shape owns a separate hinge and motion state. Touching one member pulls it fully while neighboring shapes receive smaller distance-based impulses; the tether redraws through every moving attachment point so its segments flex instead of translating as a rigid column. Each shape also carries its own wind phase, rotation, quiet chime, soft haptic, and 3.5% contact enlargement. Horizontal drag transfers bounded sway into the main rod and, for the two lower-assembly weights, the lower rod.
 
 Release velocity drives both the weight's return spring and the rods' settling impulse. A sufficiently energetic release plays a second instance of the same chime, with loudness derived from velocity. The weight return is lighter and quicker than the deliberately loose shared-rod sway; neither interaction should feel like a UI spring or a celebratory bounce.
 
-**The Connected Touch Rule.** Touching one shape must disturb its supporting structure. Objects drawn on the same vertical thread must share displacement and settling motion, so the sculpture never breaks into independent draggable stickers.
+**The Connected Touch Rule.** Touching one shape must disturb its supporting structure. Objects drawn on the same vertical thread remain mechanically related, but they must not move as a rigid group: each pivots from its own pierced attachment, responds with a distinct lag, and passes a reduced impulse to its neighbors.
 
 ### Motion Accessibility
 

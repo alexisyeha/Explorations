@@ -39,6 +39,7 @@ type WeightProps = {
   anchorX: number;
   anchorY: number;
   children: ReactNode;
+  coupledMotions?: MotionCoupling[];
   height: number;
   linkedMotion?: LinkedMotion;
   mainImpulse: SharedValue<number>;
@@ -48,6 +49,9 @@ type WeightProps = {
   stageScale: number;
   tone: ChimeId;
   width: number;
+  windAmplitude?: number;
+  windOffset?: number;
+  windPhase?: SharedValue<number>;
   x: number;
   y: number;
   hideTether?: boolean;
@@ -59,7 +63,16 @@ export type LinkedMotion = {
   rotation: SharedValue<number>;
 };
 
+export type MotionCoupling = {
+  influence: number;
+  motion: LinkedMotion;
+  rotationDirection?: number;
+};
+
 type TetherPoint = {
+  motion: LinkedMotion;
+  windAmplitude?: number;
+  windOffset?: number;
   x: number;
   y: number;
 };
@@ -112,28 +125,38 @@ const Tether = ({
 export const LinkedTether = ({
   anchorX,
   anchorY,
-  motion,
   points,
+  reducedMotion,
+  windPhase,
 }: {
   anchorX: number;
   anchorY: number;
-  motion: LinkedMotion;
   points: TetherPoint[];
+  reducedMotion: boolean;
+  windPhase: SharedValue<number>;
 }) => {
   const animatedProps = useAnimatedProps(() => {
-    const dragX = motion.dragX.get();
-    const dragY = motion.dragY.get();
+    const windAngle = windPhase.get() * Math.PI * 2;
     let path = `M ${anchorX} ${anchorY}`;
     let startX = anchorX;
     let startY = anchorY;
 
     for (let index = 0; index < points.length; index += 1) {
       const point = points[index];
-      const endX = point.x + dragX;
-      const endY = point.y + dragY;
+      const windAmplitude = reducedMotion ? 0 : (point.windAmplitude ?? 0);
+      const windOffset = point.windOffset ?? 0;
+      const ambientX = windAmplitude * Math.sin(windAngle - windOffset);
+      const ambientY =
+        windAmplitude * 0.16 * Math.sin(windAngle * 2 + windOffset);
+      const endX = point.x + point.motion.dragX.get() + ambientX;
+      const endY = point.y + point.motion.dragY.get() + ambientY;
       const dy = endY - startY;
       const restingBend = index % 2 === 0 ? 2.6 : -2.2;
-      const pull = clamp(dragX * (0.11 + index * 0.025), -10, 10);
+      const pull = clamp(
+        point.motion.dragX.get() * (0.11 + index * 0.025) + ambientX * 0.5,
+        -10,
+        10,
+      );
 
       path += ` C ${startX + restingBend + pull * 0.24} ${startY + dy * 0.31}, ${endX - restingBend + pull * 0.34} ${startY + dy * 0.7}, ${endX} ${endY}`;
       startX = endX;
@@ -165,6 +188,7 @@ export const InteractiveWeight = ({
   anchorX,
   anchorY,
   children,
+  coupledMotions = [],
   height,
   hideTether = false,
   linkedMotion,
@@ -175,6 +199,9 @@ export const InteractiveWeight = ({
   stageScale,
   tone,
   width,
+  windAmplitude = 0,
+  windOffset = 0,
+  windPhase,
   x,
   y,
 }: WeightProps) => {
@@ -201,6 +228,16 @@ export const InteractiveWeight = ({
       mainImpulse.set(
         withSequence(withTiming(mainPeak, { duration: 140 }), returnAnimation),
       );
+      rotation.set(
+        withSequence(
+          withTiming(tapDirection * (reducedMotion ? 1 : 2.8), {
+            duration: 140,
+          }),
+          reducedMotion
+            ? withTiming(0, reducedMotionTiming)
+            : withSpring(0, weightReturnSpring),
+        ),
+      );
 
       if (secondaryImpulse) {
         const secondaryPeak = tapDirection * (reducedMotion ? 0.45 : 1.15);
@@ -214,7 +251,7 @@ export const InteractiveWeight = ({
         );
       }
     },
-    [mainImpulse, reducedMotion, secondaryImpulse, tapDirection],
+    [mainImpulse, reducedMotion, rotation, secondaryImpulse, tapDirection],
   );
 
   const settle = useMemo(
@@ -243,6 +280,12 @@ export const InteractiveWeight = ({
         .onBegin(() => {
           cancelAnimation(dragX);
           cancelAnimation(dragY);
+          cancelAnimation(rotation);
+          for (const coupling of coupledMotions) {
+            cancelAnimation(coupling.motion.dragX);
+            cancelAnimation(coupling.motion.dragY);
+            cancelAnimation(coupling.motion.rotation);
+          }
           pressed.set(withTiming(1, { duration: 90 }));
           nudge();
           scheduleOnRN(onChime, tone, 0.24);
@@ -255,6 +298,31 @@ export const InteractiveWeight = ({
           if (secondaryImpulse) {
             secondaryImpulse.set(clamp(event.translationX * 0.075, -9, 9));
           }
+          for (const coupling of coupledMotions) {
+            const coupledX = clamp(
+              event.translationX * coupling.influence,
+              -72,
+              72,
+            );
+            const coupledY = clamp(
+              event.translationY * coupling.influence * 0.72,
+              -52,
+              76,
+            );
+            const rotationDirection = coupling.rotationDirection ?? 1;
+            coupling.motion.dragX.set(coupledX);
+            coupling.motion.dragY.set(coupledY);
+            coupling.motion.rotation.set(
+              clamp(
+                event.translationX *
+                  0.18 *
+                  coupling.influence *
+                  rotationDirection,
+                -10,
+                10,
+              ),
+            );
+          }
         })
         .onEnd(event => {
           const releaseVelocityX = clamp(event.velocityX, -900, 900);
@@ -265,6 +333,20 @@ export const InteractiveWeight = ({
           settle(dragX, releaseVelocityX);
           settle(dragY, releaseVelocityY);
           settle(rotation, releaseVelocityX / 50);
+          for (const coupling of coupledMotions) {
+            settle(
+              coupling.motion.dragX,
+              releaseVelocityX * coupling.influence * 0.72,
+            );
+            settle(
+              coupling.motion.dragY,
+              releaseVelocityY * coupling.influence * 0.52,
+            );
+            settle(
+              coupling.motion.rotation,
+              (releaseVelocityX * coupling.influence) / 72,
+            );
+          }
 
           if (reducedMotion) {
             mainImpulse.set(withTiming(0, reducedMotionTiming));
@@ -298,6 +380,7 @@ export const InteractiveWeight = ({
     [
       dragX,
       dragY,
+      coupledMotions,
       mainImpulse,
       nudge,
       onChime,
@@ -310,14 +393,28 @@ export const InteractiveWeight = ({
     ],
   );
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: dragX.get() },
-      { translateY: dragY.get() },
-      { rotateZ: `${rotation.get()}deg` },
-      { scale: (1 + pressed.get() * 0.035) / Math.max(stageScale, 0.1) },
-    ],
-  }));
+  const animatedStyle = useAnimatedStyle(() => {
+    const windAngle = (windPhase?.get() ?? 0) * Math.PI * 2;
+    const ambientX = reducedMotion
+      ? 0
+      : windAmplitude * Math.sin(windAngle - windOffset);
+    const ambientY = reducedMotion
+      ? 0
+      : windAmplitude * 0.16 * Math.sin(windAngle * 2 + windOffset);
+    const hingeSway = reducedMotion
+      ? 0
+      : (0.8 + windAmplitude * 0.36) * Math.sin(windAngle - windOffset - 0.32) +
+        0.24 * Math.sin(windAngle * 2 + windOffset);
+
+    return {
+      transform: [
+        { translateX: dragX.get() + ambientX },
+        { translateY: dragY.get() + ambientY },
+        { rotateZ: `${rotation.get() + hingeSway}deg` },
+        { scale: (1 + pressed.get() * 0.035) / Math.max(stageScale, 0.1) },
+      ],
+    };
+  });
 
   return (
     <>
@@ -347,6 +444,7 @@ export const InteractiveWeight = ({
               height: hitHeight,
               left: x + (width - hitWidth) / 2,
               top: y + (height - hitHeight) / 2,
+              transformOrigin: `${hitWidth / 2}px ${(hitHeight - height) / 2 + 2}px`,
               width: hitWidth,
             },
             animatedStyle,
