@@ -102,7 +102,7 @@ const LowerAssembly = ({
       <InteractiveWeight
         accessibilityLabel="Small green kettle horse"
         anchorX={20}
-        anchorY={148}
+        anchorY={92}
         height={68}
         mainImpulse={mainImpulse}
         onChime={onChime}
@@ -112,14 +112,14 @@ const LowerAssembly = ({
         tone="clay"
         width={74}
         x={-17}
-        y={218}>
+        y={162}>
         <KettleHorseWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
         accessibilityLabel="Black and cream hugging horses"
         anchorX={93}
-        anchorY={148}
+        anchorY={92}
         height={58}
         mainImpulse={mainImpulse}
         onChime={onChime}
@@ -129,14 +129,14 @@ const LowerAssembly = ({
         tone="dots"
         width={86}
         x={50}
-        y={232}>
+        y={176}>
         <HuggingHorsesWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
         accessibilityLabel="Long gray horse with stars"
         anchorX={93}
-        anchorY={148}
+        anchorY={92}
         height={38}
         mainImpulse={mainImpulse}
         onChime={onChime}
@@ -146,7 +146,7 @@ const LowerAssembly = ({
         tone="cobalt"
         width={100}
         x={43}
-        y={358}>
+        y={302}>
         <LongHorseWeight />
       </InteractiveWeight>
     </Animated.View>
@@ -289,12 +289,12 @@ const styles = StyleSheet.create({
     height: 2.1,
     left: 20,
     position: 'absolute',
-    top: 147,
+    top: 91,
     width: 146,
   },
   lowerSuspension: {
     backgroundColor: palette.thread,
-    height: 148,
+    height: 92,
     left: 50.5,
     opacity: 0.72,
     position: 'absolute',

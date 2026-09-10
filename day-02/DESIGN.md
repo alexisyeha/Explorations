@@ -52,7 +52,7 @@ Warm Paper is the uninterrupted field and the continuity anchor between Days 001
 
 ## Layout
 
-Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: a short 81-point thread descends from the top center to the raised arch; a second thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper remains active, but the character section lives noticeably higher than the earlier textured version.
+Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: a short 81-point thread descends from the top center to the raised arch; a compact 92-point middle thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper remains active, but the character section lives noticeably higher than the earlier textured version.
 
 The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 28–100 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
 
