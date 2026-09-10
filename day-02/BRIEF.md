@@ -10,9 +10,9 @@
 ## Interaction
 
 - The mobile breathes continuously with restrained yaw and sway.
-- Six abstract marks are independently draggable and flickable. Visible dimensions range from 18 to 56 points; touch targets remain at least 56 points.
+- Six abstract marks are draggable and flickable. The charcoal pebbles and warm-gray stone move as one left-hand thread; the tan paper, apricot drop, and red lozenge move as one continuous right-hand thread. Visible dimensions range from 18 to 56 points; touch targets remain at least 56 points.
 - Touch-down gives the connected rods a small pendulum nudge before any drag begins.
-- Tethers follow the finger. Release velocity determines the settling impulse and the strength of a second chime.
+- Each continuous tether and every object attached to it follow the finger together. Release velocity determines the settling impulse and the strength of a second chime.
 - Each shape family owns a distinct locally synthesized bell tone and a soft haptic.
 - Reduce Motion removes idle rotation and shortens settling. The device silent switch is respected.
 

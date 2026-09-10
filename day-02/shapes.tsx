@@ -47,6 +47,7 @@ type WeightProps = {
   anchorY: number;
   children: ReactNode;
   height: number;
+  linkedMotion?: LinkedMotion;
   mainImpulse: SharedValue<number>;
   onChime: (id: ChimeId, intensity?: number) => void;
   reducedMotion: boolean;
@@ -54,6 +55,18 @@ type WeightProps = {
   stageScale: number;
   tone: ChimeId;
   width: number;
+  x: number;
+  y: number;
+  hideTether?: boolean;
+};
+
+export type LinkedMotion = {
+  dragX: SharedValue<number>;
+  dragY: SharedValue<number>;
+  rotation: SharedValue<number>;
+};
+
+type TetherPoint = {
   x: number;
   y: number;
 };
@@ -103,12 +116,65 @@ const Tether = ({
   );
 };
 
+export const LinkedTether = ({
+  anchorX,
+  anchorY,
+  motion,
+  points,
+}: {
+  anchorX: number;
+  anchorY: number;
+  motion: LinkedMotion;
+  points: TetherPoint[];
+}) => {
+  const animatedProps = useAnimatedProps(() => {
+    const dragX = motion.dragX.get();
+    const dragY = motion.dragY.get();
+    let path = `M ${anchorX} ${anchorY}`;
+    let startX = anchorX;
+    let startY = anchorY;
+
+    for (let index = 0; index < points.length; index += 1) {
+      const point = points[index];
+      const endX = point.x + dragX;
+      const endY = point.y + dragY;
+      const dy = endY - startY;
+      const restingBend = index % 2 === 0 ? 2.6 : -2.2;
+      const pull = clamp(dragX * (0.11 + index * 0.025), -10, 10);
+
+      path += ` C ${startX + restingBend + pull * 0.24} ${startY + dy * 0.31}, ${endX - restingBend + pull * 0.34} ${startY + dy * 0.7}, ${endX} ${endY}`;
+      startX = endX;
+      startY = endY;
+    }
+
+    return { d: path };
+  });
+
+  return (
+    <Svg
+      height="100%"
+      pointerEvents="none"
+      style={StyleSheet.absoluteFill}
+      width="100%">
+      <AnimatedPath
+        animatedProps={animatedProps}
+        fill="none"
+        stroke={palette.thread}
+        strokeLinecap="round"
+        strokeWidth={0.9}
+      />
+    </Svg>
+  );
+};
+
 export const InteractiveWeight = ({
   accessibilityLabel,
   anchorX,
   anchorY,
   children,
   height,
+  hideTether = false,
+  linkedMotion,
   mainImpulse,
   onChime,
   reducedMotion,
@@ -119,9 +185,12 @@ export const InteractiveWeight = ({
   x,
   y,
 }: WeightProps) => {
-  const dragX = useSharedValue(0);
-  const dragY = useSharedValue(0);
-  const rotation = useSharedValue(0);
+  const localDragX = useSharedValue(0);
+  const localDragY = useSharedValue(0);
+  const localRotation = useSharedValue(0);
+  const dragX = linkedMotion?.dragX ?? localDragX;
+  const dragY = linkedMotion?.dragY ?? localDragY;
+  const rotation = linkedMotion?.rotation ?? localRotation;
   const pressed = useSharedValue(0);
 
   const hitWidth = Math.max(56, width + 20);
@@ -257,14 +326,16 @@ export const InteractiveWeight = ({
 
   return (
     <>
-      <Tether
-        anchorX={anchorX}
-        anchorY={anchorY}
-        dragX={dragX}
-        dragY={dragY}
-        targetX={x + width / 2}
-        targetY={y}
-      />
+      {!hideTether && (
+        <Tether
+          anchorX={anchorX}
+          anchorY={anchorY}
+          dragX={dragX}
+          dragY={dragY}
+          targetX={x + width / 2}
+          targetY={y}
+        />
+      )}
       <GestureDetector gesture={gesture}>
         <Animated.View
           accessibilityHint="Drag and release to move the mobile and play its chime."

@@ -86,11 +86,11 @@ The six weight roles are fixed:
 
 ### Interactive Weight
 
-Each weight is independently draggable and accessible as a labeled button. Touch-down immediately plays that weight's quiet chime, gives a soft haptic, enlarges it by 3.5%, and nudges the connected rod before the drag begins. Horizontal drag transfers bounded rotation and sway into the main rod and, for the three left weights, the lower rod. The tether remains attached and follows the finger.
+Each weight is draggable and accessible as a labeled button. The two vertically stacked left weights share one motion state and one continuous tether; the three vertically stacked right weights share a second motion state and continuous tether. Touching any member moves every object on its thread together while the touched shape retains its own quiet chime, soft haptic, and 3.5% contact enlargement. Horizontal drag also transfers bounded rotation and sway into the main rod and, for the three left weights, the lower rod.
 
 Release velocity drives both the weight's return spring and the rods' settling impulse. A sufficiently energetic release plays a second instance of the same chime, with loudness derived from velocity. The weight return is lighter and quicker than the deliberately loose shared-rod sway; neither interaction should feel like a UI spring or a celebratory bounce.
 
-**The Connected Touch Rule.** Touching one shape must disturb its supporting structure so the sculpture reads as one linked system, not six independent draggable stickers.
+**The Connected Touch Rule.** Touching one shape must disturb its supporting structure. Objects drawn on the same vertical thread must share displacement and settling motion, so the sculpture never breaks into independent draggable stickers.
 
 ### Motion Accessibility
 

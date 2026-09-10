@@ -8,7 +8,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 */
 import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -28,6 +28,7 @@ import {
   ApricotDropWeight,
   ConnectedPebblesWeight,
   InteractiveWeight,
+  LinkedTether,
   palette,
   RedLozengeWeight,
   SageWedgeWeight,
@@ -141,6 +142,17 @@ const LowerAssembly = ({
   stageScale: number;
 }) => {
   const lowerImpulse = useSharedValue(0);
+  const linkedDragX = useSharedValue(0);
+  const linkedDragY = useSharedValue(0);
+  const linkedRotation = useSharedValue(0);
+  const linkedMotion = useMemo(
+    () => ({
+      dragX: linkedDragX,
+      dragY: linkedDragY,
+      rotation: linkedRotation,
+    }),
+    [linkedDragX, linkedDragY, linkedRotation],
+  );
   const style = useAnimatedStyle(() => ({
     transform: [
       {
@@ -152,6 +164,16 @@ const LowerAssembly = ({
   return (
     <Animated.View style={[styles.lowerAssembly, style]}>
       <LowerWire />
+
+      <LinkedTether
+        anchorX={93}
+        anchorY={92}
+        motion={linkedMotion}
+        points={[
+          { x: 93, y: 176 },
+          { x: 93, y: 302 },
+        ]}
+      />
 
       <InteractiveWeight
         accessibilityLabel="Small sage wedge"
@@ -175,6 +197,8 @@ const LowerAssembly = ({
         anchorX={93}
         anchorY={92}
         height={54}
+        hideTether
+        linkedMotion={linkedMotion}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
@@ -192,6 +216,8 @@ const LowerAssembly = ({
         anchorX={93}
         anchorY={92}
         height={18}
+        hideTether
+        linkedMotion={linkedMotion}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
@@ -213,6 +239,17 @@ export const Day02Mobile = () => {
   const playChime = useChimes();
   const idle = useSharedValue(0);
   const mainImpulse = useSharedValue(0);
+  const rightDragX = useSharedValue(0);
+  const rightDragY = useSharedValue(0);
+  const rightRotation = useSharedValue(0);
+  const rightMotion = useMemo(
+    () => ({
+      dragX: rightDragX,
+      dragY: rightDragY,
+      rotation: rightRotation,
+    }),
+    [rightDragX, rightDragY, rightRotation],
+  );
 
   const scale = Math.min(width / DESIGN_WIDTH, height / DESIGN_HEIGHT);
   const left = (width - DESIGN_WIDTH * scale) / 2;
@@ -274,11 +311,24 @@ export const Day02Mobile = () => {
             stageScale={scale}
           />
 
+          <LinkedTether
+            anchorX={286}
+            anchorY={140}
+            motion={rightMotion}
+            points={[
+              { x: 286, y: 322 },
+              { x: 286, y: 482 },
+              { x: 286, y: 630 },
+            ]}
+          />
+
           <InteractiveWeight
             accessibilityLabel="Small tan paper stone"
             anchorX={286}
             anchorY={140}
             height={30}
+            hideTether
+            linkedMotion={rightMotion}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
@@ -295,6 +345,8 @@ export const Day02Mobile = () => {
             anchorX={286}
             anchorY={352}
             height={36}
+            hideTether
+            linkedMotion={rightMotion}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
@@ -311,6 +363,8 @@ export const Day02Mobile = () => {
             anchorX={286}
             anchorY={518}
             height={18}
+            hideTether
+            linkedMotion={rightMotion}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
