@@ -33,7 +33,7 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Roughly 90° wind-driven back-and-forth swing with irregular drift and sway, with Reduce Motion respected
-- Sparse sun-caustic pools and prismatic flecks drifting behind the projected mobile
+- A visible field of soft sun-caustic pools and prismatic flecks drifting behind the projected mobile
 - Edge-to-edge presentation with no visible chrome
 - A bright-left, pale-right warm wall receiving only the mobile's cast shadow
 
@@ -47,7 +47,7 @@ Warm Paper is the uninterrupted field and the continuity anchor between Days 001
 
 ## Layout
 
-Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole drawing remains visible: a short curved thread descends from the top center to the raised arch; a compact bowed middle thread supports the left-offset wavering bar; the longer right chain descends through three tiny marks. Empty paper is active, while the full object section remains high in the viewport.
+Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole drawing remains visible: a short curved thread descends from the top center to the raised arch; a compact bowed middle thread supports the left-offset wavering bar; the longer right chain descends through three tiny marks. Hanging intervals are deliberately irregular—a short drop should sit beside a visibly longer one rather than forming an even ladder. Empty paper is active, while the full object section remains high in the viewport.
 
 The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 18–56 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
 
@@ -55,7 +55,7 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. A restrained field of warm caustic pools and three tiny prismatic flecks moves behind the shadow on its own 28-second current, suggesting sunlight passing through glass. The caustics use a fixed, rasterized blur and freeze under Reduce Motion. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The complete projection uses a fixed 2.6-point blur and 0.5 opacity so its fine illustrated wires stay visually stable while moving.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. A clearly visible field of overlapping warm caustic pools—mixing broad patches with smaller bright speckles—and three tiny prismatic flecks moves behind the shadow on its own 28-second current, suggesting sunlight passing through glass. The caustics remain soft and atmospheric rather than glittery, use a fixed rasterized blur, and freeze under Reduce Motion. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The complete projection uses a fixed 2.6-point blur and 0.5 opacity so its fine illustrated wires stay visually stable while moving.
 
 The mobile follows one continuous 17.2-second wind phase. From that single phase it swings between −45° and +45°, drifts a few points laterally and vertically, and picks up a faint harmonic roll. The lower assembly follows the same current with a small phase delay, preserving the sense of connected weight without creating a competing animation clock. Touch impulses add to the wind rather than replacing it, then return through restrained, well-damped springs. Blur and 3D transform remain on separate compositing layers for stable rendering.
 

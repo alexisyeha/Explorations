@@ -99,9 +99,14 @@ const CausticField = ({
           width="100%">
           <Defs>
             <RadialGradient id="sunPool" cx="46%" cy="42%" r="58%">
-              <Stop offset="0" stopColor="#FFFDF3" stopOpacity={0.98} />
-              <Stop offset="0.54" stopColor="#FFF7D8" stopOpacity={0.7} />
+              <Stop offset="0" stopColor="#FFFFF8" stopOpacity={1} />
+              <Stop offset="0.5" stopColor="#FFF8D9" stopOpacity={0.82} />
               <Stop offset="1" stopColor="#FFF1C2" stopOpacity={0} />
+            </RadialGradient>
+            <RadialGradient id="sunSpeck" cx="48%" cy="44%" r="56%">
+              <Stop offset="0" stopColor="#FFFFFF" stopOpacity={1} />
+              <Stop offset="0.42" stopColor="#FFFBE8" stopOpacity={0.94} />
+              <Stop offset="1" stopColor="#FFEFC0" stopOpacity={0} />
             </RadialGradient>
             <SvgLinearGradient id="prism" x1="0" x2="1" y1="0.2" y2="0.8">
               <Stop offset="0" stopColor="#F4B8A7" stopOpacity={0} />
@@ -112,17 +117,37 @@ const CausticField = ({
             </SvgLinearGradient>
           </Defs>
 
-          <Ellipse cx="42" cy="136" fill="url(#sunPool)" rx="23" ry="12" />
-          <Ellipse cx="206" cy="218" fill="url(#sunPool)" rx="10" ry="6" />
-          <Ellipse cx="336" cy="286" fill="url(#sunPool)" rx="26" ry="13" />
-          <Ellipse cx="72" cy="412" fill="url(#sunPool)" rx="17" ry="10" />
-          <Ellipse cx="316" cy="516" fill="url(#sunPool)" rx="14" ry="8" />
-          <Ellipse cx="122" cy="668" fill="url(#sunPool)" rx="24" ry="13" />
-          <Ellipse cx="350" cy="746" fill="url(#sunPool)" rx="12" ry="7" />
+          <Ellipse cx="42" cy="136" fill="url(#sunPool)" rx="30" ry="16" />
+          <Ellipse cx="94" cy="92" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="150" cy="158" fill="url(#sunPool)" rx="20" ry="11" />
+          <Ellipse cx="206" cy="218" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="280" cy="132" fill="url(#sunSpeck)" rx="11" ry="6" />
+          <Ellipse cx="354" cy="194" fill="url(#sunSpeck)" rx="9" ry="5" />
+          <Ellipse cx="336" cy="286" fill="url(#sunPool)" rx="31" ry="16" />
+          <Ellipse cx="104" cy="258" fill="url(#sunPool)" rx="27" ry="15" />
+          <Ellipse cx="244" cy="326" fill="url(#sunPool)" rx="19" ry="10" />
+          <Ellipse cx="38" cy="348" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="72" cy="412" fill="url(#sunPool)" rx="22" ry="12" />
+          <Ellipse cx="350" cy="398" fill="url(#sunPool)" rx="22" ry="12" />
+          <Ellipse cx="148" cy="476" fill="url(#sunSpeck)" rx="14" ry="8" />
+          <Ellipse cx="316" cy="516" fill="url(#sunPool)" rx="18" ry="10" />
+          <Ellipse cx="254" cy="566" fill="url(#sunPool)" rx="29" ry="15" />
+          <Ellipse cx="58" cy="610" fill="url(#sunSpeck)" rx="10" ry="6" />
+          <Ellipse cx="122" cy="668" fill="url(#sunPool)" rx="29" ry="16" />
+          <Ellipse cx="186" cy="628" fill="url(#sunSpeck)" rx="17" ry="9" />
+          <Ellipse cx="340" cy="670" fill="url(#sunPool)" rx="24" ry="13" />
+          <Ellipse cx="350" cy="746" fill="url(#sunSpeck)" rx="14" ry="8" />
+          <Ellipse cx="86" cy="778" fill="url(#sunPool)" rx="18" ry="10" />
+          <Ellipse cx="210" cy="786" fill="url(#sunSpeck)" rx="12" ry="7" />
           <Path
             d="M18 524 C34 507 55 510 65 526 C74 541 62 556 43 555 C25 555 10 541 18 524 Z"
             fill="url(#sunPool)"
-            opacity={0.58}
+            opacity={0.82}
+          />
+          <Path
+            d="M174 48 C192 31 220 34 228 51 C236 69 217 81 195 76 C176 72 162 61 174 48 Z M284 454 C302 437 328 442 333 459 C338 476 321 487 301 482 C282 478 273 465 284 454 Z M128 730 C143 715 166 718 174 733 C182 748 167 762 149 760 C130 759 117 744 128 730 Z"
+            fill="url(#sunPool)"
+            opacity={0.74}
           />
           <Path
             d="M326 104 L357 91 L342 116 Z M42 592 L67 577 L55 606 Z M246 704 L277 686 L260 717 Z"
@@ -273,14 +298,14 @@ const LowerAssembly = ({
             windAmplitude: 1.7,
             windOffset: 0.18,
             x: 93,
-            y: 176,
+            y: 160,
           },
           {
             motion: stoneMotion,
             windAmplitude: 2.7,
             windOffset: 0.48,
             x: 93,
-            y: 302,
+            y: 320,
           },
         ]}
         reducedMotion={reducedMotion}
@@ -325,7 +350,7 @@ const LowerAssembly = ({
         windOffset={0.18}
         windPhase={windPhase}
         x={82}
-        y={176}>
+        y={160}>
         <ConnectedPebblesWeight />
       </InteractiveWeight>
 
@@ -350,7 +375,7 @@ const LowerAssembly = ({
         windOffset={0.48}
         windPhase={windPhase}
         x={65}
-        y={302}>
+        y={320}>
         <WarmGrayStoneWeight />
       </InteractiveWeight>
     </Animated.View>
@@ -466,21 +491,21 @@ export const Day02Mobile = () => {
                   windAmplitude: 1.5,
                   windOffset: 0.14,
                   x: 286,
-                  y: 298,
+                  y: 270,
                 },
                 {
                   motion: rightMiddleMotion,
                   windAmplitude: 2.25,
                   windOffset: 0.42,
                   x: 286,
-                  y: 458,
+                  y: 400,
                 },
                 {
                   motion: rightBottomMotion,
                   windAmplitude: 3.2,
                   windOffset: 0.7,
                   x: 286,
-                  y: 606,
+                  y: 620,
                 },
               ]}
               reducedMotion={reducedMotion}
@@ -512,14 +537,14 @@ export const Day02Mobile = () => {
               windOffset={0.14}
               windPhase={windPhase}
               x={271}
-              y={298}>
+              y={270}>
               <TanPaperWeight />
             </InteractiveWeight>
 
             <InteractiveWeight
               accessibilityLabel="Small drop shadow"
               anchorX={286}
-              anchorY={328}
+              anchorY={300}
               height={36}
               hideTether
               coupledMotions={[
@@ -541,14 +566,14 @@ export const Day02Mobile = () => {
               windOffset={0.42}
               windPhase={windPhase}
               x={272}
-              y={458}>
+              y={400}>
               <ApricotDropWeight />
             </InteractiveWeight>
 
             <InteractiveWeight
               accessibilityLabel="Small lozenge shadow"
               anchorX={286}
-              anchorY={494}
+              anchorY={436}
               height={18}
               hideTether
               coupledMotions={[
@@ -570,7 +595,7 @@ export const Day02Mobile = () => {
               windOffset={0.7}
               windPhase={windPhase}
               x={261}
-              y={606}>
+              y={620}>
               <RedLozengeWeight />
             </InteractiveWeight>
           </View>
@@ -582,8 +607,8 @@ export const Day02Mobile = () => {
 
 const styles = StyleSheet.create({
   causticProjection: {
-    filter: [{ blur: 3.2 }],
-    opacity: 0.68,
+    filter: [{ blur: 3.4 }],
+    opacity: 0.9,
   },
   lowerAssembly: {
     height: 450,
