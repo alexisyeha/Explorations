@@ -1,7 +1,7 @@
 /*
-THESIS: A sparse hand-drawn illustration quietly behaves like a real mobile; no interface chrome or simulated realism competes with the drawing.
-OWN-WORLD: Warm ivory, fine brown ink-like curves, tiny looped joins, and six muted abstract color marks.
-STORY: The drawing is already breathing. Catching one mark bends its wire, moves the connected structure, and reveals a private chime.
+THESIS: Only the soft wall-shadow of an off-camera mobile is visible; the projection quietly behaves like the real hanging object that casts it.
+OWN-WORLD: Warm ivory light, soft charcoal penumbra, delicate projected wires, and six abstract shadow marks.
+STORY: Wind is already turning the unseen mobile. Catching one shadow bends its projected wire, moves the connected structure, and reveals a private chime.
 FIRST VIEWPORT: A short crooked arch and smaller wavering bar suspend six tiny asymmetric forms high within generous blank paper.
 FORM: User-confirmed living-illustration refinement of composition A; seed 8038761e retains the two-level topology.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
@@ -18,6 +18,7 @@ import Animated, {
   useReducedMotion,
   useSharedValue,
   withRepeat,
+  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
@@ -69,14 +70,14 @@ const TopStructure = () => (
     <Path
       d={topThreadPath}
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeWidth={0.9}
     />
     <Path
       d={topLoopPath}
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.05}
@@ -84,7 +85,7 @@ const TopStructure = () => (
     <Path
       d={topRodPath}
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.55}
@@ -97,14 +98,14 @@ const LowerWire = () => (
     <Path
       d="M51 0 C48 25 54 58 51 88"
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeWidth={0.9}
     />
     <Path
       d="M51 87 C46 88 46 95 51 97 C56 95 56 89 51 87 Z"
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.05}
@@ -112,7 +113,7 @@ const LowerWire = () => (
     <Path
       d="M20 92 C49 89 68 96 93 92 C117 88 143 95 166 90"
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.45}
@@ -120,7 +121,7 @@ const LowerWire = () => (
     <Path
       d="M20 89 C15 90 15 97 20 99 C25 97 25 91 20 89 Z M93 89 C88 90 88 97 93 99 C98 97 98 91 93 89 Z"
       fill="none"
-      stroke={palette.silhouette}
+      stroke={palette.shadow}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1}
@@ -129,17 +130,19 @@ const LowerWire = () => (
 );
 
 const LowerAssembly = ({
-  idle,
   mainImpulse,
   onChime,
   reducedMotion,
   stageScale,
+  windCross,
+  windLong,
 }: {
-  idle: ReturnType<typeof useSharedValue<number>>;
   mainImpulse: ReturnType<typeof useSharedValue<number>>;
   onChime: ReturnType<typeof useChimes>;
   reducedMotion: boolean;
   stageScale: number;
+  windCross: ReturnType<typeof useSharedValue<number>>;
+  windLong: ReturnType<typeof useSharedValue<number>>;
 }) => {
   const lowerImpulse = useSharedValue(0);
   const linkedDragX = useSharedValue(0);
@@ -156,7 +159,7 @@ const LowerAssembly = ({
   const style = useAnimatedStyle(() => ({
     transform: [
       {
-        rotateZ: `${interpolate(idle.get(), [0, 1], [-0.7, 0.7]) + lowerImpulse.get()}deg`,
+        rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 0.75]) + interpolate(windCross.get(), [0, 1], [0.5, -0.45]) + lowerImpulse.get()}deg`,
       },
     ],
   }));
@@ -176,7 +179,7 @@ const LowerAssembly = ({
       />
 
       <InteractiveWeight
-        accessibilityLabel="Small triangular silhouette"
+        accessibilityLabel="Small triangular shadow"
         anchorX={20}
         anchorY={92}
         height={28}
@@ -193,7 +196,7 @@ const LowerAssembly = ({
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Three connected round silhouettes"
+        accessibilityLabel="Three connected round shadows"
         anchorX={93}
         anchorY={92}
         height={54}
@@ -212,7 +215,7 @@ const LowerAssembly = ({
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Long low silhouette"
+        accessibilityLabel="Long low shadow"
         anchorX={93}
         anchorY={92}
         height={18}
@@ -237,7 +240,9 @@ export const Day02Mobile = () => {
   const { height, width } = useWindowDimensions();
   const reducedMotion = useReducedMotion();
   const playChime = useChimes();
-  const idle = useSharedValue(0);
+  const windLong = useSharedValue(0.18);
+  const windCross = useSharedValue(0.72);
+  const windGust = useSharedValue(0.36);
   const mainImpulse = useSharedValue(0);
   const rightDragX = useSharedValue(0);
   const rightDragY = useSharedValue(0);
@@ -257,37 +262,108 @@ export const Day02Mobile = () => {
 
   useEffect(() => {
     if (reducedMotion) {
-      idle.set(0.5);
+      windLong.set(0.5);
+      windCross.set(0.5);
+      windGust.set(0.5);
       return;
     }
 
-    idle.set(
+    windLong.set(
       withRepeat(
-        withTiming(1, {
-          duration: 6800,
-          easing: Easing.inOut(Easing.sin),
-        }),
+        withSequence(
+          withTiming(1, {
+            duration: 9600,
+            easing: Easing.inOut(Easing.sin),
+          }),
+          withTiming(0, {
+            duration: 12400,
+            easing: Easing.inOut(Easing.sin),
+          }),
+        ),
         -1,
-        true,
+        false,
       ),
     );
-  }, [idle, reducedMotion]);
+
+    windCross.set(
+      withRepeat(
+        withSequence(
+          withTiming(0, {
+            duration: 6900,
+            easing: Easing.inOut(Easing.sin),
+          }),
+          withTiming(1, {
+            duration: 8700,
+            easing: Easing.inOut(Easing.sin),
+          }),
+        ),
+        -1,
+        false,
+      ),
+    );
+
+    windGust.set(
+      withRepeat(
+        withSequence(
+          withTiming(0.76, {
+            duration: 2700,
+            easing: Easing.out(Easing.quad),
+          }),
+          withTiming(0.24, {
+            duration: 4300,
+            easing: Easing.inOut(Easing.sin),
+          }),
+          withTiming(0.62, {
+            duration: 2500,
+            easing: Easing.out(Easing.quad),
+          }),
+          withTiming(0.38, {
+            duration: 3400,
+            easing: Easing.inOut(Easing.sin),
+          }),
+        ),
+        -1,
+        false,
+      ),
+    );
+  }, [reducedMotion, windCross, windGust, windLong]);
 
   const mobileStyle = useAnimatedStyle(() => ({
     transform: [
       { perspective: 900 },
       {
-        rotateY: `${interpolate(idle.get(), [0, 1], [-5.5, 5.5])}deg`,
+        translateX:
+          9 + interpolate(windCross.get(), [0, 1], [-3.5, 4.5]),
       },
       {
-        rotateZ: `${interpolate(idle.get(), [0, 1], [-0.8, 0.8]) + mainImpulse.get()}deg`,
+        translateY: 16 + interpolate(windGust.get(), [0, 1], [-1.5, 1.8]),
+      },
+      {
+        rotateY: `${interpolate(windLong.get(), [0, 1], [-12.5, 11.5]) + interpolate(windCross.get(), [0, 1], [2.2, -1.8])}deg`,
+      },
+      {
+        rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 1.05]) + interpolate(windGust.get(), [0, 1], [-0.7, 0.75]) + mainImpulse.get()}deg`,
+      },
+      { scaleX: interpolate(windCross.get(), [0, 1], [0.96, 1.03]) },
+    ],
+  }));
+
+  const projectionStyle = useAnimatedStyle(() => ({
+    filter: [
+      {
+        blur: reducedMotion
+          ? 2.8
+          : interpolate(windCross.get(), [0, 1], [2.2, 3.6]),
       },
     ],
+    opacity: reducedMotion
+      ? 0.48
+      : interpolate(windLong.get(), [0, 1], [0.42, 0.54]),
   }));
 
   return (
     <View
-      accessibilityLabel="Day 002, an interactive hanging mobile"
+      accessibilityLabel="Day 002, the interactive shadow of a hanging mobile"
       style={styles.screen}>
       <StatusBar animated hidden />
       <AmbientSunlight />
@@ -300,15 +376,17 @@ export const Day02Mobile = () => {
             transform: [{ scale }],
           },
         ]}>
-        <Animated.View style={[styles.mobile, mobileStyle]}>
+        <Animated.View
+          style={[styles.mobile, styles.shadowProjection, mobileStyle, projectionStyle]}>
           <TopStructure />
 
           <LowerAssembly
-            idle={idle}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
+            windCross={windCross}
+            windLong={windLong}
           />
 
           <LinkedTether
@@ -323,7 +401,7 @@ export const Day02Mobile = () => {
           />
 
           <InteractiveWeight
-            accessibilityLabel="Small rounded silhouette"
+            accessibilityLabel="Small rounded shadow"
             anchorX={286}
             anchorY={140}
             height={30}
@@ -341,7 +419,7 @@ export const Day02Mobile = () => {
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Small drop silhouette"
+            accessibilityLabel="Small drop shadow"
             anchorX={286}
             anchorY={352}
             height={36}
@@ -359,7 +437,7 @@ export const Day02Mobile = () => {
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Small lozenge silhouette"
+            accessibilityLabel="Small lozenge shadow"
             anchorX={286}
             anchorY={518}
             height={18}
@@ -406,5 +484,8 @@ const styles = StyleSheet.create({
     backgroundColor: palette.shadedPaper,
     flex: 1,
     overflow: 'hidden',
+  },
+  shadowProjection: {
+    isolation: 'isolate',
   },
 });

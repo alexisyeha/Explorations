@@ -1,9 +1,9 @@
 ---
 name: Day 002 — Living Mobile Illustration
-description: A sparse hand-drawn mobile illustration that responds with real connected motion.
+description: The interactive wall-shadow of an off-camera mobile moving in a quiet breeze.
 colors:
   warm-paper: "#F7F4EC"
-  mobile-silhouette: "#171511"
+  projected-shadow: "#453E39"
   sunlit-paper: "#FFFDF4"
   shaded-wall: "#E6D9CF"
 components:
@@ -21,7 +21,7 @@ components:
 
 **Creative North Star: "The Living Mobile Drawing"**
 
-Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. It first reads as the black silhouette of a sparse hand-drawn mobile: two crooked ink-like bars, bowed suspension lines, tiny looped joins, and six abstract marks floating high in uninterrupted paper. Catching any mark reveals that the silhouette also behaves as a connected physical mobile through motion, a private chime, and a soft haptic.
+Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. The physical mobile exists beyond the camera; only its warm-charcoal shadow reaches the ivory wall. Its crooked bars, bowed suspension lines, tiny looped joins, and six abstract marks remain legible through a soft penumbra. Catching a shadow reveals the connected physical mobile through motion, a private chime, and a soft haptic.
 
 The approved form retains concept-roll seed `8038761e`'s two-level topology, refined through the user's living-illustration direction. It extends Day 001's quiet world by preserving the Warm Paper canvas while replacing realistic material cues with thin drawn curves and a restrained set of flat abstract marks.
 
@@ -29,20 +29,20 @@ The approved form retains concept-roll seed `8038761e`'s two-level topology, ref
 
 - Warm Paper continuity with Day 001, transformed by late-afternoon light
 - Short, irregular top arch plus one shallow, wavering lower bar
-- Six flat black abstract marks across an 18–56 point visual range
+- Six softly projected abstract shadow marks across an 18–56 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
-- Slow idle yaw and sway, with Reduce Motion respected
+- Layered, irregular wind-driven yaw and sway, with Reduce Motion respected
 - Edge-to-edge presentation with no visible chrome
-- A bright-left, pale-right warm field with no cast shadows
+- A bright-left, pale-right warm wall receiving only the mobile's cast shadow
 
 ## Colors
 
-Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Every physical part of the mobile—thread, rod, loop, and hanging mark—uses one warm near-black ink. Identity comes from outline, size, placement, motion, and chime rather than color.
+Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Every projected part of the off-camera mobile—thread, rod, loop, and hanging mark—uses one translucent warm charcoal. Identity comes from outline, size, placement, movement, and chime rather than color.
 
 **The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
-**The Single-Ink Rule.** The complete mobile uses one flat near-black (`#171511`). Do not distinguish objects through color, grain, interior marks, outlines, or material effects.
+**The Projection Rule.** Never render the source mobile. The visible geometry is only its warm-charcoal projection (`#453E39`), softened by bounded blur and opacity. Do not distinguish objects through color, grain, interior marks, outlines, or material effects.
 
 ## Layout
 
@@ -54,17 +54,17 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. Objects, bars, and threads remain completely shadowless. Depth comes only from linked motion and overlap, never from blur, glow, texture, or simulated material thickness.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The projection breathes between 2.2 and 3.6 points of blur and 0.42–0.54 opacity as rotation changes its apparent distance from the wall.
 
-During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
+Wind motion combines three incommensurate rhythms: a 22-second axial turn, a 15.6-second cross-current, and an asymmetric 12.9-second gust sequence. Together they avoid a visible mechanical loop. The complete projection yaws roughly −14° to 14°, sways about ±1.8°, drifts horizontally by eight points, and changes projected width by seven percent; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion.
 
-**The Flat Silhouette Rule.** Preserve the warm wall gradient, but keep every hanging element visually flat. Do not add cast shadows, ambient occlusion, glow, texture, gloss, or carved edges.
+**The Off-Camera Source Rule.** Preserve the warm wall gradient and show no crisp object, material surface, or duplicate outline. Blur is physical evidence of projection distance, not decorative glow.
 
 ## Shapes
 
 The top bar is a fine multi-curve stroke whose rise, plateau, and falling shoulder are deliberately unequal. The lower bar is a shallow 146-point wavering curve rather than a straight line. Tiny imperfect loops appear only at meaningful balance and hanging points. Suspension lines are subtle S-curves at rest and flex toward the finger during drag.
 
-The six black silhouette roles are fixed:
+The six projected shadow roles are fixed:
 
 - **Wedge:** a soft, uneven 30 × 28 point triangular scrap.
 - **Connected Pebbles:** a narrow 22 × 54 point chain of three joined lobes.
@@ -87,7 +87,7 @@ Release velocity drives both the weight's return spring and the rods' settling i
 
 ### Motion Accessibility
 
-Reduce Motion removes the continuous idle yaw and sway. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
+Reduce Motion holds the wind projection at a quiet neutral angle with a fixed 2.8-point blur. Interaction remains available, but touch nudges are reduced and drag, rotation, and rod offsets return to rest with a short 120ms timing rather than lingering springs. Accessible taps still provide the small nudge, mapped chime, and soft haptic without requiring a pan gesture.
 
 ### Synthesized Chimes
 
@@ -106,11 +106,11 @@ Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes 
 - **Do** preserve the 18–56 point visual range and 56-point minimum touch areas through inverse scaling.
 - **Do** keep touch, tether movement, linked impulses, chime, and haptic synchronized as one material response.
 - **Do** honor Reduce Motion and the device silent switch.
-- **Do** keep objects, bars, and threads completely free of shadows and texture.
+- **Do** show only one soft, offset projection of the off-camera mobile.
 
 ### Don't:
 
 - **Don't** add titles, instructions, buttons, cards, navigation, status chrome, or persistent controls.
-- **Don't** add glass, photographic texture, extra rods, extra weights, cast shadows, or decorative glows.
+- **Don't** reveal the source mobile, add photographic texture, extra rods, extra weights, or decorative glows.
 - **Don't** flatten the six marks into equal sizing or restore characters, perfect geometry, or thick material treatment.
 - **Don't** make idle movement conspicuous, release behavior bouncy, or audio louder than the quiet 0.30 cap.
