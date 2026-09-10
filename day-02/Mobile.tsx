@@ -32,14 +32,14 @@ import Svg, { Path } from 'react-native-svg';
 import { useChimes } from './audio';
 import { DESIGN_HEIGHT, DESIGN_WIDTH } from './physics';
 import {
-  CircleWeight,
-  CrescentWeight,
-  DotsWeight,
+  BreadHorseWeight,
+  HuggingHorsesWeight,
   InteractiveWeight,
+  JumpingHorseWeight,
+  KettleHorseWeight,
+  LongHorseWeight,
+  MoonGlancingHorseWeight,
   palette,
-  PebbleWeight,
-  SemicircleWeight,
-  StarWeight,
 } from './shapes';
 
 const topRodPath = 'M105 238 C124 151 244 128 286 210';
@@ -125,44 +125,44 @@ const LowerAssembly = ({
       />
 
       <InteractiveWeight
-        accessibilityLabel="Small clay circle"
+        accessibilityLabel="Small green kettle horse"
         anchorX={20}
         anchorY={148}
-        height={42}
+        height={68}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
         secondaryImpulse={lowerImpulse}
         stageScale={stageScale}
         tone="clay"
-        width={42}
-        x={-1}
-        y={222}>
-        <CircleWeight color={palette.clay} size={42} />
+        width={74}
+        x={-17}
+        y={218}>
+        <KettleHorseWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Three connected charcoal dots"
+        accessibilityLabel="Black and cream hugging horses"
         anchorX={93}
         anchorY={148}
-        height={88}
+        height={58}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
         secondaryImpulse={lowerImpulse}
         stageScale={stageScale}
         tone="dots"
-        width={28}
-        x={79}
-        y={224}>
-        <DotsWeight />
+        width={86}
+        x={50}
+        y={232}>
+        <HuggingHorsesWeight />
       </InteractiveWeight>
 
       <InteractiveWeight
-        accessibilityLabel="Cobalt half circle"
+        accessibilityLabel="Long gray horse with stars"
         anchorX={93}
         anchorY={148}
-        height={52}
+        height={38}
         mainImpulse={mainImpulse}
         onChime={onChime}
         reducedMotion={reducedMotion}
@@ -172,7 +172,7 @@ const LowerAssembly = ({
         width={100}
         x={43}
         y={358}>
-        <SemicircleWeight />
+        <LongHorseWeight />
       </InteractiveWeight>
     </Animated.View>
   );
@@ -250,51 +250,51 @@ export const Day02Mobile = () => {
           />
 
           <InteractiveWeight
-            accessibilityLabel="Bone crescent"
+            accessibilityLabel="Moon-glancing horse"
             anchorX={286}
             anchorY={210}
-            height={100}
+            height={90}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="crescent"
-            width={72}
-            x={250}
-            y={382}>
-            <CrescentWeight />
+            width={78}
+            x={247}
+            y={392}>
+            <MoonGlancingHorseWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Long clay pebble"
+            accessibilityLabel="Small orange bread horse"
             anchorX={286}
             anchorY={482}
-            height={82}
+            height={55}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="pebble"
-            width={34}
-            x={269}
+            width={80}
+            x={246}
             y={552}>
-            <PebbleWeight />
+            <BreadHorseWeight />
           </InteractiveWeight>
 
           <InteractiveWeight
-            accessibilityLabel="Cobalt eight point star"
+            accessibilityLabel="Red jumping horse with golden wings"
             anchorX={286}
             anchorY={634}
-            height={64}
+            height={54}
             mainImpulse={mainImpulse}
             onChime={playChime}
             reducedMotion={reducedMotion}
             stageScale={scale}
             tone="star"
-            width={64}
-            x={254}
+            width={94}
+            x={239}
             y={700}>
-            <StarWeight />
+            <JumpingHorseWeight />
           </InteractiveWeight>
         </Animated.View>
       </View>

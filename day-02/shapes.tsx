@@ -1,4 +1,11 @@
-import { Platform, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  Platform,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { ReactNode, useMemo } from 'react';
 
@@ -12,7 +19,6 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import Svg, { Path } from 'react-native-svg';
 import { scheduleOnRN } from 'react-native-worklets';
 
 import {
@@ -325,84 +331,48 @@ export const InteractiveWeight = ({
   );
 };
 
-export const CircleWeight = ({
-  color,
-  size,
-}: {
-  color: string;
-  size: number;
-}) => (
-  <View
-    style={{
-      backgroundColor: color,
-      borderRadius: size / 2,
-      height: size,
-      width: size,
-      borderCurve: 'continuous',
-    }}
+const CharacterWeight = ({ source }: { source: ImageSourcePropType }) => (
+  <Image
+    fadeDuration={0}
+    resizeMode="contain"
+    source={source}
+    style={styles.character}
   />
 );
 
-export const DotsWeight = () => (
-  <View style={styles.dots}>
-    {[0, 1, 2].map(index => (
-      <View key={index} style={styles.dot} />
-    ))}
-  </View>
+export const KettleHorseWeight = () => (
+  <CharacterWeight source={require('./assets/characters/kettle-horse.png')} />
 );
 
-export const SemicircleWeight = () => <View style={styles.semicircle} />;
-
-const crescentPath =
-  'M68 3 C28 -4 0 19 0 50 C0 81 28 104 68 97 C43 86 32 70 32 50 C32 30 43 14 68 3 Z';
-
-export const CrescentWeight = () => (
-  <Svg height={100} viewBox="0 0 72 100" width={72}>
-    <Path d={crescentPath} fill={palette.bone} />
-  </Svg>
+export const HuggingHorsesWeight = () => (
+  <CharacterWeight source={require('./assets/characters/hugging-horses.png')} />
 );
 
-export const PebbleWeight = () => <View style={styles.pebble} />;
+export const LongHorseWeight = () => (
+  <CharacterWeight source={require('./assets/characters/long-horse.png')} />
+);
 
-const starPath =
-  'M32 0 L38 20 L54 10 L46 27 L64 32 L46 37 L54 54 L38 44 L32 64 L26 44 L10 54 L18 37 L0 32 L18 27 L10 10 L26 20 Z';
+export const MoonGlancingHorseWeight = () => (
+  <CharacterWeight
+    source={require('./assets/characters/moon-glancing-horse.png')}
+  />
+);
 
-export const StarWeight = () => (
-  <Svg height={64} viewBox="0 0 64 64" width={64}>
-    <Path d={starPath} fill={palette.cobalt} />
-  </Svg>
+export const BreadHorseWeight = () => (
+  <CharacterWeight source={require('./assets/characters/bread-horse.png')} />
+);
+
+export const JumpingHorseWeight = () => (
+  <CharacterWeight source={require('./assets/characters/jumping-horse.png')} />
 );
 
 const styles = StyleSheet.create({
-  dot: {
-    backgroundColor: palette.charcoal,
-    borderRadius: 14,
-    height: 28,
-    width: 28,
-  },
-  dots: {
-    alignItems: 'center',
-    gap: 2,
-    height: 88,
-    justifyContent: 'space-between',
-    width: 28,
+  character: {
+    height: '100%',
+    width: '100%',
   },
   hitTarget: {
     position: 'absolute',
-  },
-  pebble: {
-    backgroundColor: palette.clay,
-    borderRadius: 17,
-    height: 82,
-    width: 34,
-  },
-  semicircle: {
-    backgroundColor: palette.cobalt,
-    borderCurve: 'continuous',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    height: 52,
-    width: 100,
   },
   tether: {
     backgroundColor: palette.thread,

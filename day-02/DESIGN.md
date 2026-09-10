@@ -27,7 +27,7 @@ components:
 
 **Creative North Star: "The Breathing Gallery Mobile"**
 
-Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. A delicate two-rod mobile hangs high in an uninterrupted paper field and is already moving when encountered. Catching any weight briefly reveals the sculpture's connected physics through motion, a private chime, and a soft haptic.
+Day 002 is a full-screen kinetic artwork, not an interface wrapped around one. A delicate two-rod mobile of six storybook horse characters hangs high in an uninterrupted paper field and is already moving when encountered. Catching any character briefly reveals the sculpture's connected physics through motion, a private chime, and a soft haptic.
 
 The approved form is concept-roll seed `8038761e`: composition A with a noticeably shortened, asymmetric top arch. It extends Day 001's quiet, tactile world by preserving the exact same Warm Paper canvas while replacing literary ink with a restrained material palette of thread, browned brass, charcoal, bone, clay, and cobalt.
 
@@ -35,7 +35,7 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 - Warm Paper continuity with Day 001, transformed by late-afternoon light
 - Short bowed top arch plus one fine straight lower rod
-- Six small geometric weights across a 28–100 point visual range
+- Six tiny hand-drawn paper horse characters across a 28–100 point visual range
 - Generous negative space and balanced asymmetry
 - Direct drag, flick, linked impulse, quiet chime, and soft haptic
 - Slow idle yaw and sway, with Reduce Motion respected
@@ -44,15 +44,15 @@ The approved form is concept-roll seed `8038761e`: composition A with a noticeab
 
 ## Colors
 
-Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Charcoal, Matte Bone, Muted Clay, and Deep Cobalt identify the weights through a small, earthy palette with cobalt as the only cool counterpoint.
+Warm Paper is the uninterrupted field and the continuity anchor between Days 001 and 002. Suspension Thread stays recessive; Browned Brass Rod gives the structure slightly more presence without becoming ornamental. Muted sage, charcoal, cream, warm gray, apricot, and red live inside visible colored-pencil strokes rather than flat material fills.
 
 **The Sunlit Paper Rule.** Keep Day 001's Warm Paper as the material reference, then illuminate it with one directional system: Sunlit Paper (`#FFFDF7`) at the left, Warm Paper through the middle, and a pale Shaded Wall (`#E6D9CF`) at the right. The wall should read as warm ivory in shade, never brown or gray. Do not introduce unrelated texture or dark-mode inversion.
 
-**The Cobalt Rarity Rule.** Reserve cobalt for the semicircle and star so it remains the sculpture's crisp counterweight rather than a general accent.
+**The Handmade Color Rule.** Let color remain uneven, quiet, and visibly built from pencil strokes over cream paper. No character should read as a smooth digital fill.
 
 ## Layout
 
-Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: one near-invisible thread descends from the top center to the upper-third arch; a second thread supports the left-offset straight rod; the longer right chain descends through crescent, pebble, and star. Empty paper is an active part of the balance.
+Compose on a portrait reference stage of 390 × 844 points, centered and uniformly fitted to the live viewport. The whole sculpture remains visible: one near-invisible thread descends from the top center to the upper-third arch; a second thread supports the left-offset straight rod; the longer right chain descends through moon-glancing, bread, and jumping horses. Empty paper is an active part of the balance.
 
 The sculpture stage scales responsively, but every interactive weight counter-scales by the inverse stage scale. This preserves the implemented 28–100 point visual range and at least a 56 × 56 point interaction area on shorter screens. Hit areas are invisible and equal to the larger of 56 points or the corresponding visual dimension plus 20 points.
 
@@ -64,7 +64,7 @@ One broad, warm light field creates the depth system: high-key paper at the left
 
 During idle, the complete mobile yaws gently in perspective between −5.5° and 5.5° and sways between −0.8° and 0.8° on a 6800ms sinusoidal round trip; the lower assembly adds its own restrained −0.7° to 0.7° sway.
 
-**The Window-Light Rule.** All depth must agree with one light source above and to the left: bright field on the left, shaded field on the right, and warm cast shadows displaced down and left. Preserve matte code-native geometry; do not add simulated gloss or object-by-object lighting effects.
+**The Window-Light Rule.** All depth must agree with one light source above and to the left: bright field on the left, shaded field on the right, and warm cast shadows displaced down and left. Preserve thin paper texture; do not add simulated gloss, carved edges, or object-by-object lighting effects.
 
 ## Shapes
 
@@ -72,14 +72,14 @@ The top rod is a fine, rounded bowed stroke: shorter than the original approved 
 
 The six weight roles are fixed:
 
-- **Clay Circle:** a 42-point muted-clay disc.
-- **Linked Charcoal Dots:** three 28-point discs in an 88-point vertical chain.
-- **Cobalt Semicircle:** a broad 100 × 52 point upward arch.
-- **Bone Crescent:** a 72 × 100 point matte-bone SVG crescent with a truly transparent cutout, allowing the changing light field to show through.
-- **Clay Pebble:** a 34 × 82 point long rounded form.
-- **Cobalt Star:** a sharp 64-point eight-point star.
+- **Kettle Horse:** a small sage horse whose round body forms a kettle beneath a loop handle.
+- **Hugging Horses:** one charcoal and one cream horse leaning together as a single connected cutout.
+- **Long Horse:** an elongated warm-gray running horse scattered with cream stars.
+- **Moon-glancing Horse:** a seated tan horse looking toward its tiny golden moon.
+- **Bread Horse:** a plump apricot horse with a loaf-like body and short legs.
+- **Jumping Horse:** a red flying horse with golden wings, mane, and three stars.
 
-**The Six-Weight Rule.** Preserve these six silhouettes, material-color assignments, and intentionally uneven scale; do not add ornaments, duplicate shapes, or introduce a third rod.
+**The Six-Character Rule.** Preserve these six identities, visible pencil grain, thin cream paper edges, and intentionally uneven scale; do not replace them with the earlier geometric weights, add ornaments, or introduce a third rod.
 
 ## Components
 
@@ -97,7 +97,7 @@ Reduce Motion removes the continuous idle yaw and sway. Interaction remains avai
 
 ### Synthesized Chimes
 
-Each shape family maps to one locally generated, 1.35-second mono bell tone: Clay Circle → C5 (523.25Hz), Linked Dots → E5 (659.25Hz), Cobalt Semicircle → G4 (392Hz), Bone Crescent → G5 (783.99Hz), Clay Pebble → A5 (880Hz), and Cobalt Star → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
+Each character maps to one locally generated, 1.35-second mono bell tone: Kettle Horse → C5 (523.25Hz), Hugging Horses → E5 (659.25Hz), Long Horse → G4 (392Hz), Moon-glancing Horse → G5 (783.99Hz), Bread Horse → A5 (880Hz), and Jumping Horse → D6 (1174.66Hz). The tones share a brief attack, decaying envelope, and four slightly inharmonic partials, so they feel related without becoming indistinguishable.
 
 Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes with other playback, does not continue in the background, and respects the device silent switch. Sound and haptics are feedback for touch; they never become ambient audio.
 
@@ -118,5 +118,5 @@ Playback volume rises with gesture intensity but is capped at 0.30. Audio mixes 
 
 - **Don't** add titles, instructions, buttons, cards, navigation, status chrome, or persistent controls.
 - **Don't** add glass, photographic texture, extra rods, extra weights, or any gradient/shadow outside the single natural-light system.
-- **Don't** flatten the six shapes into equal sizing or reassign their palette and pitch roles.
+- **Don't** flatten the six characters into equal sizing, smooth vector silhouettes, or thick wood-like objects.
 - **Don't** make idle movement conspicuous, release behavior bouncy, or audio louder than the quiet 0.30 cap.
