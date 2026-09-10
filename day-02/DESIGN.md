@@ -54,9 +54,9 @@ The sculpture stage scales responsively, but every interactive weight counter-sc
 
 ## Elevation & Depth
 
-One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. As the unseen mobile swings across its 90° arc, the projection breathes gently between approximately 2.2 and 2.8 points of blur and 0.48–0.54 opacity.
+One broad, warm color field shifts gently from high-key ivory at the left to pale parchment at the right. The source object remains outside the viewport; only its shadow appears, centered around an offset of 9 points right and 16 points down. The complete projection uses a fixed 2.6-point blur and 0.5 opacity so its fine illustrated wires stay visually stable while moving.
 
-The mobile eases from −45° to +45° in 8.6 seconds, then reverses through the same arc for a 17.2-second round trip. A 22-second slow current and 15.6-second cross-current softly disturb the endpoints, while an asymmetric 12.9-second gust sequence adds ±1.8° sway and eight points of horizontal drift. The broadside shadow gently narrows toward either end of the swing; the lower assembly follows with a smaller, counter-phased drift. Touch impulses add to the wind rather than replacing it, then decay back into the ambient motion. Blur and 3D transform remain on separate compositing layers for stable rendering.
+The mobile follows one continuous 17.2-second wind phase. From that single phase it swings between −45° and +45°, drifts a few points laterally and vertically, and picks up a faint harmonic roll. The lower assembly follows the same current with a small phase delay, preserving the sense of connected weight without creating a competing animation clock. Touch impulses add to the wind rather than replacing it, then return through restrained, well-damped springs. Blur and 3D transform remain on separate compositing layers for stable rendering.
 
 **The Off-Camera Source Rule.** Preserve the warm wall gradient and show no crisp object, material surface, or duplicate outline. Blur is physical evidence of projection distance, not decorative glow.
 

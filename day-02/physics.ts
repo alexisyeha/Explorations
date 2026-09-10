@@ -9,15 +9,15 @@ export const clamp = (value: number, min: number, max: number) => {
 };
 
 export const weightReturnSpring: WithSpringConfig = {
-  damping: 8.5,
-  mass: 0.8,
-  stiffness: 52,
+  damping: 11.5,
+  mass: 0.75,
+  stiffness: 45,
 };
 
 export const mobileSwaySpring: WithSpringConfig = {
-  damping: 4.8,
-  mass: 1.4,
-  stiffness: 31,
+  damping: 12,
+  mass: 1.15,
+  stiffness: 30,
 };
 
 export const reducedMotionTiming = {
@@ -25,5 +25,6 @@ export const reducedMotionTiming = {
 };
 
 export const velocityToIntensity = (velocity: number) => {
+  'worklet';
   return Math.min(1, Math.max(0.16, Math.abs(velocity) / 1350));
 };

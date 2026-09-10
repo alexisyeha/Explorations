@@ -13,12 +13,10 @@ import { useEffect, useMemo } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   Easing,
-  interpolate,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
   withRepeat,
-  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
@@ -42,13 +40,14 @@ const topRodPath =
 const topThreadPath = 'M195 0 C193 20 198 43 195 77';
 const topLoopPath = 'M195 76 C189 77 189 85 195 88 C201 86 201 78 195 76 Z';
 
-const getWindYaw = (turn: number, long: number, cross: number) => {
+const getWindAngle = (phase: number) => {
   'worklet';
-  return (
-    turn +
-    interpolate(long, [0, 1], [-1.6, 1.8]) +
-    interpolate(cross, [0, 1], [0.7, -0.6])
-  );
+  return phase * Math.PI * 2;
+};
+
+const getWindYaw = (phase: number) => {
+  'worklet';
+  return -45 * Math.cos(getWindAngle(phase));
 };
 
 const AmbientSunlight = () => (
@@ -143,15 +142,13 @@ const LowerAssembly = ({
   onChime,
   reducedMotion,
   stageScale,
-  windCross,
-  windLong,
+  windPhase,
 }: {
   mainImpulse: ReturnType<typeof useSharedValue<number>>;
   onChime: ReturnType<typeof useChimes>;
   reducedMotion: boolean;
   stageScale: number;
-  windCross: ReturnType<typeof useSharedValue<number>>;
-  windLong: ReturnType<typeof useSharedValue<number>>;
+  windPhase: ReturnType<typeof useSharedValue<number>>;
 }) => {
   const lowerImpulse = useSharedValue(0);
   const linkedDragX = useSharedValue(0);
@@ -165,13 +162,20 @@ const LowerAssembly = ({
     }),
     [linkedDragX, linkedDragY, linkedRotation],
   );
-  const style = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 0.75]) + interpolate(windCross.get(), [0, 1], [0.5, -0.45]) + lowerImpulse.get()}deg`,
-      },
-    ],
-  }));
+  const style = useAnimatedStyle(() => {
+    const angle = getWindAngle(windPhase.get());
+    const delayedFollowThrough = reducedMotion
+      ? 0
+      : 0.72 * Math.sin(angle - 0.34) + 0.16 * Math.sin(angle * 2 - 0.7);
+
+    return {
+      transform: [
+        {
+          rotateZ: `${delayedFollowThrough + lowerImpulse.get()}deg`,
+        },
+      ],
+    };
+  });
 
   return (
     <Animated.View style={[styles.lowerAssembly, style]}>
@@ -249,10 +253,7 @@ export const Day02Mobile = () => {
   const { height, width } = useWindowDimensions();
   const reducedMotion = useReducedMotion();
   const playChime = useChimes();
-  const windTurn = useSharedValue(-45);
-  const windLong = useSharedValue(0.18);
-  const windCross = useSharedValue(0.72);
-  const windGust = useSharedValue(0.36);
+  const windPhase = useSharedValue(0);
   const mainImpulse = useSharedValue(0);
   const rightDragX = useSharedValue(0);
   const rightDragY = useSharedValue(0);
@@ -272,128 +273,42 @@ export const Day02Mobile = () => {
 
   useEffect(() => {
     if (reducedMotion) {
-      windTurn.set(14);
-      windLong.set(0.5);
-      windCross.set(0.5);
-      windGust.set(0.5);
+      windPhase.set(0.3);
       return;
     }
 
-    windTurn.set(-45);
-    windTurn.set(
+    windPhase.set(0);
+    windPhase.set(
       withRepeat(
-        withTiming(45, {
-          duration: 8600,
-          easing: Easing.inOut(Easing.sin),
+        withTiming(1, {
+          duration: 17200,
+          easing: Easing.linear,
         }),
         -1,
-        true,
-      ),
-    );
-
-    windLong.set(
-      withRepeat(
-        withSequence(
-          withTiming(1, {
-            duration: 9600,
-            easing: Easing.inOut(Easing.sin),
-          }),
-          withTiming(0, {
-            duration: 12400,
-            easing: Easing.inOut(Easing.sin),
-          }),
-        ),
-        -1,
         false,
       ),
     );
+  }, [reducedMotion, windPhase]);
 
-    windCross.set(
-      withRepeat(
-        withSequence(
-          withTiming(0, {
-            duration: 6900,
-            easing: Easing.inOut(Easing.sin),
-          }),
-          withTiming(1, {
-            duration: 8700,
-            easing: Easing.inOut(Easing.sin),
-          }),
-        ),
-        -1,
-        false,
-      ),
-    );
-
-    windGust.set(
-      withRepeat(
-        withSequence(
-          withTiming(0.76, {
-            duration: 2700,
-            easing: Easing.out(Easing.quad),
-          }),
-          withTiming(0.24, {
-            duration: 4300,
-            easing: Easing.inOut(Easing.sin),
-          }),
-          withTiming(0.62, {
-            duration: 2500,
-            easing: Easing.out(Easing.quad),
-          }),
-          withTiming(0.38, {
-            duration: 3400,
-            easing: Easing.inOut(Easing.sin),
-          }),
-        ),
-        -1,
-        false,
-      ),
-    );
-  }, [reducedMotion, windCross, windGust, windLong, windTurn]);
-
-  const mobileStyle = useAnimatedStyle(() => ({
-    transform: [
-      { perspective: 900 },
-      {
-        translateX:
-          9 + interpolate(windCross.get(), [0, 1], [-3.5, 4.5]),
-      },
-      {
-        translateY: 16 + interpolate(windGust.get(), [0, 1], [-1.5, 1.8]),
-      },
-      {
-        rotateY: `${getWindYaw(
-          windTurn.get(),
-          windLong.get(),
-          windCross.get(),
-        )}deg`,
-      },
-      {
-        rotateZ: `${interpolate(windLong.get(), [0, 1], [-0.9, 1.05]) + interpolate(windGust.get(), [0, 1], [-0.7, 0.75]) + mainImpulse.get()}deg`,
-      },
-      { scaleX: interpolate(windCross.get(), [0, 1], [0.985, 1.015]) },
-    ],
-  }));
-
-  const projectionStyle = useAnimatedStyle(() => {
-    const yaw = getWindYaw(
-      windTurn.get(),
-      windLong.get(),
-      windCross.get(),
-    );
-    const facing = Math.abs(Math.cos((yaw * Math.PI) / 180));
+  const mobileStyle = useAnimatedStyle(() => {
+    const angle = getWindAngle(windPhase.get());
+    const yaw = reducedMotion ? 14 : getWindYaw(windPhase.get());
+    const lateralDrift = reducedMotion
+      ? 0
+      : 2.8 * Math.sin(angle + 0.52) + 0.65 * Math.sin(angle * 2 + 1.1);
+    const verticalDrift = reducedMotion ? 0 : 0.7 * Math.sin(angle * 2 + 0.35);
+    const gentleRoll = reducedMotion
+      ? 0
+      : 0.68 * Math.sin(angle - 0.22) + 0.14 * Math.sin(angle * 2 + 0.4);
 
     return {
-      filter: [
-        {
-          blur: reducedMotion
-            ? 2.8
-            : interpolate(facing, [0, 1], [3.7, 2.2]),
-        },
+      transform: [
+        { perspective: 900 },
+        { translateX: 9 + lateralDrift },
+        { translateY: 16 + verticalDrift },
+        { rotateY: `${yaw}deg` },
+        { rotateZ: `${gentleRoll + mainImpulse.get()}deg` },
       ],
-      opacity: reducedMotion
-        ? 0.48
-        : interpolate(facing, [0, 1], [0.34, 0.54]),
     };
   });
 
@@ -412,9 +327,10 @@ export const Day02Mobile = () => {
             transform: [{ scale }],
           },
         ]}>
-        <Animated.View
-          style={[styles.mobile, styles.shadowProjection, projectionStyle]}>
-          <Animated.View style={[styles.mobile, mobileStyle]}>
+        <Animated.View style={[styles.mobile, mobileStyle]}>
+          <View
+            shouldRasterizeIOS
+            style={[styles.mobile, styles.shadowProjection]}>
             <TopStructure />
 
             <LowerAssembly
@@ -422,8 +338,7 @@ export const Day02Mobile = () => {
               onChime={playChime}
               reducedMotion={reducedMotion}
               stageScale={scale}
-              windCross={windCross}
-              windLong={windLong}
+              windPhase={windPhase}
             />
 
             <LinkedTether
@@ -490,7 +405,7 @@ export const Day02Mobile = () => {
               y={630}>
               <RedLozengeWeight />
             </InteractiveWeight>
-          </Animated.View>
+          </View>
         </Animated.View>
       </View>
     </View>
@@ -525,6 +440,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   shadowProjection: {
+    filter: [{ blur: 2.6 }],
     isolation: 'isolate',
+    opacity: 0.5,
   },
 });

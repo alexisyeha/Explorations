@@ -193,20 +193,20 @@ export const InteractiveWeight = ({
   const nudge = useMemo(
     () => () => {
       'worklet';
-      const mainPeak = tapDirection * (reducedMotion ? 0.35 : 1.35);
+      const mainPeak = tapDirection * (reducedMotion ? 0.35 : 0.9);
       const returnAnimation = reducedMotion
         ? withTiming(0, reducedMotionTiming)
         : withSpring(0, mobileSwaySpring);
 
       mainImpulse.set(
-        withSequence(withTiming(mainPeak, { duration: 80 }), returnAnimation),
+        withSequence(withTiming(mainPeak, { duration: 140 }), returnAnimation),
       );
 
       if (secondaryImpulse) {
-        const secondaryPeak = tapDirection * (reducedMotion ? 0.45 : 1.8);
+        const secondaryPeak = tapDirection * (reducedMotion ? 0.45 : 1.15);
         secondaryImpulse.set(
           withSequence(
-            withTiming(secondaryPeak, { duration: 80 }),
+            withTiming(secondaryPeak, { duration: 140 }),
             reducedMotion
               ? withTiming(0, reducedMotionTiming)
               : withSpring(0, mobileSwaySpring),
@@ -257,12 +257,14 @@ export const InteractiveWeight = ({
           }
         })
         .onEnd(event => {
+          const releaseVelocityX = clamp(event.velocityX, -900, 900);
+          const releaseVelocityY = clamp(event.velocityY, -900, 900);
           const intensity = velocityToIntensity(
             Math.hypot(event.velocityX, event.velocityY),
           );
-          settle(dragX, event.velocityX);
-          settle(dragY, event.velocityY);
-          settle(rotation, event.velocityX / 30);
+          settle(dragX, releaseVelocityX);
+          settle(dragY, releaseVelocityY);
+          settle(rotation, releaseVelocityX / 50);
 
           if (reducedMotion) {
             mainImpulse.set(withTiming(0, reducedMotionTiming));
@@ -273,14 +275,14 @@ export const InteractiveWeight = ({
             mainImpulse.set(
               withSpring(0, {
                 ...mobileSwaySpring,
-                velocity: event.velocityX / 95,
+                velocity: releaseVelocityX / 180,
               }),
             );
             if (secondaryImpulse) {
               secondaryImpulse.set(
                 withSpring(0, {
                   ...mobileSwaySpring,
-                  velocity: event.velocityX / 72,
+                  velocity: releaseVelocityX / 145,
                 }),
               );
             }
