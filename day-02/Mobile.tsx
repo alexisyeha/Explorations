@@ -98,11 +98,15 @@ const CausticField = ({
           viewBox="0 0 390 844"
           width="100%">
           <Defs>
-            <RadialGradient id="sunSmudge" cx="48%" cy="46%" r="62%">
+            <RadialGradient id="sunPool" cx="46%" cy="42%" r="58%">
+              <Stop offset="0" stopColor="#FFFFF8" stopOpacity={1} />
+              <Stop offset="0.5" stopColor="#FFF8D9" stopOpacity={0.82} />
+              <Stop offset="1" stopColor="#FFF1C2" stopOpacity={0} />
+            </RadialGradient>
+            <RadialGradient id="sunSpeck" cx="48%" cy="44%" r="56%">
               <Stop offset="0" stopColor="#FFFFFF" stopOpacity={1} />
-              <Stop offset="0.48" stopColor="#FFFDF8" stopOpacity={0.98} />
-              <Stop offset="0.76" stopColor="#FFF9EB" stopOpacity={0.72} />
-              <Stop offset="1" stopColor="#FFF5D8" stopOpacity={0} />
+              <Stop offset="0.42" stopColor="#FFFBE8" stopOpacity={0.94} />
+              <Stop offset="1" stopColor="#FFEFC0" stopOpacity={0} />
             </RadialGradient>
             <SvgLinearGradient id="prism" x1="0" x2="1" y1="0.2" y2="0.8">
               <Stop offset="0" stopColor="#F4B8A7" stopOpacity={0} />
@@ -113,78 +117,37 @@ const CausticField = ({
             </SvgLinearGradient>
           </Defs>
 
+          <Ellipse cx="42" cy="136" fill="url(#sunPool)" rx="30" ry="16" />
+          <Ellipse cx="94" cy="92" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="150" cy="158" fill="url(#sunPool)" rx="20" ry="11" />
+          <Ellipse cx="206" cy="218" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="280" cy="132" fill="url(#sunSpeck)" rx="11" ry="6" />
+          <Ellipse cx="354" cy="194" fill="url(#sunSpeck)" rx="9" ry="5" />
+          <Ellipse cx="336" cy="286" fill="url(#sunPool)" rx="31" ry="16" />
+          <Ellipse cx="104" cy="258" fill="url(#sunPool)" rx="27" ry="15" />
+          <Ellipse cx="244" cy="326" fill="url(#sunPool)" rx="19" ry="10" />
+          <Ellipse cx="38" cy="348" fill="url(#sunSpeck)" rx="12" ry="7" />
+          <Ellipse cx="72" cy="412" fill="url(#sunPool)" rx="22" ry="12" />
+          <Ellipse cx="350" cy="398" fill="url(#sunPool)" rx="22" ry="12" />
+          <Ellipse cx="148" cy="476" fill="url(#sunSpeck)" rx="14" ry="8" />
+          <Ellipse cx="316" cy="516" fill="url(#sunPool)" rx="18" ry="10" />
+          <Ellipse cx="254" cy="566" fill="url(#sunPool)" rx="29" ry="15" />
+          <Ellipse cx="58" cy="610" fill="url(#sunSpeck)" rx="10" ry="6" />
+          <Ellipse cx="122" cy="668" fill="url(#sunPool)" rx="29" ry="16" />
+          <Ellipse cx="186" cy="628" fill="url(#sunSpeck)" rx="17" ry="9" />
+          <Ellipse cx="340" cy="670" fill="url(#sunPool)" rx="24" ry="13" />
+          <Ellipse cx="350" cy="746" fill="url(#sunSpeck)" rx="14" ry="8" />
+          <Ellipse cx="86" cy="778" fill="url(#sunPool)" rx="18" ry="10" />
+          <Ellipse cx="210" cy="786" fill="url(#sunSpeck)" rx="12" ry="7" />
           <Path
-            d="M-28 79 C-2 49 42 42 75 62 C105 80 107 113 84 136 C62 158 18 162 -13 140 C-44 118 -48 99 -28 79 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.92}
-          />
-          <Path
-            d="M126 14 C158 -4 205 7 225 38 C243 66 220 97 181 103 C145 109 109 91 105 60 C102 40 110 24 126 14 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.86}
-          />
-          <Path
-            d="M278 119 C307 91 356 96 388 125 C416 151 407 190 374 210 C341 231 295 217 270 187 C253 167 260 137 278 119 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.94}
-          />
-          <Path
-            d="M66 202 C93 181 130 183 151 206 C169 225 160 251 133 263 C105 275 68 266 52 243 C41 227 50 214 66 202 Z"
-            fill="url(#sunSmudge)"
+            d="M18 524 C34 507 55 510 65 526 C74 541 62 556 43 555 C25 555 10 541 18 524 Z"
+            fill="url(#sunPool)"
             opacity={0.82}
           />
           <Path
-            d="M-24 292 C8 265 56 267 84 293 C110 316 99 352 68 371 C36 390 -8 379 -31 350 C-48 329 -43 307 -24 292 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.9}
-          />
-          <Path
-            d="M151 283 C182 254 234 258 263 289 C287 315 272 351 238 368 C202 385 158 372 138 343 C123 321 133 300 151 283 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.88}
-          />
-          <Path
-            d="M306 348 C335 324 378 332 402 361 C423 386 411 419 379 433 C347 447 309 431 291 404 C278 384 289 363 306 348 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.96}
-          />
-          <Path
-            d="M17 473 C46 447 91 451 115 480 C136 506 120 538 87 550 C55 562 17 547 2 520 C-8 501 2 487 17 473 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.93}
-          />
-          <Path
-            d="M155 449 C187 423 235 431 257 463 C277 491 257 526 220 536 C184 546 146 526 135 497 C128 478 139 461 155 449 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.84}
-          />
-          <Path
-            d="M286 531 C319 504 368 511 395 543 C418 571 402 608 367 624 C330 641 286 622 268 592 C256 571 268 547 286 531 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.9}
-          />
-          <Path
-            d="M32 633 C68 601 122 608 149 644 C172 675 149 713 107 724 C67 735 24 711 14 677 C9 658 18 644 32 633 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.91}
-          />
-          <Path
-            d="M187 622 C215 596 258 599 283 627 C306 651 294 684 262 699 C229 713 188 701 170 673 C157 654 170 636 187 622 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.78}
-          />
-          <Path
-            d="M271 727 C302 699 352 704 382 735 C408 762 397 801 362 819 C326 837 279 821 257 789 C243 768 253 744 271 727 Z"
-            fill="url(#sunSmudge)"
-            opacity={0.95}
-          />
-          <Ellipse
-            cx="20"
-            cy="800"
-            fill="url(#sunSmudge)"
-            opacity={0.82}
-            rx="70"
-            ry="45"
+            d="M174 48 C192 31 220 34 228 51 C236 69 217 81 195 76 C176 72 162 61 174 48 Z M284 454 C302 437 328 442 333 459 C338 476 321 487 301 482 C282 478 273 465 284 454 Z M128 730 C143 715 166 718 174 733 C182 748 167 762 149 760 C130 759 117 744 128 730 Z"
+            fill="url(#sunPool)"
+            opacity={0.74}
           />
           <Path
             d="M326 104 L357 91 L342 116 Z M42 592 L67 577 L55 606 Z M246 704 L277 686 L260 717 Z"
@@ -644,8 +607,8 @@ export const Day02Mobile = () => {
 
 const styles = StyleSheet.create({
   causticProjection: {
-    filter: [{ blur: 8.5 }],
-    opacity: 0.96,
+    filter: [{ blur: 3.4 }],
+    opacity: 0.9,
   },
   lowerAssembly: {
     height: 450,
